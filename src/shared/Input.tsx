@@ -1,6 +1,6 @@
 type InputProps = Omit<React.ComponentProps<'input'>, 'id' | 'name'> & {
     id: string,
-    label: string,
+    label?: string,
     className?: string
 }
 

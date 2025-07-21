@@ -2,6 +2,7 @@ import React from "react"
 import Header from "@/feature/Frequencia/components/Header"
 import { api } from "@/api/axios"
 import { Square } from "lucide-react"
+import Input from "@/shared/Input"
 
 interface Setor {
     id: number
@@ -20,8 +21,9 @@ export default function FrequenciaPage() {
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
     const [filterOptions, setFilterOptions] = React.useState({
         checkbox: 'setores',
+        search: ''
     })
-    const { checkbox } = filterOptions
+    const { checkbox, search } = filterOptions
 
     const [setor, setSetor] = React.useState<{
         setores: Setor[] | null
@@ -75,6 +77,20 @@ export default function FrequenciaPage() {
         }, [checkbox])
     }
 
+    const filterSetores = () => {
+        let filteredListOfSetores: Setor[] | null | undefined = setores
+
+        if (search) {
+            filteredListOfSetores = filteredListOfSetores?.filter((setor) => {
+                return setor.setor.includes(search)
+            })
+        } 
+        
+        return filteredListOfSetores
+    }
+
+    const filteredSetores = filterSetores()
+
     return (
         <main className="flex flex-col gap-5 py-5 max-w-[1200px] max-h-[900px]">
             <Header
@@ -120,6 +136,15 @@ export default function FrequenciaPage() {
                 </div>
             </div>
 
+            <Input
+                id="search"
+                placeholder="Pesquise por um Setor"
+                value={search}
+                onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({
+                    ...prevFilters, search: currentTarget.value.toUpperCase()}
+                ))}
+            />
+
             <div className="rounded overflow-x-hidden shadow-md">
                 <table className="text-center text-slate-700 w-full table-fixed">
                     {checkbox === 'setores' && (
@@ -144,7 +169,7 @@ export default function FrequenciaPage() {
                     )}
 
                     <tbody className="bg-slate-100 divide-y divide-gray-300">
-                        {checkbox === 'setores' && setores?.map(({ id, setor, quantidade }) => (
+                        {checkbox === 'setores' && filteredSetores?.map(({ id, setor, quantidade }) => (
                             <tr key={id} className="*:px-6 *:py-4 *:text-lg">
                                 <td className="max-w-[120px] truncate whitespace-nowrap overflow-hidden" title={setor}>
                                     {setor}
