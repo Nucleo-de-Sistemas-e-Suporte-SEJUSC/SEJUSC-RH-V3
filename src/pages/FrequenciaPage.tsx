@@ -1,5 +1,5 @@
 import React from "react"
-import Header from "@/feature/Generator/components/Header"
+import Header from "@/feature/Frequencia/components/Header"
 import { api } from "@/api/axios"
 import { Square } from "lucide-react"
 
