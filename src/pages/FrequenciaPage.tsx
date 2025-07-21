@@ -89,6 +89,19 @@ export default function FrequenciaPage() {
         return filteredListOfSetores
     }
 
+    const filterServidores = () => {
+        let filteredListOfServidores: Servidor[] | null | undefined = servidores
+
+        if (search) {
+            filteredListOfServidores = filteredListOfServidores?.filter((servidor) => {
+                return servidor.nome.includes(search)
+            })
+        } 
+        
+        return filteredListOfServidores
+    }
+
+    const filteredServidores = filterServidores()
     const filteredSetores = filterSetores()
 
     return (
@@ -138,7 +151,7 @@ export default function FrequenciaPage() {
 
             <Input
                 id="search"
-                placeholder="Pesquise por um Setor"
+                placeholder={`Pesquise por um ${checkbox === 'setores' ? 'Setor' : 'Servidor'}`}
                 value={search}
                 onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({
                     ...prevFilters, search: currentTarget.value.toUpperCase()}
@@ -181,7 +194,7 @@ export default function FrequenciaPage() {
                             </tr>
                         ))}
 
-                        {checkbox === 'servidores' && servidores?.map(({ id, cargo, nome, setor }) => (
+                        {checkbox === 'servidores' && filteredServidores?.map(({ id, cargo, nome, setor }) => (
                             <tr key={id} className="*:px-6 *:py-4 *:text-lg">
                                 <td>{nome}</td>
                                 <td>{cargo}</td>
