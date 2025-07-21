@@ -6,7 +6,7 @@ export default function PrivateLayout() {
     const [isSideBarOpen, setIsSideBarOpen] = React.useState(true)
 
     return (
-        <div className="grid grid-cols-[auto_1fr] gap-5 h-screen w-screen bg-slate-200">
+        <div className="grid grid-cols-[auto_1fr] gap-10 h-screen w-screen bg-slate-200">
             <Sidebar
                 isSideBarOpen={isSideBarOpen}
                 handleOpenSideBar={() => setIsSideBarOpen((prev) => !prev)}
