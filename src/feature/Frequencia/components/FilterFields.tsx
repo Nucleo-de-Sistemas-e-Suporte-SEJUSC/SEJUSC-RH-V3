@@ -4,11 +4,12 @@ import { listOfMonths } from "@/feature/constants"
 import type { IFilterOptions } from "@/interfaces"
 
 type FilterFieldsProps = {
+    selectedEmployee: string
     filterOptions: IFilterOptions
     setFilterOptions: React.Dispatch<React.SetStateAction<IFilterOptions>>
 }
 
-export default function FilterFields({ filterOptions, setFilterOptions }: FilterFieldsProps) {
+export default function FilterFields({ selectedEmployee, filterOptions, setFilterOptions }: FilterFieldsProps) {
     const { checkbox, search, month } = filterOptions
 
     return (
@@ -36,7 +37,7 @@ export default function FilterFields({ filterOptions, setFilterOptions }: Filter
                         <label
                             className="flex flex-row-reverse items-center gap-2 text-slate-800"
                         >
-                            Setores
+                            setores
                             <input
                                 type="radio"
                                 name='filterOptions'
@@ -51,12 +52,12 @@ export default function FilterFields({ filterOptions, setFilterOptions }: Filter
                         <label
                             className="flex flex-row-reverse items-center gap-2 text-slate-800"
                         >
-                            Servidores
+                            {selectedEmployee}
                             <input
                                 type="radio"
                                 name='filterOptions'
-                                checked={checkbox === 'servidores'}
-                                value='servidores'
+                                checked={checkbox === selectedEmployee}
+                                value={selectedEmployee}
                                 onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({ ...prevFilters, checkbox: currentTarget.value }))}
                             />
                         </label>
@@ -66,7 +67,7 @@ export default function FilterFields({ filterOptions, setFilterOptions }: Filter
 
             <Input
                 id="search"
-                placeholder={`Pesquise por um ${checkbox === 'setores' ? 'Setor' : 'Servidor'}`}
+                placeholder={`Pesquise por um ${checkbox === 'setores' ? 'Setor' : 'Funcionário'}`}
                 value={search}
                 onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({
                     ...prevFilters, search: currentTarget.value.toUpperCase()
