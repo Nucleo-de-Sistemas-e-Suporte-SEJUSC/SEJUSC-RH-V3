@@ -1,4 +1,4 @@
-export interface CredentialModel {
+export interface ICredential {
     matricula: string
     password: string
 }
