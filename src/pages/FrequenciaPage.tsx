@@ -30,7 +30,7 @@ const listOfMonths = [
     "Outubro",
     "Novembro",
     "Dezembro"
-];
+]
 
 export default function FrequenciaPage() {
     const data = new Date()
