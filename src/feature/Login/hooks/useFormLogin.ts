@@ -4,8 +4,8 @@ import { AxiosError } from "axios"
 import { api } from "@/api/axios"
 import { toast } from "sonner"
 import { useAuth } from '@/context/AuthContext'
-import type { CredentialModel } from "../models"
-import type { User } from "@/feature/entities/User"
+import type { ICredential } from "../interface"
+import type { User } from "@/feature/entities/IUser"
 
 export function useFormLogin() {
     const { login } = useAuth()
@@ -13,7 +13,7 @@ export function useFormLogin() {
         localStorage.removeItem("user");
     }, [])
     const navigate = useNavigate()
-    const [credentials, setCredentials] = React.useState<CredentialModel>({
+    const [credentials, setCredentials] = React.useState<ICredential>({
         matricula: '',
         password: ''
     })

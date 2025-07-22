@@ -2,7 +2,9 @@ import React from "react"
 import Header from "@/feature/Frequencia/components/Header"
 import { api } from "@/api/axios"
 import { Square } from "lucide-react"
-import Input from "@/shared/Input"
+import FilterFields from "@/feature/Frequencia/components/FilterFields"
+import { listOfMonths } from "@/feature/constants"
+import type { IFilterOptions } from "@/interfaces"
 
 interface Setor {
     id: number
@@ -17,32 +19,17 @@ interface Servidor {
     setor: string
 }
 
-const listOfMonths = [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro"
-]
-
 export default function FrequenciaPage() {
     const data = new Date()
     const actualMonth = data.getMonth()
 
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
-    const [filterOptions, setFilterOptions] = React.useState({
+    const [filterOptions, setFilterOptions] = React.useState<IFilterOptions>({
         checkbox: 'setores',
         search: '',
         month: listOfMonths[actualMonth]
     })
-    const { checkbox, search, month } = filterOptions
+    const { checkbox, search } = filterOptions
 
     const [setor, setSetor] = React.useState<{
         setores: Setor[] | null
@@ -123,8 +110,6 @@ export default function FrequenciaPage() {
     const filteredServidores = filterServidores()
     const filteredSetores = filterSetores()
 
-
-
     return (
         <main className="flex flex-col gap-5 py-5 max-h-[842px] pr-10">
             <Header
@@ -132,65 +117,9 @@ export default function FrequenciaPage() {
                 setSelectedEmployee={setSelectedEmployee}
             />
 
-            <div className="flex items-center gap-12 bg-slate-300 py-4 px-2 rounded *:font-medium">
-                <div className="flex items-center gap-3">
-                    <h3 className="text-slate-800">Selecione um mês:</h3>
-                    <select
-                        name="meses"
-                        id="meses"
-                        className="border-2 rounded p-1 text-slate-800 outline-none border-sky-900"
-                        value={month}
-                        onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({
-                            ...prevFilters,
-                            month: currentTarget.value
-                        }))}>
-                        {listOfMonths.map((mes, index) => {
-                            return <option key={index} value={mes}>{mes}</option>
-                        })}
-                    </select>
-                </div>
-
-                <div className="flex gap-6">
-                    <div>
-                        <label
-                            className="flex flex-row-reverse items-center gap-2 text-slate-800"
-                        >
-                            Setores
-                            <input
-                                type="radio"
-                                name='filterOptions'
-                                checked={checkbox === 'setores'}
-                                value='setores'
-                                onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({ ...prevFilters, checkbox: currentTarget.value }))}
-                            />
-                        </label>
-                    </div>
-
-                    <div>
-                        <label
-                            className="flex flex-row-reverse items-center gap-2 text-slate-800"
-                        >
-                            Servidores
-                            <input
-                                type="radio"
-                                name='filterOptions'
-                                checked={checkbox === 'servidores'}
-                                value='servidores'
-                                onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({ ...prevFilters, checkbox: currentTarget.value }))}
-                            />
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <Input
-                id="search"
-                placeholder={`Pesquise por um ${checkbox === 'setores' ? 'Setor' : 'Servidor'}`}
-                value={search}
-                onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({
-                    ...prevFilters, search: currentTarget.value.toUpperCase()
-                }
-                ))}
+            <FilterFields 
+                filterOptions={filterOptions}
+                setFilterOptions={setFilterOptions}
             />
 
             <div className="rounded overflow-x-hidden shadow-md">
