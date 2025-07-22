@@ -17,13 +17,32 @@ interface Servidor {
     setor: string
 }
 
+const listOfMonths = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro"
+]
+
 export default function FrequenciaPage() {
+    const data = new Date()
+    const actualMonth = data.getMonth()
+
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
     const [filterOptions, setFilterOptions] = React.useState({
         checkbox: 'setores',
-        search: ''
+        search: '',
+        month: listOfMonths[actualMonth]
     })
-    const { checkbox, search } = filterOptions
+    const { checkbox, search, month } = filterOptions
 
     const [setor, setSetor] = React.useState<{
         setores: Setor[] | null
@@ -84,8 +103,8 @@ export default function FrequenciaPage() {
             filteredListOfSetores = filteredListOfSetores?.filter((setor) => {
                 return setor.setor.includes(search)
             })
-        } 
-        
+        }
+
         return filteredListOfSetores
     }
 
@@ -96,30 +115,45 @@ export default function FrequenciaPage() {
             filteredListOfServidores = filteredListOfServidores?.filter((servidor) => {
                 return servidor.nome.includes(search)
             })
-        } 
-        
+        }
+
         return filteredListOfServidores
     }
 
     const filteredServidores = filterServidores()
     const filteredSetores = filterSetores()
 
+
+
     return (
-        <main className="flex flex-col gap-5 py-5 max-w-[1200px] max-h-[900px]">
+        <main className="flex flex-col gap-5 py-5 max-h-[842px] pr-10">
             <Header
                 selectedEmployee={selectedEmployee}
                 setSelectedEmployee={setSelectedEmployee}
             />
 
-            <div className="flex justify-between bg-slate-300 py-4 px-2 rounded *:font-medium">
-                <div>
-                    <h3>Selecione o mês:</h3>
+            <div className="flex items-center gap-12 bg-slate-300 py-4 px-2 rounded *:font-medium">
+                <div className="flex items-center gap-3">
+                    <h3 className="text-slate-800">Selecione um mês:</h3>
+                    <select
+                        name="meses"
+                        id="meses"
+                        className="border-2 rounded p-1 text-slate-800 outline-none border-sky-900"
+                        value={month}
+                        onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({
+                            ...prevFilters,
+                            month: currentTarget.value
+                        }))}>
+                        {listOfMonths.map((mes, index) => {
+                            return <option key={index} value={mes}>{mes}</option>
+                        })}
+                    </select>
                 </div>
 
                 <div className="flex gap-6">
                     <div>
                         <label
-                            className="flex flex-row-reverse items-center gap-2"
+                            className="flex flex-row-reverse items-center gap-2 text-slate-800"
                         >
                             Setores
                             <input
@@ -134,7 +168,7 @@ export default function FrequenciaPage() {
 
                     <div>
                         <label
-                            className="flex flex-row-reverse items-center gap-2"
+                            className="flex flex-row-reverse items-center gap-2 text-slate-800"
                         >
                             Servidores
                             <input
@@ -154,7 +188,8 @@ export default function FrequenciaPage() {
                 placeholder={`Pesquise por um ${checkbox === 'setores' ? 'Setor' : 'Servidor'}`}
                 value={search}
                 onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({
-                    ...prevFilters, search: currentTarget.value.toUpperCase()}
+                    ...prevFilters, search: currentTarget.value.toUpperCase()
+                }
                 ))}
             />
 
