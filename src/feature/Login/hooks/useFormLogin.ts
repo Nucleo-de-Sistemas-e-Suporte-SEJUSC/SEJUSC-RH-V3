@@ -4,7 +4,7 @@ import { AxiosError } from "axios"
 import { api } from "@/api/axios"
 import { toast } from "sonner"
 import { useAuth } from '@/context/AuthContext'
-import type { ICredential } from "../interface"
+import type { ICredential } from "../interfaces"
 import type { User } from "@/feature/entities/IUser"
 
 export function useFormLogin() {
