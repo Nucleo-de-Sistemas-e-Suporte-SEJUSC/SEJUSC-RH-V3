@@ -6,6 +6,7 @@ import FilterFields from "@/feature/Frequencia/components/FilterFields"
 import { listOfMonths } from "@/feature/constants"
 import type { IFilterOptions } from "@/interfaces"
 import { toast } from "sonner"
+import Button from "@/shared/Button"
 
 interface SetorServidor {
     id: number
@@ -44,7 +45,7 @@ export default function FrequenciaPage() {
         search: '',
         month: listOfMonths[actualMonth]
     })
-    const { checkbox, search } = filterOptions
+    const { checkbox, search, month } = filterOptions
 
     const [servidor, setServidor] = React.useState<{
         setores: SetorServidor[] | null,
@@ -105,7 +106,77 @@ export default function FrequenciaPage() {
         resetCheckbox()
     }, [selectedEmployee])
 
-    const listOfSetores = (setor: SetorServidor) => {
+    const downloadMultiSetoresZip =  async (month: string) => {
+        try {
+            await api.get(`/setores/pdf/download-zip-multissetores/${month}`, { responseType: 'blob' })
+                .then(response => {
+                    const blob = new Blob([response.data], { type: 'application/zip' });
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `frequencias_multissetores_${month}.zip`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.error('Erro ao baixar o arquivo ZIP multissetores:', error);
+                });
+        } catch (error) {
+            console.log("Erro ao baixar ZIP multissetores:", error);
+        }
+    }
+
+    const downloadSetorZip = async (setor: string, month: string) => {
+        try {
+            await api.get(`/setores/pdf/download-zip/${setor.replace(/\//g, '_')}/${month}`, { responseType: 'blob' })
+                .then(response => {
+                    const blob = new Blob([response.data], { type: 'application/zip' });
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `frequencia_mensal_${setor.replace(/\//g, '_')}_${month}.zip`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.log('Erro ao baixar o arquivo ZIP:', error);
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const convertSetoresToPdf = async () => {
+        if (selectedSetores.length === 0) {
+            toast.error('Nenhum setor foi selecionado')
+            return
+        }
+
+        const selectedSetoresFormatted = selectedSetores.map(({ setor }) => {
+            return setor.toLowerCase().trim()
+        })
+
+        try {
+            await api.post(`/setores/pdf`, {
+                setores: selectedSetoresFormatted,
+                mes: month
+            })
+
+            if (selectedSetoresFormatted.length > 1) {
+                await downloadMultiSetoresZip(month)
+            }
+
+            await downloadSetorZip(selectedSetoresFormatted[0], month)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleToggleListOfSetores = (setor: SetorServidor) => {
         const isSetorAlreadySelected = selectedSetores.some(({ id }) => id === setor.id)
 
         if (isSetorAlreadySelected) {
@@ -241,7 +312,7 @@ export default function FrequenciaPage() {
                                 <td className="flex justify-center">
                                     <button
                                         className="cursor-pointer"
-                                        onClick={() => listOfSetores(setor)}
+                                        onClick={() => handleToggleListOfSetores(setor)}
                                     >
                                         {selectedSetores.some(({ id }) => id === setor.id) ? <SquareCheck /> : <Square />}
                                     </button>
@@ -286,6 +357,12 @@ export default function FrequenciaPage() {
                     </tbody>
                 </table>
             </div>
+            <Button
+                className="self-end"
+                onClick={() => convertSetoresToPdf()}
+            >
+                Gerar Selecionados
+            </Button>
         </main>
     )
 }
