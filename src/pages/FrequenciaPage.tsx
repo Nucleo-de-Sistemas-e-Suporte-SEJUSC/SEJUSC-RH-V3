@@ -1,10 +1,11 @@
 import React from "react"
 import Header from "@/feature/Frequencia/components/Header"
 import { api } from "@/api/axios"
-import { Square } from "lucide-react"
+import { Square, SquareCheck } from "lucide-react"
 import FilterFields from "@/feature/Frequencia/components/FilterFields"
 import { listOfMonths } from "@/feature/constants"
 import type { IFilterOptions } from "@/interfaces"
+import { toast } from "sonner"
 
 interface SetorServidor {
     id: number
@@ -34,6 +35,8 @@ interface SetorEstagiario {
 export default function FrequenciaPage() {
     const data = new Date()
     const actualMonth = data.getMonth()
+
+    const [selectedSetores, setSelectedSetores] = React.useState<SetorServidor[]>([])
 
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
     const [filterOptions, setFilterOptions] = React.useState<IFilterOptions>({
@@ -100,7 +103,27 @@ export default function FrequenciaPage() {
             }))
         }
         resetCheckbox()
-    }, [selectedEmployee]) 
+    }, [selectedEmployee])
+
+    const listOfSetores = (setor: SetorServidor) => {
+        const isSetorAlreadySelected = selectedSetores.some(({ id }) => id === setor.id)
+
+        if (isSetorAlreadySelected) {
+            setSelectedSetores((prevSetores) =>
+                prevSetores.filter(({ id }) => id !== setor.id)
+            )
+            return
+        }
+
+        setSelectedSetores((prevSetores) => {
+            if (prevSetores.length >= 10) {
+                toast.warning('Máximo permitido é 10 setores ou funcionários selecionados')
+                return [...prevSetores.slice(1), setor]
+            }
+
+            return [...prevSetores, setor]
+        })
+    }
 
     const filterSetoresServidor = (): SetorServidor[] | undefined => {
         if (servidor.setores) {
@@ -209,14 +232,19 @@ export default function FrequenciaPage() {
                     )}
 
                     <tbody className="bg-slate-100 divide-y divide-gray-300">
-                        {(selectedEmployee === 'servidores' && checkbox === 'setores') && filterSetoresServidor()?.map(({ id, setor, quantidade }) => (
-                            <tr key={id} className="*:px-6 *:py-4 *:text-lg">
-                                <td className="max-w-[120px] truncate whitespace-nowrap overflow-hidden" title={setor}>
-                                    {setor}
+                        {(selectedEmployee === 'servidores' && checkbox === 'setores') && filterSetoresServidor()?.map((setor) => (
+                            <tr key={setor.id} className="*:px-6 *:py-4 *:text-lg">
+                                <td className="max-w-[120px] truncate whitespace-nowrap overflow-hidden" title={setor.setor}>
+                                    {setor.setor}
                                 </td>
-                                <td>{quantidade}</td>
+                                <td>{setor.quantidade}</td>
                                 <td className="flex justify-center">
-                                    <Square />
+                                    <button
+                                        className="cursor-pointer"
+                                        onClick={() => listOfSetores(setor)}
+                                    >
+                                        {selectedSetores.some(({ id }) => id === setor.id) ? <SquareCheck /> : <Square />}
+                                    </button>
                                 </td>
                             </tr>
                         ))}
