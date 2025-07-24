@@ -7,7 +7,7 @@ import { useAuth } from '@/context/AuthContext'
 import type { ICredential } from "../interfaces"
 import type { User } from "@/feature/entities/IUser"
 
-export function useFormLogin() {
+export default function useFormLogin() {
     const { login } = useAuth()
     React.useEffect(() => {
         localStorage.removeItem("user");
