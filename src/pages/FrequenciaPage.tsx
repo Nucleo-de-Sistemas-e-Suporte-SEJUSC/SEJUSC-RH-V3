@@ -3,7 +3,8 @@ import Header from "@/feature/Frequencia/components/Header"
 import FilterFields from "@/feature/Frequencia/components/FilterFields"
 import { listOfMonths } from "@/feature/constants"
 import type { IFilterOptions } from "@/interfaces"
-import Table from "@/feature/Frequencia/components/Table"
+import TableServidores from "@/feature/Frequencia/components/TableServidores"
+import TableEstagiarios from "@/feature/Frequencia/components/TableEstagiarios"
 
 export default function FrequenciaPage() {
     const data = new Date()
@@ -29,11 +30,19 @@ export default function FrequenciaPage() {
                 setFilterOptions={setFilterOptions}
             />
 
-            <Table
-                selectedEmployee={selectedEmployee}
-                filterOptions={filterOptions}
-                setFilterOptions={setFilterOptions}
-            />
+            {selectedEmployee === 'servidores' ? (
+                <TableServidores
+                    selectedEmployee={selectedEmployee}
+                    filterOptions={filterOptions}
+                    setFilterOptions={setFilterOptions}
+                />
+            ) : (
+                <TableEstagiarios
+                    selectedEmployee={selectedEmployee}
+                    filterOptions={filterOptions}
+                    setFilterOptions={setFilterOptions}
+                />
+            )}
         </main>
     )
 }
