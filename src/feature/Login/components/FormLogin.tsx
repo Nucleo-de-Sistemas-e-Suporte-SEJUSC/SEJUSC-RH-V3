@@ -1,6 +1,6 @@
 import Button from "@/shared/Button";
 import Input from "@/shared/Input";
-import { useFormLogin } from "../hooks/useFormLogin";
+import useFormLogin from "../hooks/useFormLogin";
 import { Eye, EyeClosed } from 'lucide-react'
 
 export default function FormLogin() {
