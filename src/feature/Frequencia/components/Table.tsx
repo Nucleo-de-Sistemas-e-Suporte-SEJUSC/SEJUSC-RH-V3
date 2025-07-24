@@ -18,7 +18,11 @@ type TableProps = {
 }
 
 export default function Table({ selectedEmployee, filterOptions, setFilterOptions }: TableProps) {
-    const [selectedSetores, setSelectedSetores] = React.useState<ISetorServidor[]>([])
+    const [selectedSetoresServidores, setSelectedSetoresServidores] = React.useState<ISetorServidor[]>([])
+    const [selectedServidores, setSelectedServidores] = React.useState<IServidor[]>([])
+    const [selectedSetoresEstagiarios, setSelectedSetoresEstagiarios] = React.useState<ISetorEstagiario[]>([])
+    const [selectedEstagiarios, setSelectedEstagiarios] = React.useState<IEstagiario[]>([])
+    const [isLoading, setIsLoading] = React.useState(false)
     const [servidor, setServidor] = React.useState<{
         setores: ISetorServidor[] | null,
         servidores: IServidor[] | null
@@ -79,7 +83,7 @@ export default function Table({ selectedEmployee, filterOptions, setFilterOption
         resetCheckbox()
     }, [selectedEmployee])
 
-    const downloadMultiSetoresZip = async (month: string) => {
+    const downloadMultiSetoresServidorZip = async (month: string) => {
         try {
             await api.get(`/setores/pdf/download-zip-multissetores/${month}`, { responseType: 'blob' })
                 .then(response => {
@@ -101,7 +105,7 @@ export default function Table({ selectedEmployee, filterOptions, setFilterOption
         }
     }
 
-    const downloadSetorZip = async (setor: string, month: string) => {
+    const downloadSetorServidorZip = async (setor: string, month: string) => {
         try {
             await api.get(`/setores/pdf/download-zip/${setor.replace(/\//g, '_')}/${month}`, { responseType: 'blob' })
                 .then(response => {
@@ -123,49 +127,289 @@ export default function Table({ selectedEmployee, filterOptions, setFilterOption
         }
     }
 
-    const convertSetoresToPdf = async () => {
-        if (selectedSetores.length === 0) {
-            toast.error('Nenhum setor foi selecionado')
+    const downloadMultiServidoresZip = async () => {
+        try {
+            const response = await api.get(`/servidores/pdf/download-zip/${month}`, { responseType: 'blob' });
+            const blob = new Blob([response.data], { type: 'application/zip' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `frequencia_mensal_${month}.zip`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.log("Erro ao baixar arquivo zip: ", error)
+        }
+    }
+
+    const downloadMultiEstagiariosZip = async () => {
+        try {
+            setIsLoading(true);
+            const response = await api.get(`/estagiarios/pdf/download-zip/${month}`, {
+                responseType: "blob"
+            });
+            if (response.status === 200) {
+                const blob = new Blob([response.data], { type: "application/zip" });
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = `frequencia_mensal_${month}.zip`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            }
+        } catch (error) {
+            console.log("Erro ao baixar arquivo zip: ", error)
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const downloadMultiSetoresEstagiarioZip = async (month: string) => {
+        try {
+            setIsLoading(true);
+            await api.get(`/setores/estagiarios/pdf/download-zip-multiestagiarios/${month}`, { responseType: 'blob' })
+                .then(response => {
+                    const blob = new Blob([response.data], { type: 'application/zip' });
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `frequencias__multiestagiarios${month}.zip`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.log("Erro ao baixar o arquivo ZIP:", error);
+                });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const downloadSetorEstagiarioZip = async (setor: string, month: string) => {
+        try {
+            setIsLoading(true);
+            await api.get(`/setores/estagiarios/${setor.replace(/\//g, '_')}/${month}`, { responseType: 'blob' })
+                .then(response => {
+                    const blob = new Blob([response.data], { type: 'application/zip' });
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `frequencia_mensal_${setor.replace(/\//g, '_')}_${month}.zip`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.log('Erro ao baixar o arquivo ZIP:', error);
+                });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const convertSetoresServidorToPdf = async () => {
+        if (selectedSetoresServidores.length === 0) {
+            toast.error('Nenhum servidor foi selecionado')
             return
         }
 
-        const selectedSetoresFormatted = selectedSetores.map(({ setor }) => {
-            return setor.toLowerCase().trim()
+        const selectedSetoresFormatted = selectedSetoresServidores.map(({ setor }) => {
+            return setor.toLowerCase()
         })
 
         try {
+            setIsLoading(true)
             await api.post(`/setores/pdf`, {
                 setores: selectedSetoresFormatted,
                 mes: month
             })
 
             if (selectedSetoresFormatted.length > 1) {
-                await downloadMultiSetoresZip(month)
+                await downloadMultiSetoresServidorZip(month)
+                return
             }
 
-            await downloadSetorZip(selectedSetoresFormatted[0], month)
+            await downloadSetorServidorZip(selectedSetoresFormatted[0], month)
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
-    const handleToggleListOfSetores = (setor: ISetorServidor) => {
-        const isSetorAlreadySelected = selectedSetores.some(({ id }) => id === setor.id)
+    const convertSetoresEstagiariosToPdf = async () => {
+        if (selectedSetoresEstagiarios.length === 0) {
+            toast.error('Nenhum setor foi selecionado')
+            return
+        }
+
+        const selectedSetoresFormatted = selectedSetoresEstagiarios.map(({ lotacao }) => {
+            return lotacao.toLowerCase()
+        })
+
+        try {
+            setIsLoading(true)
+            await api.post(`/setores/estagiar/pdf`, {
+                setores: selectedSetoresFormatted,
+                mes: month
+            })
+
+            if (selectedSetoresFormatted.length > 1) {
+                await downloadMultiSetoresEstagiarioZip(month)
+                return
+            }
+
+            await downloadSetorEstagiarioZip(selectedSetoresFormatted[0], month)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const convertServidoresToPdf = async () => {
+        if (selectedServidores.length === 0) {
+            toast.error('Nenhum servidor foi selecionado')
+            return
+        }
+
+        const listOfIdServidor = selectedServidores.map((servidor) => {
+            return servidor.id
+        })
+
+        try {
+            setIsLoading(true)
+            const response = await api.post(`/servidores/pdf`, {
+                funcionarios: listOfIdServidor,
+                mes: month
+            })
+
+            if (response.status === 200) {
+                downloadMultiServidoresZip()
+                return
+            }
+        } catch (error) {
+            console.log("Erro ao gerar servidores zip: ", error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const convertEstagiariosToPdf = async () => {
+        if (selectedEstagiarios.length === 0) {
+            toast.error('Nenhum estagiario foi selecionado')
+            return
+        }
+
+        const listOfIdEstagiario = selectedEstagiarios.map((estagiario) => {
+            return estagiario.id
+        })
+
+        try {
+            setIsLoading(true)
+            const response = await api.post("/estagiario/pdf", {
+                estagiarios: listOfIdEstagiario,
+                mes: month
+            });
+            if (response.status === 200) {
+                downloadMultiEstagiariosZip()
+                return
+            }
+        } catch (error) {
+            console.log("Erro ao gerar estagiarios zip: ", error)
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const handleToggleListOfSetoresServidores = (setor: ISetorServidor) => {
+        const isSetorAlreadySelected = selectedSetoresServidores.some(({ id }) => id === setor.id)
 
         if (isSetorAlreadySelected) {
-            setSelectedSetores((prevSetores) =>
+            setSelectedSetoresServidores((prevSetores) =>
                 prevSetores.filter(({ id }) => id !== setor.id)
             )
             return
         }
 
-        setSelectedSetores((prevSetores) => {
+        setSelectedSetoresServidores((prevSetores) => {
             if (prevSetores.length >= 10) {
                 toast.warning('Máximo permitido é 10 setores ou funcionários selecionados')
                 return [...prevSetores.slice(1), setor]
             }
 
             return [...prevSetores, setor]
+        })
+    }
+
+    const handleToggleListOfServidores = (servidor: IServidor) => {
+        const isServidorAlreadySelected = selectedServidores.some(({ id }) => id === servidor.id)
+
+        if (isServidorAlreadySelected) {
+            setSelectedServidores((prevSetores) =>
+                prevSetores.filter(({ id }) => id !== servidor.id)
+            )
+            return
+        }
+
+        setSelectedServidores((prevServidores) => {
+            if (prevServidores.length >= 10) {
+                toast.warning('Máximo permitido é 10 setores ou funcionários selecionados')
+                return [...prevServidores.slice(1), servidor]
+            }
+
+            return [...prevServidores, servidor]
+        })
+    }
+
+    const handleToggleListOfSetoresEstagiarios = (setor: ISetorEstagiario) => {
+        const isSetorAlreadySelected = selectedSetoresEstagiarios.some(({ id }) => id === setor.id)
+
+        if (isSetorAlreadySelected) {
+            setSelectedSetoresEstagiarios((prevSetores) =>
+                prevSetores.filter(({ id }) => id !== setor.id)
+            )
+            return
+        }
+
+        setSelectedSetoresEstagiarios((prevSetores) => {
+            if (prevSetores.length >= 10) {
+                toast.warning('Máximo permitido é 10 setores ou funcionários selecionados')
+                return [...prevSetores.slice(1), setor]
+            }
+
+            return [...prevSetores, setor]
+        })
+    }
+
+    const handleToggleListOfEstagiarios = (estagiario: IEstagiario) => {
+        const isEstagiarioAlreadySelected = selectedEstagiarios.some(({ id }) => id === estagiario.id)
+
+        if (isEstagiarioAlreadySelected) {
+            setSelectedEstagiarios((prevEstagiarios) =>
+                prevEstagiarios.filter(({ id }) => id !== estagiario.id)
+            )
+            return
+        }
+
+        setSelectedEstagiarios((prevEstagiarios) => {
+            if (prevEstagiarios.length >= 10) {
+                toast.warning('Máximo permitido é 10 setores ou funcionários selecionados')
+                return [...prevEstagiarios.slice(1), estagiario]
+            }
+
+            return [...prevEstagiarios, estagiario]
         })
     }
 
@@ -274,45 +518,60 @@ export default function Table({ selectedEmployee, filterOptions, setFilterOption
                                 <td className="flex justify-center">
                                     <button
                                         className="cursor-pointer"
-                                        onClick={() => handleToggleListOfSetores(setor)}
+                                        onClick={() => handleToggleListOfSetoresServidores(setor)}
                                     >
-                                        {selectedSetores.some(({ id }) => id === setor.id) ? <SquareCheck /> : <Square />}
+                                        {selectedSetoresServidores.some(({ id }) => id === setor.id) ? <SquareCheck /> : <Square />}
                                     </button>
                                 </td>
                             </tr>
                         ))}
-                        {(selectedEmployee === 'servidores' && checkbox === 'servidores') && filterServidores()?.map(({ id, cargo, nome, setor }) => (
-                            <tr key={id} className="*:px-6 *:py-4 *:text-lg">
-                                <td>{nome}</td>
-                                <td>{cargo}</td>
-                                <td className="max-w-[120px] truncate whitespace-nowrap overflow-hidden" title={setor}>
-                                    {setor}
+                        {(selectedEmployee === 'servidores' && checkbox === 'servidores') && filterServidores()?.map((servidor) => (
+                            <tr key={servidor.id} className="*:px-6 *:py-4 *:text-lg">
+                                <td>{servidor.nome}</td>
+                                <td>{servidor.cargo}</td>
+                                <td className="max-w-[120px] truncate whitespace-nowrap overflow-hidden" title={servidor.setor}>
+                                    {servidor.setor}
                                 </td>
                                 <td className="flex justify-center">
-                                    <Square />
+                                    <button
+                                        className="cursor-pointer"
+                                        onClick={() => handleToggleListOfServidores(servidor)}
+                                    >
+                                        {selectedServidores.some(({ id }) => id === servidor.id) ? <SquareCheck /> : <Square />}
+                                    </button>
                                 </td>
                             </tr>
                         ))}
 
-                        {(selectedEmployee === 'estagiarios' && checkbox === 'setores') && filterSetoresEstagiario()?.map(({ id, lotacao, quantidade }) => (
-                            <tr key={id} className="*:px-6 *:py-4 *:text-lg">
-                                <td className="max-w-[120px] truncate whitespace-nowrap overflow-hidden" title={lotacao}>
-                                    {lotacao}
+                        {(selectedEmployee === 'estagiarios' && checkbox === 'setores') && filterSetoresEstagiario()?.map((setor) => (
+                            <tr key={setor.id} className="*:px-6 *:py-4 *:text-lg">
+                                <td className="max-w-[120px] truncate whitespace-nowrap overflow-hidden" title={setor.lotacao}>
+                                    {setor.lotacao}
                                 </td>
-                                <td>{quantidade}</td>
+                                <td>{setor.quantidade}</td>
                                 <td className="flex justify-center">
-                                    <Square />
+                                    <button
+                                        className="cursor-pointer"
+                                        onClick={() => handleToggleListOfSetoresEstagiarios(setor)}
+                                    >
+                                        {selectedSetoresEstagiarios.some(({ id }) => id === setor.id) ? <SquareCheck /> : <Square />}
+                                    </button>
                                 </td>
                             </tr>
                         ))}
-                        {(selectedEmployee === 'estagiarios' && checkbox === 'estagiarios') && filterEstagiario()?.map(({ id, nome, setor }) => (
-                            <tr key={id} className="*:px-6 *:py-4 *:text-lg">
-                                <td>{nome}</td>
-                                <td className="max-w-[120px] truncate whitespace-nowrap overflow-hidden" title={setor}>
-                                    {setor}
+                        {(selectedEmployee === 'estagiarios' && checkbox === 'estagiarios') && filterEstagiario()?.map((estagiario) => (
+                            <tr key={estagiario.id} className="*:px-6 *:py-4 *:text-lg">
+                                <td>{estagiario.nome}</td>
+                                <td className="max-w-[120px] truncate whitespace-nowrap overflow-hidden" title={estagiario.setor}>
+                                    {estagiario.setor}
                                 </td>
                                 <td className="flex justify-center">
-                                    <Square />
+                                    <button
+                                        className="cursor-pointer"
+                                        onClick={() => handleToggleListOfEstagiarios(estagiario)}
+                                    >
+                                        {selectedEstagiarios.some(({ id }) => id === estagiario.id) ? <SquareCheck /> : <Square />}
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -320,10 +579,17 @@ export default function Table({ selectedEmployee, filterOptions, setFilterOption
                 </table>
             </div>
             <Button
+                disabled={isLoading}
                 className="self-end"
-                onClick={() => convertSetoresToPdf()}
+                onClick={() => {
+                    if (selectedEmployee === 'servidores') {
+                        checkbox === 'setores' ? convertSetoresServidorToPdf() : convertServidoresToPdf()
+                        return
+                    }
+                    checkbox === 'setores' ? convertSetoresEstagiariosToPdf() : convertEstagiariosToPdf()
+                }}
             >
-                Gerar Selecionados
+                {isLoading ? 'Gerando...' : 'Gerar Selecionados'}
             </Button>
         </>
     )
