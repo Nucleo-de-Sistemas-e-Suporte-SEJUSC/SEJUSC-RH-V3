@@ -1,4 +1,4 @@
-import type { User } from '@/feature/entities/IUser'
+import type { User } from '@/interfaces/index'
 import React from 'react'
 
 interface AuthContextProps {

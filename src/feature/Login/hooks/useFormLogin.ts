@@ -5,7 +5,7 @@ import { api } from "@/api/axios"
 import { toast } from "sonner"
 import { useAuth } from '@/context/AuthContext'
 import type { ICredential } from "../interfaces"
-import type { User } from "@/feature/entities/IUser"
+import type { User } from "@/interfaces/index"
 
 export default function useFormLogin() {
     const { login } = useAuth()
