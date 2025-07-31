@@ -1,10 +1,10 @@
 import React from "react"
-import Header from "@/feature/Frequencia/components/Header"
+import Header from "@/shared/Header"
 import FilterFields from "@/feature/Frequencia/components/FilterFields"
-import { listOfMonths } from "@/feature/constants"
-import type { IFilterOptions } from "@/interfaces"
 import TableServidores from "@/feature/Frequencia/components/TableServidores"
 import TableEstagiarios from "@/feature/Frequencia/components/TableEstagiarios"
+import { listOfMonths } from "@/feature/constants"
+import type { IFilterOptions } from "@/interfaces"
 
 export default function FrequenciaPage() {
     const data = new Date()
@@ -20,6 +20,7 @@ export default function FrequenciaPage() {
     return (
         <main className="flex flex-col gap-5 py-5 max-h-[842px] pr-10">
             <Header
+                label='Gerador de Frequência'
                 selectedEmployee={selectedEmployee}
                 setSelectedEmployee={setSelectedEmployee}
             />

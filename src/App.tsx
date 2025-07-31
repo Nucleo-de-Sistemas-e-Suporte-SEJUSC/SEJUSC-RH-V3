@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import FrequenciaPage from "./pages/FrequenciaPage";
 import PrivateLayout from "./shared/PrivateLayout";
 import ProtectedRoute from "./shared/ProtectedRoute";
+import FuncionariosPage from "./pages/FuncionariosPage";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
             </ProtectedRoute>
           }>
             <Route path='/frequencia' element={<FrequenciaPage />} />
+            <Route path='/funcionarios' element={<FuncionariosPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
