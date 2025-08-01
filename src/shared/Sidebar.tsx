@@ -37,7 +37,7 @@ export default function Sidebar({ handleOpenSideBar, isSideBarOpen }: SidebarPro
 
             <div className="grow-5">
                 <div className="flex flex-col gap-6">
-                    <Link to={'/'} className='group flex items-center gap-4 p-2 text-slate-200 text-2xl hover:text-slate-400 transition-colors duration-200'>
+                    <Link to={'/dashboard'} className='group flex items-center gap-4 p-2 text-slate-200 text-2xl hover:text-slate-400 transition-colors duration-200'>
                         <ChartPie size={32} className="text-slate-200 group-hover:text-slate-400 transition-colors" />
                         {isSideBarOpen && 'Dashboard'}
                     </Link>
