@@ -15,7 +15,7 @@ export default function FormLogin() {
     const { matricula, password } = credentials
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-5 py-8 bg-slate-300 rounded-md min-w-lg">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-5 py-8 bg-sky-200/20 rounded-md min-w-lg">
             <Input
                 id="matricula"
                 label="Matrícula"
