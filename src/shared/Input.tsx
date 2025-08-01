@@ -1,10 +1,9 @@
 type InputProps = Omit<React.ComponentProps<'input'>, 'id' | 'name'> & {
     id: string,
     label?: string,
-    className?: string
 }
 
-export default function Input({ id, label, className = '', ...props }: InputProps) {
+export default function Input({ id, label, ...props }: InputProps) {
     return (
         <div>
             <label
@@ -15,7 +14,7 @@ export default function Input({ id, label, className = '', ...props }: InputProp
                     type="text"
                     id={id}
                     name={id}
-                    className={`text-lg p-1.5 bg-gray-100 outline-none rounded border-2 border-transparent focus:border-2 focus:border-sky-900 ease-in duration-200 ${className}`}
+                    className='text-lg p-1.5 bg-gray-100 outline-none rounded border-2 border-transparent focus:border-2 focus:border-sky-900 ease-in duration-200'
                     {...props}
                 />
             </label>
