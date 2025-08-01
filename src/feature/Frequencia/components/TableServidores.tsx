@@ -95,15 +95,16 @@ export default function TableServidores({ selectedEmployee, filterOptions, setFi
                     </tbody>
                 </table>
             </div>
-            <Button
-                disabled={isLoading}
-                className="self-end"
-                onClick={() => {
-                    checkbox === 'setores' ? convertSetoresServidorToPdf() : convertServidoresToPdf()
-                }}
-            >
-                {isLoading ? 'Gerando...' : 'Gerar Selecionados'}
-            </Button>
+            <div className="self-end">
+                <Button
+                    disabled={isLoading}
+                    onClick={() => {
+                        checkbox === 'setores' ? convertSetoresServidorToPdf() : convertServidoresToPdf()
+                    }}
+                >
+                    {isLoading ? 'Gerando...' : 'Gerar Selecionados'}
+                </Button>
+            </div>
         </>
     )
 }

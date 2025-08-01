@@ -41,11 +41,11 @@ export default function FormLogin() {
                     {passwordVisibility ? <Eye /> : <EyeClosed />}
                 </button>
             </div>
-            <Button
-                className="self-center mt-4"
-            >
-                Entrar
-            </Button>
+            <div className="self-center mt-4">
+                <Button>
+                    Entrar
+                </Button>
+            </div>
         </form>
     )
 }

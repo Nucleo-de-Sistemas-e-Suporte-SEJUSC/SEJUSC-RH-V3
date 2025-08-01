@@ -94,15 +94,16 @@ export default function TableEstagiarios({ selectedEmployee, filterOptions, setF
                     </tbody>
                 </table>
             </div>
-            <Button
-                disabled={isLoading}
-                className="self-end"
-                onClick={() => {
-                    checkbox === 'setores' ? convertSetoresEstagiariosToPdf() : convertEstagiariosToPdf()
-                }}
-            >
-                {isLoading ? 'Gerando...' : 'Gerar Selecionados'}
-            </Button>
+            <div className="self-end">
+                <Button
+                    disabled={isLoading}
+                    onClick={() => {
+                        checkbox === 'setores' ? convertSetoresEstagiariosToPdf() : convertEstagiariosToPdf()
+                    }}
+                >
+                    {isLoading ? 'Gerando...' : 'Gerar Selecionados'}
+                </Button>
+            </div>
         </>
     )
 }
