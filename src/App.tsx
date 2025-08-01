@@ -7,6 +7,7 @@ import FrequenciaPage from "./pages/FrequenciaPage";
 import PrivateLayout from "./shared/PrivateLayout";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import FuncionariosPage from "./pages/FuncionariosPage";
+import DashboardPage from "./pages/DashboardPage";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
               <PrivateLayout />
             </ProtectedRoute>
           }>
+            <Route path='/dashboard' element={<DashboardPage />} />
             <Route path='/frequencia' element={<FrequenciaPage />} />
             <Route path='/funcionarios' element={<FuncionariosPage />} />
           </Route>
