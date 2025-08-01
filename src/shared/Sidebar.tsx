@@ -52,9 +52,9 @@ export default function Sidebar({ handleOpenSideBar, isSideBarOpen }: SidebarPro
                         {isSideBarOpen && 'Funcionários'}
                     </Link>
 
-                    <Link to={'/'} className='group flex items-center gap-4 p-2 text-slate-200 text-2xl hover:text-slate-400 transition-colors duration-200'>
+                    <Link to={'/alteracoes'} className='group flex items-center gap-4 p-2 text-slate-200 text-2xl hover:text-slate-400 transition-colors duration-200'>
                         <History size={32} className="text-slate-200 group-hover:text-slate-400 transition-colors" />
-                        {isSideBarOpen && 'Histórico'}
+                        {isSideBarOpen && 'Alterações'}
                     </Link>
                 </div>
             </div>
