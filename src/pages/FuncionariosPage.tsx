@@ -9,13 +9,12 @@ export default function FuncionariosPage() {
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
     const [search, setSearch] = React.useState('')
     const [employees, setEmployees] = React.useState<{
-        servidores: IEstagiario[] | null,
-        estagiarios: IServidor[] | null
+        servidores: IServidor[] | null,
+        estagiarios: IEstagiario[] | null
     }>({
         servidores: null,
         estagiarios: null
     })
-    const { servidores, estagiarios } = employees
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -36,6 +35,19 @@ export default function FuncionariosPage() {
         fetchData()
     }, [])
 
+    const filterServidores = (): IServidor[] | undefined => {
+        if (employees.servidores) {
+            let filteredListOfServidores = employees.servidores
+
+            if (search) {
+                filteredListOfServidores = filteredListOfServidores?.filter((servidor) => {
+                    return servidor.nome.includes(search)
+                })
+            }
+            return filteredListOfServidores
+        }
+    }
+
     return (
         <main className="flex flex-col gap-5 py-5 pr-10">
             <Header
@@ -47,12 +59,11 @@ export default function FuncionariosPage() {
                 id="search"
                 placeholder={`Pesquise por um ${selectedEmployee === 'servidores' ? 'Servidor' : 'Estagiário'}`}
                 value={search}
-                onChange={({ currentTarget }) => setSearch(currentTarget.value)}
+                onChange={({ currentTarget }) => setSearch(currentTarget.value.toUpperCase())}
             />
-
             <div className="grid grid-cols-3 gap-4 max-h-[624px] overflow-y-scroll rounded">
-                {servidores?.map(({ nome, setor }) => (
-                    <div className="flex flex-col gap-2.5 bg-gray-100 text-slate-900 p-1.5 rounded">
+                {filterServidores()?.map(({ nome, setor }) => (
+                    <div className="flex flex-col gap-2.5 bg-gray-100 text-slate-900 p-3 rounded">
                         <div>
                             <h3 className="text-2xl font-medium">{nome}</h3>
                             <p className="text-lg text-slate-700">{setor}</p>
