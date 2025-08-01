@@ -1,21 +1,32 @@
 import React from "react"
 import Header from "@/shared/Header"
-import Input from "@/shared/Input"
-import type { IEstagiario, IServidor } from "@/feature/Frequencia/interfaces"
-import { api } from "@/api/axios"
 import ListOfServidores from "@/feature/Funcionarios/components/ListOfServidores"
 import ListOfEstagiarios from "@/feature/Funcionarios/components/ListOfEstagiarios"
+import FilterFields from "@/feature/Funcionarios/components/FilterFields"
+import type { IEstagiario, IServidor } from "@/feature/Frequencia/interfaces"
+import { api } from "@/api/axios"
 
 export default function FuncionariosPage() {
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
-    const [search, setSearch] = React.useState('')
-    const [employees, setEmployees] = React.useState<{
+    const [filterOptions, setFilterOptions] = React.useState({
+        checkbox: 'ativos',
+        search: ''
+    })
+    const [archivedEmployees, setArchivedEmployees] = React.useState<{
         servidores: IServidor[] | null,
         estagiarios: IEstagiario[] | null
     }>({
         servidores: null,
         estagiarios: null
     })
+    const [activeEmployees, setActiveEmployees] = React.useState<{
+        servidores: IServidor[] | null,
+        estagiarios: IEstagiario[] | null
+    }>({
+        servidores: null,
+        estagiarios: null
+    })
+    const { checkbox } = filterOptions
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -24,7 +35,7 @@ export default function FuncionariosPage() {
                     api.get('/servidores'),
                     api.get('/estagiarios')
                 ])
-                setEmployees((prev) => ({
+                setActiveEmployees((prev) => ({
                     ...prev,
                     servidores: [...servidoresRes.data.servidores],
                     estagiarios: [...estagiariosRes.data.estagiarios]
@@ -36,6 +47,31 @@ export default function FuncionariosPage() {
         fetchData()
     }, [])
 
+    React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (selectedEmployee === 'servidores') {
+                    const response = await api.get(`/${selectedEmployee}/arquivados`)
+                    const employee = response.data[selectedEmployee]
+                    setArchivedEmployees((prev) => ({
+                        ...prev,
+                        servidores: [...employee],
+                    }))
+                    return
+                }
+                const response = await api.get(`/${selectedEmployee}/arquivados`)
+                const employee = response.data[selectedEmployee]
+                setArchivedEmployees((prev) => ({
+                    ...prev,
+                    estagiarios: [...employee],
+                }))
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchData()
+    }, [selectedEmployee])
+
     return (
         <main className="flex flex-col gap-5 py-5 pr-10">
             <Header
@@ -43,21 +79,21 @@ export default function FuncionariosPage() {
                 selectedEmployee={selectedEmployee}
                 setSelectedEmployee={setSelectedEmployee}
             />
-            <Input
-                id="search"
-                placeholder={`Pesquise por um ${selectedEmployee === 'servidores' ? 'Servidor' : 'Estagiário'}`}
-                value={search}
-                onChange={({ currentTarget }) => setSearch(currentTarget.value.toUpperCase())}
+            <FilterFields
+                selectedEmployee={selectedEmployee}
+                filterOptions={filterOptions}
+                setFilterOptions={setFilterOptions}
             />
+
             {selectedEmployee === 'servidores' ? (
                 <ListOfServidores
-                    servidores={employees.servidores}
-                    search={search}
+                    servidores={checkbox === 'ativos' ? activeEmployees.servidores : archivedEmployees.servidores}
+                    filterOptions={filterOptions}
                 />
             ) : (
                 <ListOfEstagiarios
-                    estagiarios={employees.estagiarios}
-                    search={search}
+                    estagiarios={checkbox === 'ativos' ? activeEmployees.estagiarios : archivedEmployees.estagiarios}
+                    filterOptions={filterOptions}
                 />
             )}
         </main>
