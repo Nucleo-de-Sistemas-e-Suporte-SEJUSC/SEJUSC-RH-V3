@@ -20,8 +20,8 @@ export default function FilterFields({ filterOptions, setFilterOptions }: filter
                             <input
                                 type="radio"
                                 name='filterOptions'
-                                checked={checkbox === 'arquivou'}
-                                value='arquivou'
+                                checked={checkbox === 'Arquivar'}
+                                value='Arquivar'
                                 onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({ ...prevFilters, checkbox: currentTarget.value }))}
                             />
                         </label>
@@ -34,8 +34,8 @@ export default function FilterFields({ filterOptions, setFilterOptions }: filter
                             <input
                                 type="radio"
                                 name='filterOptions'
-                                checked={checkbox === 'desarquivou'}
-                                value='desarquivou'
+                                checked={checkbox === 'Desarquivar'}
+                                value='Desarquivar'
                                 onChange={({ currentTarget }) => setFilterOptions((prevFilters) => ({ ...prevFilters, checkbox: currentTarget.value }))}
                             />
                         </label>
