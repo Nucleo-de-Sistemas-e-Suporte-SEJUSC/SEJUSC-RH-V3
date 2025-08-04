@@ -1,5 +1,5 @@
-import type { User } from '@/interfaces/index'
 import React from 'react'
+import type { User } from '@/interfaces/index'
 
 interface AuthContextProps {
   user: User | null
