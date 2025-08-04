@@ -1,5 +1,7 @@
+import React from "react";
 import Button from "@/shared/Button";
 import type { IEstagiario } from "@/feature/Frequencia/interfaces";
+import useListOfEstagiarios from "../hooks/useListOfEstagiarios";
 
 type ListOfEstagiariosProps = {
     estagiarios: IEstagiario[] | null
@@ -8,19 +10,13 @@ type ListOfEstagiariosProps = {
 
 export default function ListOfEstagiarios({ estagiarios, filterOptions }: ListOfEstagiariosProps) {
     const { checkbox, search } = filterOptions
+    const [isLoading, setIsLoading] = React.useState(false)
 
-    const filterEstagiarios = (): IEstagiario[] | undefined => {
-        if (estagiarios) {
-            let filteredListOfEstagiarios = estagiarios
-
-            if (search) {
-                filteredListOfEstagiarios = filteredListOfEstagiarios?.filter((estagiario) => {
-                    return estagiario.nome.includes(search)
-                })
-            }
-            return filteredListOfEstagiarios
-        }
-    }
+    const {
+        handleArchiveEstagiario,
+        handleActiveEstagiario,
+        filterEstagiarios
+    } = useListOfEstagiarios(estagiarios, search, setIsLoading)
 
     return (
         <div className="grid grid-cols-3 gap-4 max-h-[624px] overflow-y-scroll rounded">
@@ -33,8 +29,19 @@ export default function ListOfEstagiarios({ estagiarios, filterOptions }: ListOf
                     <div className="flex gap-2">
                         <Button
                             className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
+                            onClick={() => {
+                                if (checkbox === 'ativos') {
+                                    handleArchiveEstagiario(id)
+                                    return
+                                }
+                                handleActiveEstagiario(id)
+                            }}
                         >
-                            {checkbox === 'ativos' ? 'Arquivar' : 'Desarquivar'}
+                            {checkbox === 'ativos' ? (
+                                <p>{isLoading ? 'Arquivando' : 'Arquivar'}</p>
+                            ) : (
+                                <p>{isLoading ? 'Desarquivando' : 'Desarquivar'}</p>
+                            )}
                         </Button>
 
                         {checkbox === 'ativos' && (
