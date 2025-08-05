@@ -1,13 +1,16 @@
 import React from "react"
 import Header from "@/shared/Header"
+import Button from "@/shared/Button"
 import ListOfServidores from "@/feature/Funcionarios/components/ListOfServidores"
 import ListOfEstagiarios from "@/feature/Funcionarios/components/ListOfEstagiarios"
 import FilterFields from "@/feature/Funcionarios/components/FilterFields"
+import FormCreateServidor from "@/feature/Funcionarios/components/FormCreateServidor"
 import type { IEstagiario, IServidor } from "@/feature/Frequencia/interfaces"
 import { api } from "@/api/axios"
 
 export default function FuncionariosPage() {
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
+    const [isModalOpen, setIsModalOpen] = React.useState(false)
     const [filterOptions, setFilterOptions] = React.useState({
         checkbox: 'ativos',
         search: ''
@@ -74,27 +77,42 @@ export default function FuncionariosPage() {
 
     return (
         <main className="flex flex-col gap-5 py-5 pr-10">
-            <Header
-                label='Lista de Funcionários'
-                selectedEmployee={selectedEmployee}
-                setSelectedEmployee={setSelectedEmployee}
-            />
-            <FilterFields
-                selectedEmployee={selectedEmployee}
-                filterOptions={filterOptions}
-                setFilterOptions={setFilterOptions}
-            />
-
-            {selectedEmployee === 'servidores' ? (
-                <ListOfServidores
-                    servidores={checkbox === 'ativos' ? activeEmployees.servidores : archivedEmployees.servidores}
-                    filterOptions={filterOptions}
-                />
+            {isModalOpen ? (
+                <FormCreateServidor />
             ) : (
-                <ListOfEstagiarios
-                    estagiarios={checkbox === 'ativos' ? activeEmployees.estagiarios : archivedEmployees.estagiarios}
-                    filterOptions={filterOptions}
-                />
+                <>
+                    <div className="flex justify-between">
+                        <Header
+                            label='Lista de Funcionários'
+                            selectedEmployee={selectedEmployee}
+                            setSelectedEmployee={setSelectedEmployee}
+                        />
+                        <div className="self-center">
+                            <Button
+                                onClick={() => setIsModalOpen(true)}
+                            >
+                                {selectedEmployee === 'servidores' ? 'CRIAR SERVIDOR' : 'CRIAR ESTAGIÁRIO'}
+                            </Button>
+                        </div>
+                    </div>
+                    <FilterFields
+                        selectedEmployee={selectedEmployee}
+                        filterOptions={filterOptions}
+                        setFilterOptions={setFilterOptions}
+                    />
+
+                    {selectedEmployee === 'servidores' ? (
+                        <ListOfServidores
+                            servidores={checkbox === 'ativos' ? activeEmployees.servidores : archivedEmployees.servidores}
+                            filterOptions={filterOptions}
+                        />
+                    ) : (
+                        <ListOfEstagiarios
+                            estagiarios={checkbox === 'ativos' ? activeEmployees.estagiarios : archivedEmployees.estagiarios}
+                            filterOptions={filterOptions}
+                        />
+                    )}
+                </>
             )}
         </main>
     )
