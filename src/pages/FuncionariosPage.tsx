@@ -1,12 +1,12 @@
 import React from "react"
 import Header from "@/shared/Header"
+import Button from "@/shared/Button"
 import ListOfServidores from "@/feature/Funcionarios/components/ListOfServidores"
 import ListOfEstagiarios from "@/feature/Funcionarios/components/ListOfEstagiarios"
 import FilterFields from "@/feature/Funcionarios/components/FilterFields"
+import FormCreateServidor from "@/feature/Funcionarios/components/FormCreateServidor"
 import type { IEstagiario, IServidor } from "@/feature/Frequencia/interfaces"
 import { api } from "@/api/axios"
-import Button from "@/shared/Button"
-import Input from "@/shared/Input"
 
 export default function FuncionariosPage() {
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
@@ -78,42 +78,7 @@ export default function FuncionariosPage() {
     return (
         <main className="flex flex-col gap-5 py-5 pr-10">
             {isModalOpen ? (
-                <div>
-                    <h1 className="text-4xl text-sky-950 font-semibold pb-8">Criar Servidor</h1>
-                    <form className="flex flex-col gap-4">
-                        <Input
-                            id="nome"
-                            label="Nome Completo*"
-                            placeholder="Yuri Odilon Nogueira Moura"
-                        />
-                        <div className="flex gap-4">
-                            <Input
-                                id="matricula"
-                                label="Matrícula*"
-                                placeholder="123.456-7 A"
-                            />
-                            <Input
-                                id="cpf"
-                                label="CPF*"
-                                placeholder="123.456.789-01"
-                            />
-                            <Input
-                                id="identidade"
-                                label="Identidade*"
-                            />
-                            <Input
-                                id="naturalidade"
-                                label="Naturalidade*"
-                                placeholder="Manaus/AM"
-                            />
-                            <Input
-                                id="nacionalidade"
-                                label="Nacionalidade*"
-                                placeholder="Brasileira"
-                            />
-                        </div>
-                    </form>
-                </div>
+                <FormCreateServidor />
             ) : (
                 <>
                     <div className="flex justify-between">
