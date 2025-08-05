@@ -123,6 +123,7 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
             });
         } catch (error) {
             console.log('Erro ao cadastrar servidor:', error)
+            toast.error("Não foi possível realizar o cadastro");
         }
     }
 
