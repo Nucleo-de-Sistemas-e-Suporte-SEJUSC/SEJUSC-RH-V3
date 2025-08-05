@@ -7,6 +7,7 @@ import FilterFields from "@/feature/Funcionarios/components/FilterFields"
 import FormCreateServidor from "@/feature/Funcionarios/components/FormCreateServidor"
 import type { IEstagiario, IServidor } from "@/feature/Frequencia/interfaces"
 import { api } from "@/api/axios"
+import FormCreateEstagiario from "@/feature/Funcionarios/components/FormCreateEstagiario"
 
 export default function FuncionariosPage() {
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
@@ -78,9 +79,17 @@ export default function FuncionariosPage() {
     return (
         <main className="flex flex-col gap-5 py-5 pr-10">
             {isModalOpen ? (
-                <FormCreateServidor
-                    setIsModalOpen={setIsModalOpen}
-                />
+                <>
+                    {selectedEmployee === 'servidores' ? (
+                        <FormCreateServidor
+                            setIsModalOpen={setIsModalOpen}
+                        />
+                    ) : (
+                        <FormCreateEstagiario
+                            setIsModalOpen={setIsModalOpen}
+                        />
+                    )}
+                </>
             ) : (
                 <>
                     <div className="flex justify-between">
