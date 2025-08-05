@@ -78,7 +78,9 @@ export default function FuncionariosPage() {
     return (
         <main className="flex flex-col gap-5 py-5 pr-10">
             {isModalOpen ? (
-                <FormCreateServidor />
+                <FormCreateServidor
+                    setIsModalOpen={setIsModalOpen}
+                />
             ) : (
                 <>
                     <div className="flex justify-between">
