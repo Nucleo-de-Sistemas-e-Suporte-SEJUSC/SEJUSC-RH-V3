@@ -5,10 +5,11 @@ import ListOfServidores from "@/feature/Funcionarios/components/ListOfServidores
 import ListOfEstagiarios from "@/feature/Funcionarios/components/ListOfEstagiarios"
 import FilterFields from "@/feature/Funcionarios/components/FilterFields"
 import FormCreateServidor from "@/feature/Funcionarios/components/FormCreateServidor"
-import type { IEstagiario, IServidor } from "@/feature/Frequencia/interfaces"
+import type { IEstagiario } from "@/feature/Frequencia/interfaces"
 import { api } from "@/api/axios"
 import FormCreateEstagiario from "@/feature/Funcionarios/components/FormCreateEstagiario"
 import FormUpdateServidor from "@/feature/Funcionarios/components/FormUpdateServidor"
+import type { IServidor } from "@/interfaces"
 
 export default function FuncionariosPage() {
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
@@ -80,16 +81,17 @@ export default function FuncionariosPage() {
         fetchData()
     }, [selectedEmployee])
 
-    console.log(isModalOpen.employee)
-
     return (
-        <main className="flex flex-col gap-5 py-5 pr-10">
+        <main className="flex flex-col gap-5 py-5 pr-10 overflow-scroll">
             {isModalOpen.modal ? (
                 <>
                     {selectedEmployee === 'servidores' ? (
                         <>
                             {isModalOpen.employee ? (
-                                <FormUpdateServidor />
+                                <FormUpdateServidor
+                                    isModalOpen={isModalOpen}
+                                    setIsModalOpen={setIsModalOpen}
+                                />
                             ) : (
                                 <FormCreateServidor
                                     setIsModalOpen={setIsModalOpen}

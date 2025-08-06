@@ -1,5 +1,4 @@
-import type { User } from "@/interfaces"
-import type { IServidor } from "@/feature/Frequencia/interfaces"
+import type { IServidor, User } from "@/interfaces"
 import { toast } from "sonner"
 import { api } from "@/api/axios"
 
