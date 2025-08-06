@@ -44,7 +44,6 @@ export default function useListOfServidores(
 
             await historyLogsArchive(storedUser.nome, servidor_arquivado.nome, servidor_arquivado.setor)
 
-            setIsLoading({ id: null, load: false, action: null })
             toast.success('Servidor arquivado com sucesso')
             setTimeout(() => {
                 window.location.reload()
@@ -53,7 +52,8 @@ export default function useListOfServidores(
             console.error("Error ao arquivar servidor", error)
             toast.error('Não foi possível arquivar o servidor')
         } finally {
-            setIsLoading((prevValues) => ({ ...prevValues, load: true }))
+            setIsLoading({ id: null, load: false, action: null })
+
         }
     }
 
@@ -78,7 +78,6 @@ export default function useListOfServidores(
 
             await historyLogsUnarchive(storedUser.nome, servidor_ativado.nome, servidor_ativado.setor)
 
-            setIsLoading({ id: null, load: false, action: null })
             toast.success('Servidor desarquivado com sucesso')
             setTimeout(() => {
                 window.location.reload()
@@ -87,7 +86,7 @@ export default function useListOfServidores(
             console.error("Error ao desarquivar servidor", error)
             toast.error('Não foi possível desarquivar o servidor')
         } finally {
-            setIsLoading((prevValues) => ({ ...prevValues, load: false }))
+            setIsLoading({ id: null, load: false, action: null })
         }
     }
 

@@ -10,7 +10,11 @@ type ListOfEstagiariosProps = {
 
 export default function ListOfEstagiarios({ estagiarios, filterOptions }: ListOfEstagiariosProps) {
     const { checkbox, search } = filterOptions
-    const [isLoading, setIsLoading] = React.useState(false)
+    const [isLoading, setIsLoading] = React.useState<{ id: number | null, load: boolean, action: string | null }>({
+        id: null,
+        load: false,
+        action: null
+    })
 
     const {
         handleArchiveEstagiario,
@@ -38,9 +42,9 @@ export default function ListOfEstagiarios({ estagiarios, filterOptions }: ListOf
                             }}
                         >
                             {checkbox === 'ativos' ? (
-                                <p>{isLoading ? 'Arquivando' : 'Arquivar'}</p>
+                                <p>{(isLoading.load && isLoading.id === id && isLoading.action === 'arquivar') ? 'Arquivando' : 'Arquivar'}</p>
                             ) : (
-                                <p>{isLoading ? 'Desarquivando' : 'Desarquivar'}</p>
+                                <p>{(isLoading.load && isLoading.id === id && isLoading.action === 'desarquivar') ? 'Desarquivando' : 'Desarquivar'}</p>
                             )}
                         </Button>
 
