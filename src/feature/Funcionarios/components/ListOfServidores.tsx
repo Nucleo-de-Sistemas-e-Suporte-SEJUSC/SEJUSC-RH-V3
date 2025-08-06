@@ -10,11 +10,16 @@ type ListOfServidoresProps = {
 
 export default function ListOfServidores({ servidores, filterOptions }: ListOfServidoresProps) {
     const { checkbox, search } = filterOptions
-    const [isLoading, setIsLoading] = React.useState(false)
+    const [isLoading, setIsLoading] = React.useState<{ id: number | null, load: boolean, action: string | null }>({
+        id: null,
+        load: false,
+        action: null
+    })
 
     const {
         handleActiveServidor,
         handleArchiveServidor,
+        generateFichaFuncional,
         filterServidores
     } = useListOfServidores(servidores, search, setIsLoading)
 
@@ -38,9 +43,9 @@ export default function ListOfServidores({ servidores, filterOptions }: ListOfSe
                             }}
                         >
                             {checkbox === 'ativos' ? (
-                                <p>{isLoading ? 'Arquivando' : 'Arquivar'}</p>
+                                <p>{(isLoading.load && isLoading.id === id && isLoading.action === 'arquivar') ? 'Arquivando' : 'Arquivar'}</p>
                             ) : (
-                                <p>{isLoading ? 'Desarquivando' : 'Desarquivar'}</p>
+                                <p>{(isLoading.load && isLoading.id === id && isLoading.action === 'desarquivar') ? 'Desarquivando' : 'Desarquivar'}</p>
                             )}
                         </Button>
 
@@ -55,6 +60,14 @@ export default function ListOfServidores({ servidores, filterOptions }: ListOfSe
                                     className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
                                 >
                                     Anexar
+                                </Button>
+                                <Button
+                                    className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
+                                    onClick={() => generateFichaFuncional(id)}
+                                >
+                                    {isLoading.load ? (
+                                        <p>{(isLoading.id === id && isLoading.action === 'ficha') ? 'Gerando' : 'Ficha'}</p>
+                                    ) : 'Ficha'}
                                 </Button>
                             </>
                         )}
