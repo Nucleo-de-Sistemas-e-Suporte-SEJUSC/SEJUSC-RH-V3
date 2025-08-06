@@ -6,7 +6,7 @@ import { toast } from "sonner";
 export default function useListOfEstagiarios(
     estagiarios: IEstagiario[] | null,
     search: string,
-    setIsLoading: React.Dispatch<React.SetStateAction<{ id: number | null, load: boolean, action: string | null }>>
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) {
     const storedUser = JSON.parse(localStorage.getItem('user')!) as User
 
@@ -37,7 +37,7 @@ export default function useListOfEstagiarios(
 
     const handleArchiveEstagiario = async (id: number) => {
         try {
-            setIsLoading({ id: id, load: true, action: 'arquivar' })
+            setIsLoading(true)
 
             const response = await api.patch(`/estagiarios/${id}/arquivar`)
             const { estagiario_arquivado } = await response.data as { mensagem: string, estagiario_arquivado: { nome: string, setor: string } }
@@ -52,7 +52,7 @@ export default function useListOfEstagiarios(
             console.error("Error ao arquivar estagiário", error)
             toast.error('Não foi possível arquivar o estagiário')
         } finally {
-            setIsLoading({ id: null, load: false, action: null })
+            setIsLoading(false)
         }
     }
 
@@ -70,7 +70,7 @@ export default function useListOfEstagiarios(
 
     const handleActiveEstagiario = async (id: number) => {
         try {
-            setIsLoading({ id: id, load: true, action: 'desarquivar' })
+            setIsLoading(true)
 
             const response = await api.patch(`/estagiarios/${id}/atualizar-status`)
             const { estagiario_ativado } = response.data as { mensagem: string, estagiario_ativado: { nome: string, setor: string } }
@@ -85,7 +85,7 @@ export default function useListOfEstagiarios(
             console.error("Error ao desarquivar estagiário", error)
             toast.error('Não foi possível desarquivar o estagiário')
         } finally {
-            setIsLoading({ id: null, load: false, action: null })
+            setIsLoading(false)
         }
     }
 
