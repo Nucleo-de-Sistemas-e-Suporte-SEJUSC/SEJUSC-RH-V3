@@ -4,45 +4,19 @@ import { Select } from "@/shared/Select";
 import Button from "@/shared/Button";
 import { api } from "@/api/axios";
 import { toast } from "sonner";
-import type { IServidor } from "@/feature/Frequencia/interfaces";
+import type { IServidor } from "@/interfaces";
 
 type Entrada = '' | '08:00'
 type Saida = '' | '14:00' | '17:00'
 type Sexo = '' | 'MASCULINO' | 'FEMININO' | 'OUTRO'
 type EstadoCivil = '' | 'SOLTEIRO' | 'CASADO' | 'DIVORCIADO' | 'VIUVO'
 
-interface CreateServidor {
-    nome: string
-    setor: string
-    matricula: string
-    cargo: string
-    horario: string
-    entrada: Entrada
-    saida: Saida
-    data_nascimento: string
-    sexo: Sexo
-    estado_civil: EstadoCivil
-    naturalidade: string
-    nacionalidade: string
-    identidade: string
-    titulo_eleitor: string
-    cpf: string
-    pis: string
-    data_admissao: string
-    endereco: string
-    nome_pai: string
-    nome_mae: string
-    servico_militar: string
-    carteira_profissional: string
-    data_posse: string
-}
-
 type FormCreateServidorProps = {
     setIsModalOpen: React.Dispatch<React.SetStateAction<{employee: IServidor | null, modal: boolean}>>
 }
 
 export default function FormCreateServidor({ setIsModalOpen }: FormCreateServidorProps) {
-    const [formValues, setFormValues] = React.useState<CreateServidor>({
+    const [formValues, setFormValues] = React.useState<IServidor>({
         nome: '',
         setor: '',
         matricula: '',

@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@/shared/Button";
-import type { IServidor } from "@/feature/Frequencia/interfaces";
 import useListOfServidores from "../hooks/useListOfServidores";
+import type { IServidor } from "@/interfaces";
 
 type ListOfServidoresProps = {
     servidores: IServidor[] | null
@@ -37,10 +37,10 @@ export default function ListOfServidores({ servidores, filterOptions, setIsModal
                             className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
                             onClick={() => {
                                 if (checkbox === 'ativos') {
-                                    handleArchiveServidor(servidor.id)
+                                    handleArchiveServidor(servidor.id!)
                                     return
                                 }
-                                handleActiveServidor(servidor.id)
+                                handleActiveServidor(servidor.id!)
                             }}
                         >
                             {checkbox === 'ativos' ? (
@@ -65,7 +65,7 @@ export default function ListOfServidores({ servidores, filterOptions, setIsModal
                                 </Button>
                                 <Button
                                     className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
-                                    onClick={() => generateFichaFuncional(servidor.id)}
+                                    onClick={() => generateFichaFuncional(servidor.id!)}
                                 >
                                     {isLoading.load ? (
                                         <p>{(isLoading.id === servidor.id && isLoading.action === 'ficha') ? 'Gerando' : 'Ficha'}</p>
