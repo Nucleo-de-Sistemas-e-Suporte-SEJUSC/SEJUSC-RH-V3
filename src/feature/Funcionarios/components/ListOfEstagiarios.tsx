@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@/shared/Button";
-import type { IEstagiario } from "@/feature/Frequencia/interfaces";
+import type { IEstagiario } from "@/interfaces";
 import useListOfEstagiarios from "../hooks/useListOfEstagiarios";
 
 type ListOfEstagiariosProps = {
@@ -35,10 +35,10 @@ export default function ListOfEstagiarios({ estagiarios, filterOptions }: ListOf
                             className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
                             onClick={() => {
                                 if (checkbox === 'ativos') {
-                                    handleArchiveEstagiario(id)
+                                    handleArchiveEstagiario(id!)
                                     return
                                 }
-                                handleActiveEstagiario(id)
+                                handleActiveEstagiario(id!)
                             }}
                         >
                             {checkbox === 'ativos' ? (

@@ -4,26 +4,21 @@ import { Select } from "@/shared/Select";
 import Button from "@/shared/Button";
 import { api } from "@/api/axios";
 import { toast } from "sonner";
-import type { IServidor } from "@/feature/Frequencia/interfaces";
+import type { IEstagiario, IServidor } from "@/interfaces";
 
 type Entrada = '' | '08:00'
 type Saida = '' | '14:00' | '17:00'
 
-interface CreateServidor {
-    nome: string
-    setor: string
-    cargo: string
-    horario: string
-    entrada: Entrada
-    saida: Saida
-}
-
 type FormCreateEstagiarioProps = {
-    setIsModalOpen: React.Dispatch<React.SetStateAction<{employee: IServidor | null, modal: boolean}>>
+    setIsModalOpen: React.Dispatch<React.SetStateAction<{
+        servidor: IServidor | null,
+        estagiario: IEstagiario | null,
+        modal: boolean
+    }>>
 }
 
 export default function FormCreateEstagiario({ setIsModalOpen }: FormCreateEstagiarioProps) {
-    const [formValues, setFormValues] = React.useState<CreateServidor>({
+    const [formValues, setFormValues] = React.useState<IEstagiario>({
         nome: '',
         setor: '',
         cargo: '',
@@ -128,7 +123,7 @@ export default function FormCreateEstagiario({ setIsModalOpen }: FormCreateEstag
                         Cadastrar Estagiário
                     </Button>
                     <Button
-                        onClick={() => setIsModalOpen({employee: null, modal: false})}
+                        onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false })}
                     >
                         Cancelar
                     </Button>

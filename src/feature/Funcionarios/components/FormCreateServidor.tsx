@@ -4,7 +4,11 @@ import { Select } from "@/shared/Select";
 import Button from "@/shared/Button";
 import { api } from "@/api/axios";
 import { toast } from "sonner";
-import type { ICreateServidor, IServidor } from "@/interfaces";
+import type { 
+    ICreateServidor, 
+    IEstagiario, 
+    IServidor 
+} from "@/interfaces";
 
 type Entrada = '' | '08:00'
 type Saida = '' | '14:00' | '17:00'
@@ -12,7 +16,11 @@ type Sexo = '' | 'MASCULINO' | 'FEMININO' | 'OUTRO'
 type EstadoCivil = '' | 'SOLTEIRO' | 'CASADO' | 'DIVORCIADO' | 'VIUVO'
 
 type FormCreateServidorProps = {
-    setIsModalOpen: React.Dispatch<React.SetStateAction<{employee: IServidor | null, modal: boolean}>>
+    setIsModalOpen: React.Dispatch<React.SetStateAction<{
+        servidor: IServidor | null,
+        estagiario: IEstagiario | null
+        modal: boolean
+    }>>
 }
 
 export default function FormCreateServidor({ setIsModalOpen }: FormCreateServidorProps) {
@@ -347,7 +355,7 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
                         Cadastrar Servidor
                     </Button>
                     <Button
-                        onClick={() => setIsModalOpen({employee: null, modal: false})}
+                        onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false })}
                     >
                         Cancelar
                     </Button>

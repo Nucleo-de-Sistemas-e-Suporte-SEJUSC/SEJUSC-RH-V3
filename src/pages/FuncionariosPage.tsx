@@ -5,18 +5,23 @@ import ListOfServidores from "@/feature/Funcionarios/components/ListOfServidores
 import ListOfEstagiarios from "@/feature/Funcionarios/components/ListOfEstagiarios"
 import FilterFields from "@/feature/Funcionarios/components/FilterFields"
 import FormCreateServidor from "@/feature/Funcionarios/components/FormCreateServidor"
-import type { IEstagiario } from "@/feature/Frequencia/interfaces"
 import { api } from "@/api/axios"
 import FormCreateEstagiario from "@/feature/Funcionarios/components/FormCreateEstagiario"
 import FormUpdateServidor from "@/feature/Funcionarios/components/FormUpdateServidor"
-import type { IServidor } from "@/interfaces"
+import type { IEstagiario, IServidor } from "@/interfaces"
 
 export default function FuncionariosPage() {
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
-    const [isModalOpen, setIsModalOpen] = React.useState<{ employee: IServidor | null, modal: boolean }>({
-        employee: null,
-        modal: false
-    })
+    const [isModalOpen, setIsModalOpen] = React.useState<{
+        servidor: IServidor | null,
+        estagiario: IEstagiario | null,
+        modal: boolean
+    }>
+        ({
+            servidor: null,
+            estagiario: null,
+            modal: false
+        })
     const [filterOptions, setFilterOptions] = React.useState({
         checkbox: 'ativos',
         search: ''
@@ -87,7 +92,7 @@ export default function FuncionariosPage() {
                 <>
                     {selectedEmployee === 'servidores' ? (
                         <>
-                            {isModalOpen.employee ? (
+                            {isModalOpen.servidor ? (
                                 <FormUpdateServidor
                                     isModalOpen={isModalOpen}
                                     setIsModalOpen={setIsModalOpen}
@@ -114,7 +119,7 @@ export default function FuncionariosPage() {
                         />
                         <div className="self-center">
                             <Button
-                                onClick={() => setIsModalOpen({ employee: null, modal: true })}
+                                onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: true })}
                             >
                                 {selectedEmployee === 'servidores' ? 'CRIAR SERVIDOR' : 'CRIAR ESTAGIÁRIO'}
                             </Button>
