@@ -4,7 +4,7 @@ import { Select } from "@/shared/Select";
 import Button from "@/shared/Button";
 import { api } from "@/api/axios";
 import { toast } from "sonner";
-import type { IServidor } from "@/interfaces";
+import type { ICreateServidor, IServidor } from "@/interfaces";
 
 type Entrada = '' | '08:00'
 type Saida = '' | '14:00' | '17:00'
@@ -16,7 +16,7 @@ type FormCreateServidorProps = {
 }
 
 export default function FormCreateServidor({ setIsModalOpen }: FormCreateServidorProps) {
-    const [formValues, setFormValues] = React.useState<IServidor>({
+    const [formValues, setFormValues] = React.useState<ICreateServidor>({
         nome: '',
         setor: '',
         matricula: '',
@@ -33,7 +33,7 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
         titulo_eleitor: '',
         cpf: '',
         pis: '',
-        data_admissao: '',
+        data_Admissao: '',
         endereco: '',
         nome_pai: '',
         nome_mae: '',
@@ -62,7 +62,7 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
                 titulo_eleitor: formValues.titulo_eleitor,
                 cpf: formValues.cpf,
                 pis: formValues.pis,
-                data_admissao: formValues.data_admissao,
+                data_Admissao: formValues.data_Admissao,
                 endereco: formValues.endereco,
                 nome_pai: formValues.nome_pai,
                 nome_mae: formValues.nome_mae,
@@ -88,7 +88,7 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
                 titulo_eleitor: '',
                 cpf: '',
                 pis: '',
-                data_admissao: '',
+                data_Admissao: '',
                 endereco: '',
                 nome_pai: '',
                 nome_mae: '',
@@ -270,11 +270,11 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
                             </div>
                             <div className="grow">
                                 <Input
-                                    id="data_admissao"
+                                    id="data_Admissao"
                                     label="Data de Admissao*"
                                     type="date"
                                     required
-                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, data_admissao: currentTarget.value }))}
+                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, data_Admissao: currentTarget.value }))}
                                 />
                             </div>
                         </div>
