@@ -1,7 +1,6 @@
-import type { IEstagiario } from "@/feature/Frequencia/interfaces";
-import type { User } from "@/interfaces";
 import { api } from "@/api/axios";
 import { toast } from "sonner";
+import type { IEstagiario, User } from "@/interfaces";
 
 export default function useListOfEstagiarios(
     estagiarios: IEstagiario[] | null,

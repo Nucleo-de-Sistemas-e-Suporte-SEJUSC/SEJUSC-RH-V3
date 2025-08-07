@@ -82,3 +82,13 @@ type Beneficiario = {
 export interface IUpdateServidor extends IServidor {
     beneficiarios?: Beneficiario[]
 }
+
+export interface IEstagiario {
+    id?: number
+    nome: string
+    setor: string
+    cargo: string
+    horario: string
+    entrada: Entrada
+    saida: Saida
+}

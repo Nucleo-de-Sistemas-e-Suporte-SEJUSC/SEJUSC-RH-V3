@@ -3,7 +3,7 @@ import { api } from "@/api/axios";
 import { toast } from "sonner";
 import type { IServidor, IUpdateServidor } from "@/interfaces";
 
-export default function useFormUpdateServidor(employee: IServidor | null) {
+export default function useFormUpdateServidor(servidor: IServidor | null) {
     const formatedDate = (data_criacao: string) => {
         if (!data_criacao) {
             return '';
@@ -18,33 +18,33 @@ export default function useFormUpdateServidor(employee: IServidor | null) {
     };
 
     const [formValues, setFormValues] = React.useState<IUpdateServidor>({
-        nome: employee?.nome!,
-        setor: employee?.setor!,
-        matricula: employee?.matricula!,
-        cargo: employee?.cargo!,
+        nome: servidor?.nome!,
+        setor: servidor?.setor!,
+        matricula: servidor?.matricula!,
+        cargo: servidor?.cargo!,
         horario: '',
-        horarioentrada: employee?.horarioentrada!,
-        horariosaida: employee?.horariosaida!,
-        sexo: employee?.sexo!,
-        estado_civil: employee?.estado_civil!,
-        naturalidade: employee?.naturalidade!,
-        nacionalidade: employee?.nacionalidade!,
-        identidade: employee?.identidade!,
-        titulo_eleitor: employee?.titulo_eleitor!,
-        cpf: employee?.cpf!,
-        pis: employee?.pis!,
-        endereco: employee?.endereco!,
-        nome_pai: employee?.nome_pai!,
-        nome_mae: employee?.nome_mae!,
-        servico_militar: employee?.servico_militar!,
-        carteira_profissional: employee?.carteira_profissional!,
-        descanso_semanal: employee?.descanso_semanal!,
-        vencimento_ou_salario: employee?.vencimento_ou_salario!,
-        data_nascimento: formatedDate(employee?.data_nascimento!),
-        data_Admissao: formatedDate(employee?.data_Admissao!),
-        data_posse: formatedDate(employee?.data_posse!),
-        inicio_atividades: formatedDate(employee?.inicio_atividades!),
-        data_desligamento: formatedDate(employee?.data_desligamento!),
+        horarioentrada: servidor?.horarioentrada!,
+        horariosaida: servidor?.horariosaida!,
+        sexo: servidor?.sexo!,
+        estado_civil: servidor?.estado_civil!,
+        naturalidade: servidor?.naturalidade!,
+        nacionalidade: servidor?.nacionalidade!,
+        identidade: servidor?.identidade!,
+        titulo_eleitor: servidor?.titulo_eleitor!,
+        cpf: servidor?.cpf!,
+        pis: servidor?.pis!,
+        endereco: servidor?.endereco!,
+        nome_pai: servidor?.nome_pai!,
+        nome_mae: servidor?.nome_mae!,
+        servico_militar: servidor?.servico_militar!,
+        carteira_profissional: servidor?.carteira_profissional!,
+        descanso_semanal: servidor?.descanso_semanal!,
+        vencimento_ou_salario: servidor?.vencimento_ou_salario!,
+        data_nascimento: formatedDate(servidor?.data_nascimento!),
+        data_Admissao: formatedDate(servidor?.data_Admissao!),
+        data_posse: formatedDate(servidor?.data_posse!),
+        inicio_atividades: formatedDate(servidor?.inicio_atividades!),
+        data_desligamento: formatedDate(servidor?.data_desligamento!),
         beneficiarios: [
             { nome: '', parentesco: '', data_nascimento: '' }
         ]
@@ -105,7 +105,7 @@ export default function useFormUpdateServidor(employee: IServidor | null) {
                 })
             );
 
-            await api.patch(`/servidores/${employee?.id}`, payload)
+            await api.patch(`/servidores/${servidor?.id}`, payload)
             toast.success("Servidor atualizado com sucesso!");
             setTimeout(() => {
                 window.location.reload()

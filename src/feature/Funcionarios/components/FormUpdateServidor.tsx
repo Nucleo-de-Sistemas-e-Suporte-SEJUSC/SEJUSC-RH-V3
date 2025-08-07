@@ -2,7 +2,7 @@ import React from "react";
 import Input from "@/shared/Input";
 import { Select } from "@/shared/Select";
 import Button from "@/shared/Button";
-import type { IServidor } from "@/interfaces";
+import type { IEstagiario, IServidor } from "@/interfaces";
 import useFormUpdateServidor from "../hooks/useFormUpdateServidor";
 
 type Entrada = '' | '08:00'
@@ -11,12 +11,20 @@ type Sexo = '' | 'MASCULINO' | 'FEMININO' | 'OUTRO'
 type EstadoCivil = '' | 'SOLTEIRO' | 'CASADO' | 'DIVORCIADO' | 'VIUVO'
 
 type FormCreateServidorProps = {
-    isModalOpen: { employee: IServidor | null, modal: boolean }
-    setIsModalOpen: React.Dispatch<React.SetStateAction<{ employee: IServidor | null, modal: boolean }>>
+    isModalOpen: { 
+        servidor: IServidor | null,
+        estagiario: IEstagiario | null,
+        modal: boolean 
+    }
+    setIsModalOpen: React.Dispatch<React.SetStateAction<{
+        servidor: IServidor | null,
+        estagiario: IEstagiario | null,
+        modal: boolean
+    }>>
 }
 
 export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: FormCreateServidorProps) {
-    const { employee } = isModalOpen
+    const { servidor } = isModalOpen
 
     const {
         handleSubmit,
@@ -24,7 +32,7 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
         handleAddBeneficiario,
         setFormValues,
         formValues
-    } = useFormUpdateServidor(employee)
+    } = useFormUpdateServidor(servidor)
 
     return (
         <div>
@@ -366,7 +374,7 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
                         Atualizar Servidor
                     </Button>
                     <Button
-                        onClick={() => setIsModalOpen({ employee: null, modal: false })}
+                        onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false })}
                     >
                         Cancelar
                     </Button>
