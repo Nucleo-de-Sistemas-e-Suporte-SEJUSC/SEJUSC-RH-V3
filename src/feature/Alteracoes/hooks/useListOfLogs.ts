@@ -38,18 +38,18 @@ export default function useListOfLogs(checkbox: string, search: string) {
     }
 
     const formatedDate = (data_criacao: string) => {
-        const dataObjeto = new Date(data_criacao)
+        if (!data_criacao) {
+            return '';
+        }
 
-        const dia = String(dataObjeto.getDate()).padStart(2, '0')
-        const mes = String(dataObjeto.getMonth() + 1).padStart(2, '0')
-        const ano = dataObjeto.getFullYear();
+        const dataObjeto = new Date(data_criacao);
 
-        // const horas = String(dataObjeto.getHours()).padStart(2, '0')
-        // const minutos = String(dataObjeto.getMinutes()).padStart(2, '0')
-        // const segundos = String(dataObjeto.getSeconds()).padStart(2, '0')
+        const dia = String(dataObjeto.getUTCDate()).padStart(2, '0');
+        const mes = String(dataObjeto.getUTCMonth() + 1).padStart(2, '0');
+        const ano = dataObjeto.getUTCFullYear();
 
         return `${dia}/${mes}/${ano}`
-    }
+    };
 
     return {
         filterLogs,
