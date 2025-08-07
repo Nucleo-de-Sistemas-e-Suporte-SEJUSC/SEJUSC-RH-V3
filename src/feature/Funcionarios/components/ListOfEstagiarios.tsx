@@ -1,14 +1,19 @@
 import React from "react";
 import Button from "@/shared/Button";
-import type { IEstagiario } from "@/interfaces";
 import useListOfEstagiarios from "../hooks/useListOfEstagiarios";
+import type { IEstagiario, IServidor } from "@/interfaces";
 
 type ListOfEstagiariosProps = {
     estagiarios: IEstagiario[] | null
     filterOptions: { checkbox: string, search: string }
+    setIsModalOpen: React.Dispatch<React.SetStateAction<{
+        servidor: IServidor | null,
+        estagiario: IEstagiario | null,
+        modal: boolean
+    }>>
 }
 
-export default function ListOfEstagiarios({ estagiarios, filterOptions }: ListOfEstagiariosProps) {
+export default function ListOfEstagiarios({ estagiarios, filterOptions, setIsModalOpen }: ListOfEstagiariosProps) {
     const { checkbox, search } = filterOptions
     const [isLoading, setIsLoading] = React.useState<{ id: number | null, load: boolean, action: string | null }>({
         id: null,
@@ -24,27 +29,27 @@ export default function ListOfEstagiarios({ estagiarios, filterOptions }: ListOf
 
     return (
         <div className="grid grid-cols-3 gap-4 max-h-[624px] overflow-y-scroll rounded">
-            {filterEstagiarios()?.map(({ id, nome, setor }) => (
-                <div key={id} className="flex flex-col justify-between gap-2.5 bg-gray-100 text-slate-900 p-3 rounded">
+            {filterEstagiarios()?.map((estagiario) => (
+                <div key={estagiario.id} className="flex flex-col justify-between gap-2.5 bg-gray-100 text-slate-900 p-3 rounded">
                     <div>
-                        <h3 className="text-2xl font-medium">{nome}</h3>
-                        <p className="text-lg text-slate-700">{setor}</p>
+                        <h3 className="text-2xl font-medium">{estagiario.nome}</h3>
+                        <p className="text-lg text-slate-700">{estagiario.setor}</p>
                     </div>
                     <div className="flex gap-2">
                         <Button
                             className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
                             onClick={() => {
                                 if (checkbox === 'ativos') {
-                                    handleArchiveEstagiario(id!)
+                                    handleArchiveEstagiario(estagiario.id!)
                                     return
                                 }
-                                handleActiveEstagiario(id!)
+                                handleActiveEstagiario(estagiario.id!)
                             }}
                         >
                             {checkbox === 'ativos' ? (
-                                <p>{(isLoading.load && isLoading.id === id && isLoading.action === 'arquivar') ? 'Arquivando' : 'Arquivar'}</p>
+                                <p>{(isLoading.load && isLoading.id === estagiario.id && isLoading.action === 'arquivar') ? 'Arquivando' : 'Arquivar'}</p>
                             ) : (
-                                <p>{(isLoading.load && isLoading.id === id && isLoading.action === 'desarquivar') ? 'Desarquivando' : 'Desarquivar'}</p>
+                                <p>{(isLoading.load && isLoading.id === estagiario.id && isLoading.action === 'desarquivar') ? 'Desarquivando' : 'Desarquivar'}</p>
                             )}
                         </Button>
 
@@ -52,6 +57,7 @@ export default function ListOfEstagiarios({ estagiarios, filterOptions }: ListOf
                             <>
                                 <Button
                                     className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
+                                    onClick={() => setIsModalOpen({ servidor: null, estagiario: estagiario, modal: true })}
                                 >
                                     Atualizar
                                 </Button>
