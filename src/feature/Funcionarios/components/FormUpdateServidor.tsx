@@ -18,15 +18,29 @@ type FormCreateServidorProps = {
 
 export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: FormCreateServidorProps) {
     const { employee } = isModalOpen
+
+    const formatedDate = (data_criacao: string) => {
+        if (!data_criacao) {
+            return '';
+        }
+
+        const dataObjeto = new Date(data_criacao);
+
+        const dia = String(dataObjeto.getUTCDate()).padStart(2, '0');
+        const mes = String(dataObjeto.getUTCMonth() + 1).padStart(2, '0');
+        const ano = dataObjeto.getUTCFullYear();
+
+        return `${ano}-${mes}-${dia}`;
+    };
+
     const [formValues, setFormValues] = React.useState<IServidor>({
         nome: employee?.nome!,
         setor: employee?.setor!,
         matricula: employee?.matricula!,
         cargo: employee?.cargo!,
         horario: '',
-        entrada: employee?.entrada!,
-        saida: employee?.saida!,
-        data_nascimento: '',
+        horarioentrada: employee?.horarioentrada!,
+        horariosaida: employee?.horariosaida!,
         sexo: employee?.sexo!,
         estado_civil: employee?.estado_civil!,
         naturalidade: employee?.naturalidade!,
@@ -35,17 +49,18 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
         titulo_eleitor: employee?.titulo_eleitor!,
         cpf: employee?.cpf!,
         pis: employee?.pis!,
-        data_admissao: '',
         endereco: employee?.endereco!,
         nome_pai: employee?.nome_pai!,
         nome_mae: employee?.nome_mae!,
         servico_militar: employee?.servico_militar!,
         carteira_profissional: employee?.carteira_profissional!,
-        data_posse: '',
         descanso_semanal: employee?.descanso_semanal!,
-        data_desligamento: '',
-        inicio_atividades: '',
         vencimento_ou_salario: employee?.vencimento_ou_salario!,
+        data_nascimento: formatedDate(employee?.data_nascimento!),
+        data_Admissao: formatedDate(employee?.data_Admissao!),
+        data_posse: formatedDate(employee?.data_posse!),
+        inicio_atividades: formatedDate(employee?.inicio_atividades!),
+        data_desligamento: formatedDate(employee?.data_desligamento!),
         beneficiarios: [
             { nome: '', parentesco: '', data_nascimento: '' }
         ]
@@ -60,13 +75,12 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
                 matricula: formValues.matricula,
                 cargo: formValues.cargo,
 
-                horario: (formValues.entrada && formValues.saida)
-                    ? `${formValues.entrada}-${formValues.saida}`
+                horario: (formValues.horarioentrada && formValues.horariosaida)
+                    ? `${formValues.horarioentrada}-${formValues.horariosaida}`
                     : '',
 
-                entrada: formValues.entrada,
-                saida: formValues.saida,
-                data_nascimento: formValues.data_nascimento,
+                horarioentrada: formValues.horarioentrada,
+                horariosaida: formValues.horariosaida,
                 sexo: formValues.sexo,
                 estado_civil: formValues.estado_civil,
                 naturalidade: formValues.naturalidade,
@@ -75,17 +89,18 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
                 titulo_eleitor: formValues.titulo_eleitor,
                 cpf: formValues.cpf,
                 pis: formValues.pis,
-                data_admissao: formValues.data_admissao,
                 endereco: formValues.endereco,
                 nome_pai: formValues.nome_pai,
                 nome_mae: formValues.nome_mae,
                 servico_militar: formValues.servico_militar,
                 carteira_profissional: formValues.carteira_profissional,
-                data_posse: formValues.data_posse,
                 descanso_semanal: formValues.descanso_semanal,
-                data_desligamento: formValues.data_desligamento,
-                inicio_atividades: formValues.inicio_atividades,
                 vencimento_ou_salario: formValues?.vencimento_ou_salario,
+                data_nascimento: formValues.data_nascimento,
+                data_Admissao: formValues.data_Admissao,
+                data_posse: formValues.data_posse,
+                inicio_atividades: formValues.inicio_atividades,
+                data_desligamento: formValues.data_desligamento,
 
                 beneficiarios: (formValues.beneficiarios || []).filter(b =>
                     b.nome !== '' && b.parentesco !== '' && b.data_nascimento !== ''
@@ -108,38 +123,6 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
 
             await api.patch(`/servidores/${employee?.id}`, payload)
             toast.success("Servidor atualizado com sucesso!");
-            setFormValues({
-                nome: '',
-                setor: '',
-                matricula: '',
-                cargo: '',
-                horario: '',
-                entrada: '',
-                saida: '',
-                data_nascimento: '',
-                sexo: '',
-                estado_civil: '',
-                naturalidade: '',
-                nacionalidade: '',
-                identidade: '',
-                titulo_eleitor: '',
-                cpf: '',
-                pis: '',
-                data_admissao: '',
-                endereco: '',
-                nome_pai: '',
-                nome_mae: '',
-                servico_militar: '',
-                carteira_profissional: '',
-                data_posse: '',
-                descanso_semanal: '',
-                data_desligamento: '',
-                inicio_atividades: '',
-                vencimento_ou_salario: '',
-                beneficiarios: [
-                    { nome: '', parentesco: '', data_nascimento: '' }
-                ]
-            });
             setTimeout(() => {
                 window.location.reload()
             }, 1000);
@@ -317,19 +300,20 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
                         <div className="flex gap-4">
                             <div className="grow">
                                 <Select
-                                    id="entrada"
+                                    id="horarioentrada"
                                     label="Entrada*"
                                     optionLabel='selecione uma opção'
                                     options={[
                                         { label: '08:00', value: '08:00' },
                                     ]}
                                     required
-                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, entrada: currentTarget.value as Entrada }))}
+                                    value={formValues.horarioentrada.slice(0, 5)}
+                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, horarioentrada: currentTarget.value as Entrada }))}
                                 />
                             </div>
                             <div className="grow">
                                 <Select
-                                    id="saida"
+                                    id="horariosaida"
                                     label="Saida*"
                                     optionLabel='selecione uma opção'
                                     options={[
@@ -337,7 +321,8 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
                                         { label: '17:00', value: '17:00' },
                                     ]}
                                     required
-                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, saida: currentTarget.value as Saida }))}
+                                    value={formValues.horariosaida.slice(0, 5)}
+                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, horariosaida: currentTarget.value as Saida }))}
                                 />
                             </div>
                         </div>
@@ -350,16 +335,18 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
                                     label="Data do Nascimento*"
                                     type="date"
                                     required
+                                    value={formValues.data_nascimento}
                                     onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, data_nascimento: currentTarget.value }))}
                                 />
                             </div>
                             <div className="grow">
                                 <Input
-                                    id="data_admissao"
+                                    id="data_Admissao"
                                     label="Data de Admissao*"
                                     type="date"
                                     required
-                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, data_admissao: currentTarget.value }))}
+                                    value={formValues.data_Admissao}
+                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, data_Admissao: currentTarget.value }))}
                                 />
                             </div>
                         </div>
@@ -423,6 +410,7 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
                                     label="Data da Posse"
                                     type="date"
                                     required
+                                    value={formValues.data_posse}
                                     onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, data_posse: currentTarget.value }))}
                                 />
                             </div>
@@ -443,8 +431,8 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
                                 <Input
                                     id="inicio_atividades"
                                     label="Início das Atividades"
-                                    value={formValues?.servico_militar}
                                     type="date"
+                                    value={formValues.inicio_atividades}
                                     onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, inicio_atividades: currentTarget.value }))}
                                 />
                             </div>
@@ -454,18 +442,9 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
                                 <Input
                                     id="data_desligamento"
                                     label="Data de Desligamento"
-                                    value={formValues?.data_desligamento}
                                     type="date"
+                                    value={formValues.data_desligamento}
                                     onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, data_desligamento: currentTarget.value }))}
-                                />
-                            </div>
-                            <div className="grow">
-                                <Input
-                                    id="inicio_atividades"
-                                    label="Início das Atividades"
-                                    value={formValues?.inicio_atividades}
-                                    type="date"
-                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, inicio_atividades: currentTarget.value }))}
                                 />
                             </div>
                         </div>

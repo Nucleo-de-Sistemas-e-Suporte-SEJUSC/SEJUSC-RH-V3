@@ -22,8 +22,8 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
         matricula: '',
         cargo: '',
         horario: '',
-        entrada: '',
-        saida: '',
+        horarioentrada: '',
+        horariosaida: '',
         data_nascimento: '',
         sexo: '',
         estado_civil: '',
@@ -50,9 +50,9 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
                 setor: formValues.setor,
                 matricula: formValues.matricula,
                 cargo: formValues.cargo,
-                horario: `${formValues.entrada}-${formValues.saida}`,
-                entrada: formValues.entrada,
-                saida: formValues.saida,
+                horario: `${formValues.horarioentrada}-${formValues.horariosaida}`,
+                entrada: formValues.horarioentrada,
+                saida: formValues.horariosaida,
                 data_nascimento: formValues.data_nascimento,
                 sexo: formValues.sexo,
                 estado_civil: formValues.estado_civil,
@@ -77,8 +77,8 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
                 matricula: '',
                 cargo: '',
                 horario: '',
-                entrada: '',
-                saida: '',
+                horarioentrada: '',
+                horariosaida: '',
                 data_nascimento: '',
                 sexo: '',
                 estado_civil: '',
@@ -232,19 +232,19 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
                         <div className="flex gap-4">
                             <div className="grow">
                                 <Select
-                                    id="entrada"
+                                    id="horarioentrada"
                                     label="Entrada*"
                                     optionLabel='selecione uma opção'
                                     options={[
                                         { label: '08:00', value: '08:00' },
                                     ]}
                                     required
-                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, entrada: currentTarget.value as Entrada }))}
+                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, horarioentrada: currentTarget.value as Entrada }))}
                                 />
                             </div>
                             <div className="grow">
                                 <Select
-                                    id="saida"
+                                    id="horariosaida"
                                     label="Saida*"
                                     optionLabel='selecione uma opção'
                                     options={[
@@ -252,7 +252,7 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
                                         { label: '17:00', value: '17:00' },
                                     ]}
                                     required
-                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, saida: currentTarget.value as Saida }))}
+                                    onChange={({ currentTarget }) => setFormValues((prevValues) => ({ ...prevValues, horariosaida: currentTarget.value as Saida }))}
                                 />
                             </div>
                         </div>

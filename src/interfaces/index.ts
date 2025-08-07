@@ -27,8 +27,8 @@ export interface IServidor {
     matricula: string
     cargo: string
     horario: string
-    entrada: Entrada
-    saida: Saida
+    horarioentrada: Entrada
+    horariosaida: Saida
     data_nascimento: string
     sexo: Sexo
     estado_civil: EstadoCivil
@@ -38,7 +38,7 @@ export interface IServidor {
     titulo_eleitor: string
     cpf: string
     pis: string
-    data_admissao: string
+    data_Admissao: string
     endereco: string
     nome_pai: string
     nome_mae: string
