@@ -10,6 +10,7 @@ import FormCreateEstagiario from "@/feature/Funcionarios/components/FormCreateEs
 import FormUpdateServidor from "@/feature/Funcionarios/components/FormUpdateServidor"
 import type { IEstagiario, IServidor } from "@/interfaces"
 import FormUpdateEstagiario from "@/feature/Funcionarios/components/FormUpdateEstagiario"
+import FormAnexarServidor from "@/feature/Funcionarios/components/FormAnexarServidor"
 
 export default function FuncionariosPage() {
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
@@ -98,7 +99,7 @@ export default function FuncionariosPage() {
                             {isModalOpen.servidor ? (
                                 <>
                                     {isModalOpen.action === 'atualizar' && (<FormUpdateServidor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />)}
-                                    {isModalOpen.action === 'anexar' && (<div>anexar</div>)}
+                                    {isModalOpen.action === 'anexar' && (<FormAnexarServidor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />)}
                                 </>
 
                             ) : (
