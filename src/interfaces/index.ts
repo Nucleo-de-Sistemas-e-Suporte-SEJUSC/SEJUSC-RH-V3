@@ -94,3 +94,14 @@ export interface IEstagiario {
     feriasinicio: string
     feriasfinal: string
 }
+
+export interface ICreateEstagiario {
+    id?: number
+    nome: string
+    setor: string
+    cargo: string
+    horario: string
+    horario_entrada: '' | '08:00' | '11:00'
+    horario_saida: Saida
+}
+

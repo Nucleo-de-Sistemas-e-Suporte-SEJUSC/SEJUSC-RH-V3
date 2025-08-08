@@ -17,7 +17,8 @@ type FormUpdateEstagiarioProps = {
     setIsModalOpen: React.Dispatch<React.SetStateAction<{
         servidor: IServidor | null,
         estagiario: IEstagiario | null,
-        modal: boolean
+        modal: boolean,
+        action: string | null
     }>>
 }
 
@@ -128,7 +129,7 @@ export default function FormUpdateEstagiario({ isModalOpen, setIsModalOpen }: Fo
                         Atualizar Estagiário
                     </Button>
                     <Button
-                        onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false })}
+                        onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false, action: null })}
                     >
                         Cancelar
                     </Button>

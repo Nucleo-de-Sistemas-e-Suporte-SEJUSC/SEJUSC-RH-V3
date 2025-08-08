@@ -16,12 +16,14 @@ export default function FuncionariosPage() {
     const [isModalOpen, setIsModalOpen] = React.useState<{
         servidor: IServidor | null,
         estagiario: IEstagiario | null,
-        modal: boolean
+        modal: boolean,
+        action: string | null
     }>
         ({
             servidor: null,
             estagiario: null,
-            modal: false
+            modal: false,
+            action: null
         })
     const [filterOptions, setFilterOptions] = React.useState({
         checkbox: 'ativos',
@@ -94,10 +96,11 @@ export default function FuncionariosPage() {
                     {selectedEmployee === 'servidores' ? (
                         <>
                             {isModalOpen.servidor ? (
-                                <FormUpdateServidor
-                                    isModalOpen={isModalOpen}
-                                    setIsModalOpen={setIsModalOpen}
-                                />
+                                <>
+                                    {isModalOpen.action === 'atualizar' && (<FormUpdateServidor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />)}
+                                    {isModalOpen.action === 'anexar' && (<div>anexar</div>)}
+                                </>
+
                             ) : (
                                 <FormCreateServidor
                                     setIsModalOpen={setIsModalOpen}
@@ -111,12 +114,11 @@ export default function FuncionariosPage() {
                                     isModalOpen={isModalOpen}
                                     setIsModalOpen={setIsModalOpen}
                                 />
-                            )
-                                : (
-                                    <FormCreateEstagiario
-                                        setIsModalOpen={setIsModalOpen}
-                                    />
-                                )}
+                            ) : (
+                                <FormCreateEstagiario
+                                    setIsModalOpen={setIsModalOpen}
+                                />
+                            )}
                         </>
                     )}
                 </>
@@ -130,7 +132,7 @@ export default function FuncionariosPage() {
                         />
                         <div className="self-center">
                             <Button
-                                onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: true })}
+                                onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: true, action: null })}
                             >
                                 {selectedEmployee === 'servidores' ? 'CRIAR SERVIDOR' : 'CRIAR ESTAGIÁRIO'}
                             </Button>
