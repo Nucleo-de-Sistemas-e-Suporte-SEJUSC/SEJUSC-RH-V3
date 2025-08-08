@@ -4,7 +4,7 @@ import { Select } from "@/shared/Select";
 import Button from "@/shared/Button";
 import { api } from "@/api/axios";
 import { toast } from "sonner";
-import type { IEstagiario, IServidor } from "@/interfaces";
+import type { ICreateEstagiario, IEstagiario, IServidor } from "@/interfaces";
 
 type Entrada = '' | '08:00'
 type Saida = '' | '14:00' | '17:00'
@@ -13,18 +13,19 @@ type FormCreateEstagiarioProps = {
     setIsModalOpen: React.Dispatch<React.SetStateAction<{
         servidor: IServidor | null,
         estagiario: IEstagiario | null,
-        modal: boolean
+        modal: boolean,
+        action: string | null
     }>>
 }
 
 export default function FormCreateEstagiario({ setIsModalOpen }: FormCreateEstagiarioProps) {
-    const [formValues, setFormValues] = React.useState<IEstagiario>({
+    const [formValues, setFormValues] = React.useState<ICreateEstagiario>({
         nome: '',
         setor: '',
         cargo: '',
         horario: '',
-        entrada: '',
-        saida: '',
+        horario_entrada: '',
+        horario_saida: '',
     })
 
     const handleSubmit = async (event: React.FormEvent) => {
@@ -34,9 +35,9 @@ export default function FormCreateEstagiario({ setIsModalOpen }: FormCreateEstag
                 nome: formValues.nome,
                 setor: formValues.setor,
                 cargo: 'ESTAGIÁRIO',
-                horario: `${formValues.entrada}-${formValues.saida}`,
-                entrada: formValues.entrada,
-                saida: formValues.saida
+                horario: `${formValues.horario_entrada}-${formValues.horario_saida}`,
+                entrada: formValues.horario_entrada,
+                saida: formValues.horario_saida
             })
             toast.success("Estagiário cadastrado com sucesso!");
             setFormValues({
@@ -44,8 +45,8 @@ export default function FormCreateEstagiario({ setIsModalOpen }: FormCreateEstag
                 setor: '',
                 cargo: '',
                 horario: '',
-                entrada: '',
-                saida: ''
+                horario_entrada: '',
+                horario_saida: ''
             });
         } catch (error) {
             console.log('Erro ao cadastrar estagiário:', error)
@@ -123,7 +124,7 @@ export default function FormCreateEstagiario({ setIsModalOpen }: FormCreateEstag
                         Cadastrar Estagiário
                     </Button>
                     <Button
-                        onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false })}
+                        onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false, action: null })}
                     >
                         Cancelar
                     </Button>

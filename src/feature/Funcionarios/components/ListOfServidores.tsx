@@ -9,7 +9,8 @@ type ListOfServidoresProps = {
     setIsModalOpen: React.Dispatch<React.SetStateAction<{
         servidor: IServidor | null,
         estagiario: IEstagiario | null,
-        modal: boolean
+        modal: boolean,
+        action: string | null
     }>>
 }
 
@@ -58,12 +59,13 @@ export default function ListOfServidores({ servidores, filterOptions, setIsModal
                             <>
                                 <Button
                                     className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
-                                    onClick={() => setIsModalOpen({ servidor: servidor, estagiario: null, modal: true })}
+                                    onClick={() => setIsModalOpen({ servidor: servidor, estagiario: null, modal: true, action: 'atualizar' })}
                                 >
                                     Atualizar
                                 </Button>
                                 <Button
                                     className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
+                                    onClick={() => setIsModalOpen({ servidor: servidor, estagiario: null, modal: true, action: 'anexar' })}
                                 >
                                     Anexar
                                 </Button>

@@ -19,7 +19,8 @@ type FormCreateServidorProps = {
     setIsModalOpen: React.Dispatch<React.SetStateAction<{
         servidor: IServidor | null,
         estagiario: IEstagiario | null
-        modal: boolean
+        modal: boolean,
+        action: string | null
     }>>
 }
 
@@ -355,7 +356,7 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
                         Cadastrar Servidor
                     </Button>
                     <Button
-                        onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false })}
+                        onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false, action: null })}
                     >
                         Cancelar
                     </Button>
