@@ -9,6 +9,7 @@ import { api } from "@/api/axios"
 import FormCreateEstagiario from "@/feature/Funcionarios/components/FormCreateEstagiario"
 import FormUpdateServidor from "@/feature/Funcionarios/components/FormUpdateServidor"
 import type { IEstagiario, IServidor } from "@/interfaces"
+import FormUpdateEstagiario from "@/feature/Funcionarios/components/FormUpdateEstagiario"
 
 export default function FuncionariosPage() {
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
@@ -104,9 +105,19 @@ export default function FuncionariosPage() {
                             )}
                         </>
                     ) : (
-                        <FormCreateEstagiario
-                            setIsModalOpen={setIsModalOpen}
-                        />
+                        <>
+                            {isModalOpen.estagiario ? (
+                                <FormUpdateEstagiario
+                                    isModalOpen={isModalOpen}
+                                    setIsModalOpen={setIsModalOpen}
+                                />
+                            )
+                                : (
+                                    <FormCreateEstagiario
+                                        setIsModalOpen={setIsModalOpen}
+                                    />
+                                )}
+                        </>
                     )}
                 </>
             ) : (
@@ -141,6 +152,7 @@ export default function FuncionariosPage() {
                         <ListOfEstagiarios
                             estagiarios={checkbox === 'ativos' ? activeEmployees.estagiarios : archivedEmployees.estagiarios}
                             filterOptions={filterOptions}
+                            setIsModalOpen={setIsModalOpen}
                         />
                     )}
                 </>

@@ -89,6 +89,8 @@ export interface IEstagiario {
     setor: string
     cargo: string
     horario: string
-    entrada: Entrada
-    saida: Saida
+    horario_entrada: '' | '08:00' | '11:00'
+    horario_saida: Saida
+    feriasinicio: string
+    feriasfinal: string
 }
