@@ -1,10 +1,10 @@
-import React from "react"
+import React  from "react"
 import Button from "@/shared/Button"
 import type { IEstagiario, IServidor } from "@/interfaces"
-import { api } from "@/api/axios"
 import { toast } from "sonner"
+import { api } from "@/api/axios"
 
-type FormAnexarServidorProps = {
+type FormAnexarEstagiarioProps = {
     isModalOpen: {
         servidor: IServidor | null,
         estagiario: IEstagiario | null,
@@ -19,15 +19,15 @@ type FormAnexarServidorProps = {
 }
 
 type UploadData = {
-    funcionarioId: number | null;
+    estagiarioId: number | null;
     files: Record<string, File | null>;
 };
 
-export default function FormAnexarServidor({ isModalOpen, setIsModalOpen }: FormAnexarServidorProps) {
-    const { servidor } = isModalOpen
+export default function FormAnexarEstagiario({ isModalOpen, setIsModalOpen }: FormAnexarEstagiarioProps) {
+    const { estagiario } = isModalOpen
 
     const [uploadData, setUploadData] = React.useState<UploadData>({
-        funcionarioId: servidor?.id as number | null,
+        estagiarioId: estagiario?.id as number | null,
         files: {
             'RG': null,
             'CPF': null,
@@ -41,7 +41,7 @@ export default function FormAnexarServidor({ isModalOpen, setIsModalOpen }: Form
         }
     });
 
-    const { files, funcionarioId } = uploadData
+    const { files, estagiarioId } = uploadData
 
     const handleFileChange = (tipoDocumento: string, event: React.ChangeEvent<HTMLInputElement>) => {
         const newFile = event.currentTarget.files?.[0];
@@ -75,8 +75,8 @@ export default function FormAnexarServidor({ isModalOpen, setIsModalOpen }: Form
             return;
         }
 
-        if (funcionarioId) {
-            formData.append('funcionario_id', funcionarioId.toString());
+        if (estagiarioId) {
+            formData.append('estagiario_id', estagiarioId.toString());
         }
 
         try {
@@ -102,7 +102,7 @@ export default function FormAnexarServidor({ isModalOpen, setIsModalOpen }: Form
     return (
         <div>
             <h1 className="text-4xl text-sky-950 font-semibold pb-8">
-                {`Servidor: ${servidor?.nome}`}
+                {`Servidor: ${estagiario?.nome}`}
             </h1>
             <form>
                 <div className="flex flex-col gap-6">
