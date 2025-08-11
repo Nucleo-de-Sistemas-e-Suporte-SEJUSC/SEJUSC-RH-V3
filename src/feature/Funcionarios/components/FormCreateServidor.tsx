@@ -4,10 +4,10 @@ import { Select } from "@/shared/Select";
 import Button from "@/shared/Button";
 import { api } from "@/api/axios";
 import { toast } from "sonner";
-import type { 
-    ICreateServidor, 
-    IEstagiario, 
-    IServidor 
+import type {
+    ICreateServidor,
+    IEstagiario,
+    IServidor
 } from "@/interfaces";
 
 type Entrada = '' | '08:00'
@@ -356,6 +356,7 @@ export default function FormCreateServidor({ setIsModalOpen }: FormCreateServido
                         Cadastrar Servidor
                     </Button>
                     <Button
+                        type="button"
                         onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false, action: null })}
                     >
                         Cancelar

@@ -1,7 +1,8 @@
 import type React from "react"
 import { Link } from "react-router"
-import { ChartPie, Folder, History, LogOut, PanelRightOpen, RefreshCw } from "lucide-react"
 import { useAuth } from "@/context/AuthContext"
+import type { User } from "@/interfaces"
+import { ChartPie, Folder, History, LogOut, PanelRightOpen, RefreshCw } from "lucide-react"
 
 type SidebarProps = React.ComponentProps<'aside'> & {
     handleOpenSideBar: () => void
@@ -10,6 +11,7 @@ type SidebarProps = React.ComponentProps<'aside'> & {
 
 export default function Sidebar({ handleOpenSideBar, isSideBarOpen }: SidebarProps) {
     const { logout } = useAuth()
+    const storedUser = JSON.parse(localStorage.getItem('user')!) as User
 
     return (
         <aside className={`flex flex-col p-4 bg-sky-950 rounded-r-4xl shadow-2xl ${isSideBarOpen ? '' : 'max-w-max'}`}>
@@ -20,20 +22,20 @@ export default function Sidebar({ handleOpenSideBar, isSideBarOpen }: SidebarPro
                 <PanelRightOpen size={32} className={`text-slate-200 group-hover:text-slate-400 transition-all ${isSideBarOpen ? '' : 'rotate-180 duration-200'} duration-200`} />
             </button>
 
-            <Link to={'/'} className='group flex items-center gap-4 p-2 text-slate-200 text-2xl hover:text-slate-400 transition-colors duration-100 grow-1'>
+            <div  className='group flex items-center gap-4 p-2 text-slate-200 text-2xl grow-1'>
                 {isSideBarOpen ?
                     <div className="flex gap-2 items-center">
-                        <span className="bg-white px-2 py-[3px] rounded-[100%] text-sky-950 text-2xl font-semibold">A</span>
+                        <span className="bg-white px-1 py-[3px] rounded-[80%] text-sky-950 text-xl font-bold">{`${storedUser.nome.split(" ")[0][0]}${storedUser.nome.split(" ")[1][0]}`}</span>
                         <div className="flex flex-col">
-                            <span>Administrador</span>
-                            <span className="text-sm">Yuri Odilon</span>
+                            <span>{storedUser.role.toUpperCase()}</span>
+                            <span className="text-sm">{`${storedUser.nome.split(" ")[0]} ${storedUser.nome.split(" ")[1]}`}</span>
                         </div>
                     </div>
                     :
                     <div className="py-2.5">
-                        <span className="bg-white px-2 py-[4px] rounded-[100%] text-sky-950 text-2xl font-semibold">A</span>
+                        <span className="bg-white px-1 py-[4px] rounded-[80%] text-sky-950 text-xl font-bold">{`${storedUser.nome.split(" ")[0][0]}${storedUser.nome.split(" ")[1][0]}`}</span>
                     </div>}
-            </Link>
+            </div>
 
             <div className="grow-5">
                 <div className="flex flex-col gap-6">
