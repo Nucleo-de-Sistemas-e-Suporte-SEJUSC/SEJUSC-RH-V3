@@ -129,6 +129,7 @@ export default function FormUpdateEstagiario({ isModalOpen, setIsModalOpen }: Fo
                         Atualizar Estagiário
                     </Button>
                     <Button
+                        type="button"
                         onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false, action: null })}
                     >
                         Cancelar

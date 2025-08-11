@@ -124,6 +124,7 @@ export default function FormCreateEstagiario({ setIsModalOpen }: FormCreateEstag
                         Cadastrar Estagiário
                     </Button>
                     <Button
+                        type="button"
                         onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false, action: null })}
                     >
                         Cancelar

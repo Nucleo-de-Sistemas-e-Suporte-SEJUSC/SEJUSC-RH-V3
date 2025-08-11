@@ -60,7 +60,7 @@ export default function TableServidores({ selectedEmployee, filterOptions, setFi
                     )}
                     <tbody className="bg-slate-100 divide-y divide-gray-300">
                         {checkbox === 'setores' && filterSetoresServidor()?.map((setor) => (
-                            <tr key={setor.id} className="*:px-6 *:py-4 *:text-lg">
+                            <tr key={crypto.randomUUID().split("-")[0]} className="*:px-6 *:py-4 *:text-lg">
                                 <td className="max-w-[120px] truncate whitespace-nowrap overflow-hidden" title={setor.setor}>
                                     {setor.setor}
                                 </td>

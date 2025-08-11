@@ -18,12 +18,12 @@ export default function useFormUpdateEstagiaro(estagiario: IEstagiario | null) {
     };
 
     const [formValues, setFormValues] = React.useState<IEstagiario>({
-        nome: estagiario?.nome!,
-        setor: estagiario?.setor!,
+        nome: estagiario?.nome! || '',
+        setor: estagiario?.setor! || '',
         cargo: '',
         horario: '',
-        horario_entrada: estagiario?.horario_entrada!,
-        horario_saida: estagiario?.horario_saida!,
+        horario_entrada: estagiario?.horario_entrada! || '',
+        horario_saida: estagiario?.horario_saida! || '',
         feriasinicio: formatedDate(estagiario?.feriasinicio!),
         feriasfinal: formatedDate(estagiario?.feriasfinal!)
     })

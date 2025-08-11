@@ -375,6 +375,7 @@ export default function FormUpdateServidor({ isModalOpen, setIsModalOpen }: Form
                         Atualizar Servidor
                     </Button>
                     <Button
+                        type="button"
                         onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false, action: null })}
                     >
                         Cancelar

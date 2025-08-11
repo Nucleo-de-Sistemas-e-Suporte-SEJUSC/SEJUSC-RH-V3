@@ -1,4 +1,4 @@
-import React  from "react"
+import React from "react"
 import Button from "@/shared/Button"
 import type { IEstagiario, IServidor } from "@/interfaces"
 import { toast } from "sonner"
@@ -100,146 +100,120 @@ export default function FormAnexarEstagiario({ isModalOpen, setIsModalOpen }: Fo
     }
 
     return (
-        <div>
+        <div className="max-w-4xl">
             <h1 className="text-4xl text-sky-950 font-semibold pb-8">
-                {`Servidor: ${estagiario?.nome}`}
+                {`Estagiário: ${estagiario?.nome}`}
             </h1>
+            <h3 className="font-semibold text-2xl border-b-2 mb-4">Documentos</h3>
             <form>
                 <div className="flex flex-col gap-6">
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="flex items-center gap-4">
-                            <div className="grow">
-                                <label
-                                    htmlFor="rg"
-                                    className="flex flex-col gap-1.5 text-slate-800 font-medium"
-                                >RG</label>
-                                <input
-                                    id="rg"
-                                    type="file"
-                                    name="rh"
-                                    onChange={(event) => handleFileChange('RG', event)}
-                                />
-                            </div>
-                            <div className="grow">
-                                <label
-                                    htmlFor="cpf"
-                                    className="flex flex-col gap-1.5 text-slate-800 font-medium"
-                                >CPF</label>
-                                <input
-                                    id="cpf"
-                                    type="file"
-                                    name="cpf"
-                                    onChange={(event) => handleFileChange('CPF', event)}
-                                />
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <div className="grow">
-                                <label
-                                    htmlFor="tituloEleitor"
-                                    className="flex flex-col gap-1.5 text-slate-800 font-medium"
-                                >Título de Eleitor</label>
-                                <input
-                                    id="tituloEleitor"
-                                    type="file"
-                                    name="tituloEleitor"
-                                    onChange={(event) => handleFileChange('TITULO_ELEITOR', event)}
-                                />
-                            </div>
-                            <div className="grow">
-                                <label
-                                    htmlFor="pis/pased"
-                                    className="flex flex-col gap-1.5 text-slate-800 font-medium"
-                                >PIS/PASED</label>
-                                <input
-                                    id="pis/pased"
-                                    type="file"
-                                    name="pis/pased"
-                                    onChange={(event) => handleFileChange('PIS_PASEP', event)}
-                                />
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <div className="grow">
-                                <label
-                                    htmlFor="certidaoReservista"
-                                    className="flex flex-col gap-1.5 text-slate-800 font-medium"
-                                >Certidao Reservista</label>
-                                <input
-                                    id="certidaoReservista"
-                                    type="file"
-                                    name="certidaoReservista"
-                                    onChange={(event) => handleFileChange('CERTIDAO_RESERVISTA', event)}
-                                />
-                            </div>
-                            <div className="grow">
-                                <label
-                                    htmlFor="comprovanteEscolaridade"
-                                    className="flex flex-col gap-1.5 text-slate-800 font-medium"
-                                >Comprovante Escolaridade</label>
-                                <input
-                                    id="comprovanteEscolaridade"
-                                    type="file"
-                                    name="comprovanteEscolaridade"
-                                    onChange={(event) => handleFileChange('COMPROVANTE_ESCOLARIDADE', event)}
-                                />
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <div className="grow">
-                                <label
-                                    htmlFor="foto3x4"
-                                    className="flex flex-col gap-1.5 text-slate-800 font-medium"
-                                >Foto 3x4</label>
-                                <input
-                                    id="foto3x4"
-                                    type="file"
-                                    name="foto3x4"
-                                    onChange={(event) => handleFileChange('FOTO_3X4', event)}
-                                />
-                            </div>
-                            <div className="grow">
-                                <label
-                                    htmlFor="certidaoNascimento"
-                                    className="flex flex-col gap-1.5 text-slate-800 font-medium"
-                                >Certidão de Nascimento</label>
-                                <input
-                                    id="certidaoNascimento"
-                                    type="file"
-                                    name="certidaoNascimento"
-                                    onChange={(event) => handleFileChange('CERTIDAO_NASCIMENTO', event)}
-                                />
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <div className="grow">
-                                <label
-                                    htmlFor="curriculo"
-                                    className="flex flex-col gap-1.5 text-slate-800 font-medium"
-                                >Currículo</label>
-                                <input
-                                    id="curriculo"
-                                    type="file"
-                                    name="curriculo"
-                                    onChange={(event) => handleFileChange('CURRICULO', event)}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex gap-4">
-                        <Button
-                            onClick={handleSubmit}
-                        >
-                            Anexar Documentos
-                        </Button>
-                        <Button
-                            onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false, action: null })}
-                        >
-                            Cancelar
-                        </Button>
+                    <div className="flex flex-col gap-6">
+                        <label
+                            className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium"
+                        >RG
+                            <input
+                                id="rg"
+                                type="file"
+                                name="rh"
+                                onChange={(event) => handleFileChange('RG', event)}
+                            />
+                        </label>
+                        <label
+                            className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium"
+                        >CPF
+                            <input
+                                id="cpf"
+                                type="file"
+                                name="cpf"
+                                onChange={(event) => handleFileChange('CPF', event)}
+                            />
+                        </label>
+                        <label
+                            className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium"
+                        >Título de Eleitor
+                            <input
+                                id="tituloEleitor"
+                                type="file"
+                                name="tituloEleitor"
+                                onChange={(event) => handleFileChange('TITULO_ELEITOR', event)}
+                            />
+                        </label>
+                        <label
+                            className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium"
+                        >PIS/PASED
+                            <input
+                                id="pis/pased"
+                                type="file"
+                                name="pis/pased"
+                                onChange={(event) => handleFileChange('PIS_PASEP', event)}
+                            />
+                        </label>
+                        <label
+                            className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium"
+                        >Certidao Reservista
+                            <input
+                                id="certidaoReservista"
+                                type="file"
+                                name="certidaoReservista"
+                                onChange={(event) => handleFileChange('CERTIDAO_RESERVISTA', event)}
+                            />
+                        </label>
+                        <label
+                            className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium"
+                        >Comprovante Escolaridade
+                            <input
+                                id="comprovanteEscolaridade"
+                                type="file"
+                                name="comprovanteEscolaridade"
+                                onChange={(event) => handleFileChange('COMPROVANTE_ESCOLARIDADE', event)}
+                            />
+                        </label>
+                        <label
+                            className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium"
+                        >Foto 3x4
+                            <input
+                                id="foto3x4"
+                                type="file"
+                                name="foto3x4"
+                                onChange={(event) => handleFileChange('FOTO_3X4', event)}
+                            />
+                        </label>
+                        <label
+                            className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium"
+                        >Certidão de Nascimento
+                            <input
+                                id="certidaoNascimento"
+                                type="file"
+                                name="certidaoNascimento"
+                                onChange={(event) => handleFileChange('CERTIDAO_NASCIMENTO', event)}
+                            />
+                        </label>
+                        <label
+                            className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium"
+                        >Currículo
+                            <input
+                                id="curriculo"
+                                type="file"
+                                name="curriculo"
+                                onChange={(event) => handleFileChange('CURRICULO', event)}
+                            />
+                        </label>
                     </div>
                 </div>
-            </form>
+                <div className="flex gap-4">
+                    <Button
+                        onClick={handleSubmit}
+                    >
+                        Anexar Documentos
+                    </Button>
+                    <Button
+                        type="button"
+                        onClick={() => setIsModalOpen({ servidor: null, estagiario: null, modal: false, action: null })}
+                    >
+                        Cancelar
+                    </Button>
+                </div>
+            </form >
         </div>
     )
 }
