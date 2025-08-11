@@ -58,12 +58,13 @@ export default function ListOfEstagiarios({ estagiarios, filterOptions, setIsMod
                             <>
                                 <Button
                                     className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
-                                    onClick={() => setIsModalOpen({ servidor: null, estagiario: estagiario, modal: true, action: null })}
+                                    onClick={() => setIsModalOpen({ servidor: null, estagiario: estagiario, modal: true, action: 'atualizar' })}
                                 >
                                     Atualizar
                                 </Button>
                                 <Button
                                     className="rounded-full text-sm text-sky-950 border-sky-950 border-2 px-4 py-1.5 cursor-pointer tracking-wider font-bold uppercase hover:text-sky-100 hover:bg-sky-950 ease-in duration-200"
+                                    onClick={() => setIsModalOpen({ servidor: null, estagiario: estagiario, modal: true, action: 'anexar' })}
                                 >
                                     Anexar
                                 </Button>

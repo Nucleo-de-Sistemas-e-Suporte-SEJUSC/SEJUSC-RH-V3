@@ -5,12 +5,13 @@ import ListOfServidores from "@/feature/Funcionarios/components/ListOfServidores
 import ListOfEstagiarios from "@/feature/Funcionarios/components/ListOfEstagiarios"
 import FilterFields from "@/feature/Funcionarios/components/FilterFields"
 import FormCreateServidor from "@/feature/Funcionarios/components/FormCreateServidor"
-import { api } from "@/api/axios"
 import FormCreateEstagiario from "@/feature/Funcionarios/components/FormCreateEstagiario"
 import FormUpdateServidor from "@/feature/Funcionarios/components/FormUpdateServidor"
-import type { IEstagiario, IServidor } from "@/interfaces"
 import FormUpdateEstagiario from "@/feature/Funcionarios/components/FormUpdateEstagiario"
 import FormAnexarServidor from "@/feature/Funcionarios/components/FormAnexarServidor"
+import FormAnexarEstagiario from "@/feature/Funcionarios/components/FormAnexarEstagiario"
+import type { IEstagiario, IServidor } from "@/interfaces"
+import { api } from "@/api/axios"
 
 export default function FuncionariosPage() {
     const [selectedEmployee, setSelectedEmployee] = React.useState('servidores')
@@ -111,10 +112,10 @@ export default function FuncionariosPage() {
                     ) : (
                         <>
                             {isModalOpen.estagiario ? (
-                                <FormUpdateEstagiario
-                                    isModalOpen={isModalOpen}
-                                    setIsModalOpen={setIsModalOpen}
-                                />
+                                <>
+                                    {isModalOpen.action === 'atualizar' && (<FormUpdateEstagiario isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />)}
+                                    {isModalOpen.action === 'anexar' && (<FormAnexarEstagiario isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />)}
+                                </>
                             ) : (
                                 <FormCreateEstagiario
                                     setIsModalOpen={setIsModalOpen}
