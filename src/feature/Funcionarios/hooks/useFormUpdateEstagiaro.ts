@@ -4,6 +4,24 @@ import { api } from "@/api/axios";
 import { toast } from "sonner";
 
 export default function useFormUpdateEstagiaro(estagiario: IEstagiario | null) {
+  const storedUser = JSON.parse(localStorage.getItem("user")!) as User;
+
+  const historyLogsUpdate = async (
+    user: string,
+    nome: string,
+    setor: string
+  ) => {
+    try {
+      await api.post("/historico-logs", {
+        mensagem: `O usuario de nome ${user} atualizou o servidor ${nome} do setor ${setor}`,
+        nome: nome,
+        acao: "Atualizar",
+      });
+    } catch (error) {
+      console.log("Erro ao criar o log", error);
+    }
+  };
+
   const formatedDate = (data_criacao: string) => {
     if (!data_criacao) {
       return "";
@@ -53,7 +71,13 @@ export default function useFormUpdateEstagiaro(estagiario: IEstagiario | null) {
           }
 
           return true;
-        }),
+        })
+      );
+
+      await historyLogsUpdate(
+        storedUser.nome,
+        payload.nome as string,
+        payload.setor as string
       );
 
       await api.put(`/estagiarios/${estagiario?.id}`, payload);

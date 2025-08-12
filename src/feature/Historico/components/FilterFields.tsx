@@ -19,7 +19,7 @@ export default function FilterFields({
         <div className="flex gap-6">
           <div>
             <label className="flex flex-row-reverse items-center gap-2 text-slate-800">
-              arquivar
+              arquivados
               <input
                 type="radio"
                 name="filterOptions"
@@ -36,12 +36,46 @@ export default function FilterFields({
           </div>
           <div>
             <label className="flex flex-row-reverse items-center gap-2 text-slate-800">
-              desarquivar
+              desarquivados
               <input
                 type="radio"
                 name="filterOptions"
                 checked={checkbox === "Desarquivar"}
                 value="Desarquivar"
+                onChange={({ currentTarget }) =>
+                  setFilterOptions((prevFilters) => ({
+                    ...prevFilters,
+                    checkbox: currentTarget.value,
+                  }))
+                }
+              />
+            </label>
+          </div>
+          <div>
+            <label className="flex flex-row-reverse items-center gap-2 text-slate-800">
+              cadastrados
+              <input
+                type="radio"
+                name="filterOptions"
+                checked={checkbox === "Cadastrar"}
+                value="Cadastrar"
+                onChange={({ currentTarget }) =>
+                  setFilterOptions((prevFilters) => ({
+                    ...prevFilters,
+                    checkbox: currentTarget.value,
+                  }))
+                }
+              />
+            </label>
+          </div>
+          <div>
+            <label className="flex flex-row-reverse items-center gap-2 text-slate-800">
+              atualizados
+              <input
+                type="radio"
+                name="filterOptions"
+                checked={checkbox === "Atualizar"}
+                value="Atualizar"
                 onChange={({ currentTarget }) =>
                   setFilterOptions((prevFilters) => ({
                     ...prevFilters,

@@ -1,9 +1,27 @@
 import React from "react";
 import { api } from "@/api/axios";
 import { toast } from "sonner";
-import type { IServidor, IUpdateServidor } from "@/interfaces";
+import type { IServidor, IUpdateServidor, User } from "@/interfaces";
 
 export default function useFormUpdateServidor(servidor: IServidor | null) {
+  const storedUser = JSON.parse(localStorage.getItem("user")!) as User;
+
+  const historyLogsUpdate = async (
+    user: string,
+    nome: string,
+    setor: string
+  ) => {
+    try {
+      await api.post("/historico-logs", {
+        mensagem: `O usuario de nome ${user} atualizou o servidor ${nome} do setor ${setor}`,
+        nome: nome,
+        acao: "Atualizar",
+      });
+    } catch (error) {
+      console.log("Erro ao criar o log", error);
+    }
+  };
+
   const formatedDate = (data_criacao: string) => {
     if (!data_criacao) {
       return "";
@@ -87,7 +105,7 @@ export default function useFormUpdateServidor(servidor: IServidor | null) {
 
         beneficiarios: (formValues.beneficiarios || []).filter(
           (b) =>
-            b.nome !== "" && b.parentesco !== "" && b.data_nascimento !== "",
+            b.nome !== "" && b.parentesco !== "" && b.data_nascimento !== ""
         ),
       };
 
@@ -102,7 +120,13 @@ export default function useFormUpdateServidor(servidor: IServidor | null) {
           }
 
           return true;
-        }),
+        })
+      );
+
+      await historyLogsUpdate(
+        storedUser.nome,
+        payload.nome as string,
+        payload.setor as string
       );
 
       await api.patch(`/servidores/${servidor?.id}`, payload);
