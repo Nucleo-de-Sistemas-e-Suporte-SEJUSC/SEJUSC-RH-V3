@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { Toaster } from "sonner";
-import { AuthProvider } from '@/context/AuthContext'
+import { AuthProvider } from "@/context/AuthContext";
 
 import LoginPage from "./pages/LoginPage";
 import FrequenciaPage from "./pages/FrequenciaPage";
@@ -15,16 +15,18 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<LoginPage />} />
-          <Route element={
-            <ProtectedRoute>
-              <PrivateLayout />
-            </ProtectedRoute>
-          }>
-            <Route path='/dashboard' element={<DashboardPage />} />
-            <Route path='/frequencia' element={<FrequenciaPage />} />
-            <Route path='/funcionarios' element={<FuncionariosPage />} />
-            <Route path='/alteracoes' element={<AlteracoesPage />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route
+            element={
+              <ProtectedRoute>
+                <PrivateLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/frequencia" element={<FrequenciaPage />} />
+            <Route path="/funcionarios" element={<FuncionariosPage />} />
+            <Route path="/alteracoes" element={<AlteracoesPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
@@ -32,5 +34,5 @@ export default function App() {
         <Toaster richColors position="top-right" />
       </BrowserRouter>
     </AuthProvider>
-  )
+  );
 }
