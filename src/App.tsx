@@ -8,7 +8,7 @@ import PrivateLayout from "./shared/PrivateLayout";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import FuncionariosPage from "./pages/FuncionariosPage";
 import DashboardPage from "./pages/DashboardPage";
-import AlteracoesPage from "./pages/AlteracoesPage";
+import HistoricoPage from "./pages/HistoricoPage";
 
 export default function App() {
   return (
@@ -26,7 +26,7 @@ export default function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/frequencia" element={<FrequenciaPage />} />
             <Route path="/funcionarios" element={<FuncionariosPage />} />
-            <Route path="/alteracoes" element={<AlteracoesPage />} />
+            <Route path="/historico" element={<HistoricoPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

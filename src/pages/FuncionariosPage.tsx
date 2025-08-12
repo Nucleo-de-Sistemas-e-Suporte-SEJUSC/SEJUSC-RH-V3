@@ -27,6 +27,8 @@ export default function FuncionariosPage() {
     action: null,
   });
   const [filterOptions, setFilterOptions] = React.useState({
+    setorSearch: "",
+    setorSelect: "",
     checkbox: "ativos",
     search: "",
   });

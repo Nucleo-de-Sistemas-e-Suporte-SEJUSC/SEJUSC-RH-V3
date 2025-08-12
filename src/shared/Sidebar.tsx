@@ -99,14 +99,14 @@ export default function Sidebar({
           </Link>
 
           <Link
-            to={"/alteracoes"}
+            to={"/historico"}
             className="group flex items-center gap-4 p-2 text-slate-200 text-2xl hover:text-slate-400 transition-colors duration-200"
           >
             <History
               size={32}
               className="text-slate-200 group-hover:text-slate-400 transition-colors"
             />
-            {isSideBarOpen && "Alterações"}
+            {isSideBarOpen && "Histórico"}
           </Link>
         </div>
       </div>

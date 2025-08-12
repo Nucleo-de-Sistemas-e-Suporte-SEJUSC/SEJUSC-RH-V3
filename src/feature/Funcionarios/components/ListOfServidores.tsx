@@ -5,7 +5,12 @@ import type { IEstagiario, IServidor } from "@/interfaces";
 
 type ListOfServidoresProps = {
   servidores: IServidor[] | null;
-  filterOptions: { checkbox: string; search: string };
+  filterOptions: {
+    setorSearch: string;
+    setorSelect: string;
+    checkbox: string;
+    search: string;
+  };
   setIsModalOpen: React.Dispatch<
     React.SetStateAction<{
       servidor: IServidor | null;
@@ -21,7 +26,7 @@ export default function ListOfServidores({
   filterOptions,
   setIsModalOpen,
 }: ListOfServidoresProps) {
-  const { checkbox, search } = filterOptions;
+  const { checkbox } = filterOptions;
   const [isLoading, setIsLoading] = React.useState<{
     id: number | null;
     load: boolean;
@@ -37,7 +42,7 @@ export default function ListOfServidores({
     handleArchiveServidor,
     generateFichaFuncional,
     filterServidores,
-  } = useListOfServidores(servidores, search, setIsLoading);
+  } = useListOfServidores(servidores, filterOptions, setIsLoading);
 
   return (
     <div className="grid grid-cols-3 gap-4 max-h-[624px] overflow-y-scroll rounded">
