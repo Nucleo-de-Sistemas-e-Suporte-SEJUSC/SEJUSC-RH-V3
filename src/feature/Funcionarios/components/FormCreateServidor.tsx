@@ -159,7 +159,7 @@ export default function FormCreateServidor({
             <Input
               id="nome"
               label="Nome Completo*"
-              placeholder="Nome Completo do Servidor"
+              placeholder="JOSÉ AUGUSTO LISBOA FILHO"
               {...register("nome")}
             />
             <ErrorMessage message={errors.nome?.message} />
@@ -286,7 +286,7 @@ export default function FormCreateServidor({
             <Input
               id="endereco"
               label="Endereço*"
-              placeholder="Avenida dos Testes, 456, Bairro da Interface, São Paulo-SP"
+              placeholder="AVENIDA DOS TESTES, 456, BAIRRO DA INTERFACE, SÃO PAULO-SP"
               {...register("endereco")}
             />
             <ErrorMessage message={errors.endereco?.message} />
@@ -297,7 +297,7 @@ export default function FormCreateServidor({
               <Input
                 id="nacionalidade"
                 label="Nacionalidade*"
-                placeholder="Brasileira"
+                placeholder="BRASILEIRA"
                 {...register("nacionalidade")}
               />
               <ErrorMessage message={errors.nacionalidade?.message} />
@@ -306,7 +306,7 @@ export default function FormCreateServidor({
               <Input
                 id="naturalidade"
                 label="Naturalidade*"
-                placeholder="Manaus/AM"
+                placeholder="MANAUS/AM"
                 {...register("naturalidade")}
               />
               <ErrorMessage message={errors.naturalidade?.message} />
@@ -319,7 +319,7 @@ export default function FormCreateServidor({
               <Input
                 id="nome_mae"
                 label="Nome da Mãe*"
-                placeholder="Nome Completo da Mãe"
+                placeholder="MARIA DE FÁTIMA BEZERRA MATOS"
                 {...register("nome_mae")}
               />
               <ErrorMessage message={errors.nome_mae?.message} />
@@ -328,7 +328,7 @@ export default function FormCreateServidor({
               <Input
                 id="nome_pai"
                 label="Nome do Pai (Opcional)"
-                placeholder="Nome Completo do Pai"
+                placeholder="CARLOS ARAUJO DE SOUZA MATOS"
                 {...register("nome_pai")}
               />
               <ErrorMessage message={errors.nome_pai?.message} />
@@ -341,7 +341,7 @@ export default function FormCreateServidor({
               <Input
                 id="cargo"
                 label="Cargo*"
-                placeholder="Assessor I"
+                placeholder="ASSESSOR I"
                 {...register("cargo")}
               />
               <ErrorMessage message={errors.cargo?.message} />
