@@ -41,6 +41,7 @@ export default function useListOfLogs(checkbox: string, search: string) {
     if (!data_criacao) {
       return "";
     }
+    console.log(data_criacao);
 
     const dataObjeto = new Date(data_criacao);
 
@@ -48,7 +49,11 @@ export default function useListOfLogs(checkbox: string, search: string) {
     const mes = String(dataObjeto.getUTCMonth() + 1).padStart(2, "0");
     const ano = dataObjeto.getUTCFullYear();
 
-    return `${dia}/${mes}/${ano}`;
+    const horas = String(dataObjeto.getUTCHours()).padStart(2, "0");
+    const minutos = String(dataObjeto.getUTCMinutes()).padStart(2, "0");
+    const segundos = String(dataObjeto.getUTCSeconds()).padStart(2, "0");
+
+    return `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
   };
 
   return {
