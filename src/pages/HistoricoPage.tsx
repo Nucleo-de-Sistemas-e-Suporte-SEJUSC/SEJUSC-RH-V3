@@ -1,6 +1,6 @@
 import React from "react";
-import FilterFields from "@/feature/Alteracoes/components/FilterFields";
-import ListOfLogs from "@/feature/Alteracoes/components/ListOfLogs";
+import FilterFields from "@/feature/Historico/components/FilterFields";
+import ListOfLogs from "@/feature/Historico/components/ListOfLogs";
 
 export default function AlteracoesPage() {
   const [filterOptions, setFilterOptions] = React.useState({
