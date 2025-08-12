@@ -8,7 +8,7 @@ import Input from "@/shared/Input";
 import { Select } from "@/shared/Select";
 import Button from "@/shared/Button";
 import { api } from "@/api/axios";
-import type { IEstagiario, IServidor } from "@/interfaces";
+import type { IEstagiario, IServidor, User } from "@/interfaces";
 
 // 1. Schema de validação com Zod
 // Define todas as regras e mensagens de erro para o formulário.
@@ -117,6 +117,24 @@ export default function FormCreateServidor({
     mode: "onChange", // Valida os campos em tempo real
   });
 
+  const storedUser = JSON.parse(localStorage.getItem("user")!) as User;
+
+  const historyLogsCreate = async (
+    user: string,
+    nome: string,
+    setor: string
+  ) => {
+    try {
+      await api.post("/historico-logs", {
+        mensagem: `O usuario de nome ${user} cadastrou o servidor ${nome} do setor ${setor}`,
+        nome: nome,
+        acao: "Cadastrar",
+      });
+    } catch (error) {
+      console.log("Erro ao criar o log", error);
+    }
+  };
+
   // 4. Função de submit que só é chamada se a validação passar
   const onSubmit: SubmitHandler<ServidorFormData> = async (data) => {
     try {
@@ -127,6 +145,8 @@ export default function FormCreateServidor({
         saida: data.saida,
         data_admissao: data.data_admissao,
       });
+
+      await historyLogsCreate(storedUser.nome, data.nome, data.setor);
       toast.success("Servidor cadastrado com sucesso!");
       reset(); // Limpa o formulário
     } catch (error) {

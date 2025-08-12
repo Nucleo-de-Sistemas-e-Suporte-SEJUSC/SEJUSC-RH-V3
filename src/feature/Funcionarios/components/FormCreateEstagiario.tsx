@@ -7,7 +7,7 @@ import Input from "@/shared/Input";
 import { Select } from "@/shared/Select";
 import Button from "@/shared/Button";
 import { api } from "@/api/axios";
-import type { IEstagiario, IServidor } from "@/interfaces";
+import type { IEstagiario, IServidor, User } from "@/interfaces";
 
 // Schema e tipo de dados definidos acima
 const estagiarioSchema = z.object({
@@ -61,6 +61,24 @@ export default function FormCreateEstagiario({
     },
   });
 
+  const storedUser = JSON.parse(localStorage.getItem("user")!) as User;
+
+  const historyLogsCreate = async (
+    user: string,
+    nome: string,
+    setor: string
+  ) => {
+    try {
+      await api.post("/historico-logs", {
+        mensagem: `O usuario de nome ${user} cadastrou o estagiário ${nome} do setor ${setor}`,
+        nome: nome,
+        acao: "Cadastrar",
+      });
+    } catch (error) {
+      console.log("Erro ao criar o log", error);
+    }
+  };
+
   // 2. Função de submit tipada que só será executada com dados válidos
   const onSubmit: SubmitHandler<EstagiarioFormData> = async (data) => {
     try {
@@ -72,6 +90,8 @@ export default function FormCreateEstagiario({
         entrada: data.entrada,
         saida: data.saida,
       });
+
+      await historyLogsCreate(storedUser.nome, data.nome, data.setor);
       toast.success("Estagiário cadastrado com sucesso!");
       reset(); // Limpa o formulário
     } catch (error) {
