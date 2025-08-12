@@ -1,4 +1,4 @@
 export interface ICredential {
-    matricula: string
-    password: string
+  matricula: string;
+  password: string;
 }
