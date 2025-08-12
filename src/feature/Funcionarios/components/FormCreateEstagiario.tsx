@@ -74,12 +74,6 @@ export default function FormCreateEstagiario({
       });
       toast.success("Estagiário cadastrado com sucesso!");
       reset(); // Limpa o formulário
-      setIsModalOpen({
-        servidor: null,
-        estagiario: null,
-        modal: false,
-        action: null,
-      });
     } catch (error) {
       console.log("Erro ao cadastrar estagiário:", error);
       toast.error("Não foi possível realizar o cadastro");

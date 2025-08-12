@@ -129,12 +129,6 @@ export default function FormCreateServidor({
       });
       toast.success("Servidor cadastrado com sucesso!");
       reset(); // Limpa o formulário
-      setIsModalOpen({
-        servidor: null,
-        estagiario: null,
-        modal: false,
-        action: null,
-      });
     } catch (error) {
       console.log("Erro ao cadastrar servidor:", error);
       toast.error("Não foi possível realizar o cadastro. Verifique os dados.");
