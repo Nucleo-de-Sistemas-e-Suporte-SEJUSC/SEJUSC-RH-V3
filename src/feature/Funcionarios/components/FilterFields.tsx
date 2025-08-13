@@ -106,7 +106,7 @@ export default function FilterFields({
         </div>
         <div className="grow">
           <Input
-            id="search"
+            id="setorSearch"
             placeholder="Pesquise por um Setor"
             value={setorSearch}
             onChange={({ currentTarget }) =>

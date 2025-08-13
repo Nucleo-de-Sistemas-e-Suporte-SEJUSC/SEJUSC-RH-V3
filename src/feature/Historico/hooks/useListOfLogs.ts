@@ -41,7 +41,6 @@ export default function useListOfLogs(checkbox: string, search: string) {
     if (!data_criacao) {
       return "";
     }
-    console.log(data_criacao);
 
     const dataObjeto = new Date(data_criacao);
 

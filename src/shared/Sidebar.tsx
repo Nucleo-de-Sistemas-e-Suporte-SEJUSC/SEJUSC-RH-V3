@@ -1,5 +1,5 @@
-import type React from "react";
-import { Link } from "react-router";
+import React from "react";
+import { Link, useLocation } from "react-router";
 import { useAuth } from "@/context/AuthContext";
 import type { User } from "@/interfaces";
 import {
@@ -10,6 +10,7 @@ import {
   PanelRightOpen,
   RefreshCw,
 } from "lucide-react";
+import Logo from "@/assets/logo.png";
 
 type SidebarProps = React.ComponentProps<"aside"> & {
   handleOpenSideBar: () => void;
@@ -22,13 +23,28 @@ export default function Sidebar({
 }: SidebarProps) {
   const { logout } = useAuth();
   const storedUser = JSON.parse(localStorage.getItem("user")!) as User;
+  const location = useLocation();
+  const path =
+    location.pathname === "/frequencia" ||
+    location.pathname === "/historico" ||
+    location.pathname === "/dashboard";
 
   return (
     <aside
-      className={`flex flex-col p-4 bg-sky-950 rounded-r-4xl shadow-2xl ${
+      className={`relative flex flex-col p-4 bg-sky-950 rounded-r-4xl shadow-2xl ${
         isSideBarOpen ? "" : "max-w-max"
       }`}
     >
+      {path && (
+        <img
+          className={`absolute bottom-0 ${isSideBarOpen ? "left-72" : "left-24"} `}
+          height={94}
+          width={94}
+          src={Logo}
+          alt="sejusc-rh"
+        />
+      )}
+
       <button
         onClick={handleOpenSideBar}
         className="group flex text-xl bg-sky-950 cursor-pointer p-2"
