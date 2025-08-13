@@ -1,6 +1,6 @@
+import React from "react";
 import { Outlet } from "react-router";
 import Sidebar from "./Sidebar";
-import React from "react";
 
 export default function PrivateLayout() {
   const [isSideBarOpen, setIsSideBarOpen] = React.useState(true);

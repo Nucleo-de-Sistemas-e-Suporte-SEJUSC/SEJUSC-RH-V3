@@ -18,8 +18,6 @@ export default function useTableServidores(search: string, month: string) {
     servidores: null,
   });
 
-  console.log(servidor.setores);
-
   React.useEffect(() => {
     const fetchData = async () => {
       try {

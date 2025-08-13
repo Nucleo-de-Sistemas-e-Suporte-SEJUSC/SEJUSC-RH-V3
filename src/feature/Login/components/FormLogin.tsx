@@ -1,5 +1,4 @@
 import Button from "@/shared/Button";
-import Input from "@/shared/Input";
 import useFormLogin from "../hooks/useFormLogin";
 import { Eye, EyeClosed } from "lucide-react";
 
@@ -19,23 +18,36 @@ export default function FormLogin() {
       onSubmit={handleSubmit}
       className="flex flex-col gap-4 px-5 py-8 bg-sky-200/20 rounded-md min-w-lg"
     >
-      <Input
-        id="matricula"
-        label="Matrícula"
-        placeholder="000.000-0 A"
-        value={matricula}
-        onChange={handelMatriculaChange}
-      />
+      <div>
+        <label className="flex flex-col gap-1.5 text-slate-100 font-medium">
+          Matrícula
+          <input
+            type="text"
+            id="matricula"
+            name="matricula"
+            className="text-lg text-slate-800 p-1.5 bg-gray-100 outline-none rounded border-2 border-transparent focus:border-2 focus:border-sky-900 ease-in duration-200"
+            placeholder="000.000-0 A"
+            value={matricula}
+            onChange={handelMatriculaChange}
+          />
+        </label>
+      </div>
       <div className="relative">
-        <Input
-          id="password"
-          label="Senha"
-          type={passwordVisibility ? "text" : "password"}
-          placeholder="Abc@1234"
-          value={password}
-          onChange={handelPasswordChange}
-          maxLength={13}
-        />
+        <div>
+          <label className="flex flex-col gap-1.5 text-slate-100 font-medium">
+            Senha
+            <input
+              id="password"
+              name="matricula"
+              type={passwordVisibility ? "text" : "password"}
+              className="text-lg text-slate-800 p-1.5 bg-gray-100 outline-none rounded border-2 border-transparent focus:border-2 focus:border-sky-900 ease-in duration-200"
+              placeholder="Abc@1234"
+              value={password}
+              onChange={handelPasswordChange}
+              maxLength={13}
+            />
+          </label>
+        </div>
         <button
           type="button"
           className="absolute bottom-1 right-1 cursor-pointer p-1"

@@ -9,6 +9,7 @@ import ProtectedRoute from "./shared/ProtectedRoute";
 import FuncionariosPage from "./pages/FuncionariosPage";
 import DashboardPage from "./pages/DashboardPage";
 import HistoricoPage from "./pages/HistoricoPage";
+import DesenvolvidoPage from "./pages/DesenvolvidoPage";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginPage />} />
+          <Route path="/desenvolvido" element={<DesenvolvidoPage />} />
           <Route
             element={
               <ProtectedRoute>
