@@ -1,22 +1,21 @@
 import { Link } from "react-router";
 import FormLogin from "@/feature/Login/components/FormLogin";
-import Sejusc from "@/assets/sejusc-rh.png";
 
 export default function LoginPage() {
   return (
-    <main className="bg-[url(./assets/background.png)] bg-cover bg-no-repeat min-h-screen flex flex-col gap-8 items-center justify-around">
-      <div>
-        <img height={180} width={180} src={Sejusc} alt="sejusc-rh" />
-      </div>
-      <div>
+    <main className="bg-[url(./assets/background.png)] bg-cover bg-no-repeat min-h-screen flex flex-col py-5">
+      <div className="grow flex flex-col items-center gap-8 mt-56">
+        <h1 className="text-2xl text-center text-slate-100 font-semibold max-w-md">
+          Bem-Vindo ao Sistema de Gestão da gerência de Recursos Humanos da
+          SEJUSC, para continuar é necessário realizar o login.
+        </h1>
         <FormLogin />
       </div>
-      <Link
-        className="text-lg text-slate-200 underline justify-self-end"
-        to={"/desenvolvido"}
-      >
-        Desenvolvido pela Gerência da Tecnlogia de Informação - SEJUSC
-      </Link>
+      <div className="grow flex justify-center items-end">
+        <Link className="text-lg text-slate-200 underline" to={"/desenvolvido"}>
+          Desenvolvido pela Gerência da Tecnlogia de Informação - SEJUSC
+        </Link>
+      </div>
     </main>
   );
 }
