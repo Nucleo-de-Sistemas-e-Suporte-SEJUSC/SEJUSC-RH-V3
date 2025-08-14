@@ -18,14 +18,11 @@ export default function TableEstagiarios({
   const { checkbox, search, month } = filterOptions;
 
   React.useEffect(() => {
-    const resetCheckbox = () => {
-      setFilterOptions((prevFilters) => ({
-        ...prevFilters,
-        checkbox: "setores",
-      }));
-    };
-    resetCheckbox();
-  }, [selectedEmployee]);
+    setFilterOptions((prevFilters) => ({
+      ...prevFilters,
+      checkbox: "setores",
+    }));
+  }, [selectedEmployee, setFilterOptions]);
 
   const {
     selectedEstagiarios,
@@ -81,7 +78,7 @@ export default function TableEstagiarios({
                       }
                     >
                       {selectedSetoresEstagiarios.some(
-                        ({ id }) => id === setor.id,
+                        ({ id }) => id === setor.id
                       ) ? (
                         <SquareCheck />
                       ) : (
@@ -107,7 +104,7 @@ export default function TableEstagiarios({
                       onClick={() => handleToggleListOfEstagiarios(estagiario)}
                     >
                       {selectedEstagiarios.some(
-                        ({ id }) => id === estagiario.id,
+                        ({ id }) => id === estagiario.id
                       ) ? (
                         <SquareCheck />
                       ) : (
@@ -124,9 +121,11 @@ export default function TableEstagiarios({
         <Button
           disabled={isLoading}
           onClick={() => {
-            checkbox === "setores"
-              ? convertSetoresEstagiariosToPdf()
-              : convertEstagiariosToPdf();
+            if (checkbox === "setores") {
+              convertSetoresEstagiariosToPdf();
+            } else {
+              convertEstagiariosToPdf();
+            }
           }}
         >
           {isLoading ? "Gerando..." : "Gerar Selecionados"}

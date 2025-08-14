@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { Toaster } from "sonner";
-import { AuthProvider } from "@/context/AuthContext";
+import AuthProvider from "@/context/AuthProvider";
 
 import LoginPage from "./pages/LoginPage";
 import FrequenciaPage from "./pages/FrequenciaPage";

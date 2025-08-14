@@ -30,14 +30,11 @@ export default function TableServidores({
   } = useTableServidores(search, month);
 
   React.useEffect(() => {
-    const resetCheckbox = () => {
-      setFilterOptions((prevFilters) => ({
-        ...prevFilters,
-        checkbox: "setores",
-      }));
-    };
-    resetCheckbox();
-  }, [selectedEmployee]);
+    setFilterOptions((prevFilters) => ({
+      ...prevFilters,
+      checkbox: "setores",
+    }));
+  }, [selectedEmployee, setFilterOptions]);
 
   return (
     <>
@@ -123,9 +120,11 @@ export default function TableServidores({
         <Button
           disabled={isLoading}
           onClick={() => {
-            checkbox === "setores"
-              ? convertSetoresServidorToPdf()
-              : convertServidoresToPdf();
+            if (checkbox === "setores") {
+              convertSetoresServidorToPdf();
+            } else {
+              convertServidoresToPdf();
+            }
           }}
         >
           {isLoading ? "Gerando..." : "Gerar Selecionados"}

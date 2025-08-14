@@ -22,7 +22,7 @@ export default function useFormUpdateEstagiaro(estagiario: IEstagiario | null) {
     }
   };
 
-  const formatedDate = (data_criacao: string) => {
+  const formatedDate = (data_criacao: string | null | undefined) => {
     if (!data_criacao) {
       return "";
     }
@@ -36,14 +36,14 @@ export default function useFormUpdateEstagiaro(estagiario: IEstagiario | null) {
   };
 
   const [formValues, setFormValues] = React.useState<IEstagiario>({
-    nome: estagiario?.nome! || "",
-    setor: estagiario?.setor! || "",
+    nome: estagiario?.nome || "",
+    setor: estagiario?.setor || "",
     cargo: "",
     horario: "",
-    horario_entrada: estagiario?.horario_entrada! || "",
-    horario_saida: estagiario?.horario_saida! || "",
-    feriasinicio: formatedDate(estagiario?.feriasinicio!),
-    feriasfinal: formatedDate(estagiario?.feriasfinal!),
+    horario_entrada: estagiario?.horario_entrada || "",
+    horario_saida: estagiario?.horario_saida || "",
+    feriasinicio: formatedDate(estagiario?.feriasinicio),
+    feriasfinal: formatedDate(estagiario?.feriasfinal),
   });
 
   const handleSubmit = async (event: React.FormEvent) => {
