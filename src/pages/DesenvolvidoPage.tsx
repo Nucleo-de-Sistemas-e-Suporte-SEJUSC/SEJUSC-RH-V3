@@ -1,4 +1,4 @@
-import Homem from "@/assets/homem.png";
+import Yuri from "@/assets/yuri.png";
 import Felipe from "@/assets/felipe.png";
 import Nathalia from "@/assets/nathalia.png";
 import Boss from "@/assets/boss.png";
@@ -12,7 +12,7 @@ const employees = [
   },
   {
     id: 2,
-    img: Homem,
+    img: Yuri,
     name: "Yuri Odilon",
     description: "Desenvolvedor Front-End",
   },

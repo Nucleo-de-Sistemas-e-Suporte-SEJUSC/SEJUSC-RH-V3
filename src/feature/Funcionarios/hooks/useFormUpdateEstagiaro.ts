@@ -1,5 +1,5 @@
 import React from "react";
-import type { IEstagiario } from "@/interfaces";
+import type { IEstagiario, User } from "@/interfaces";
 import { api } from "@/api/axios";
 import { toast } from "sonner";
 
