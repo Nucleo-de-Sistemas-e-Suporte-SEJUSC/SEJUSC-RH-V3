@@ -1,4 +1,4 @@
-import Input from "@/shared/Input";
+import { Input } from "@/shared";
 
 type filterOptionsProps = {
   filterOptions: { checkbox: string; search: string };

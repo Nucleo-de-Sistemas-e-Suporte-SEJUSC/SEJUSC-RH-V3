@@ -11,7 +11,7 @@ type SelectProps = React.ComponentProps<"select"> & {
   options: Options[];
 };
 
-export function Select({
+export default function Select({
   id,
   label,
   optionLabel,

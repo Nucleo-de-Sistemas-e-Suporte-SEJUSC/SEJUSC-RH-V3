@@ -1,4 +1,4 @@
-import Button from "@/shared/Button";
+import { Button } from "@/shared";
 import useFormLogin from "../hooks/useFormLogin";
 import { Eye, EyeClosed } from "lucide-react";
 
@@ -29,6 +29,7 @@ export default function FormLogin() {
             placeholder="000.000-0 A"
             value={matricula}
             onChange={handelMatriculaChange}
+            autoComplete="current-password"
           />
         </label>
       </div>
@@ -45,6 +46,7 @@ export default function FormLogin() {
               value={password}
               onChange={handelPasswordChange}
               maxLength={13}
+              autoComplete="current-password"
             />
           </label>
         </div>

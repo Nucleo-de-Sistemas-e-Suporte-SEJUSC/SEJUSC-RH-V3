@@ -2,14 +2,17 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { Toaster } from "sonner";
 import AuthProvider from "@/context/AuthProvider";
 
-import LoginPage from "./pages/LoginPage";
-import FrequenciaPage from "./pages/FrequenciaPage";
 import PrivateLayout from "./shared/PrivateLayout";
 import ProtectedRoute from "./shared/ProtectedRoute";
-import FuncionariosPage from "./pages/FuncionariosPage";
-import DashboardPage from "./pages/DashboardPage";
-import HistoricoPage from "./pages/HistoricoPage";
-import DesenvolvidoPage from "./pages/DesenvolvidoPage";
+
+import {
+  LoginPage,
+  DesenvolvidoPage,
+  DashboardPage,
+  FrequenciaPage,
+  FuncionariosPage,
+  HistoricoPage,
+} from "@/pages";
 
 export default function App() {
   return (

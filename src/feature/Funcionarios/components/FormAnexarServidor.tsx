@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "@/shared/Button";
+import { Button } from "@/shared";
 import type { IEstagiario, IServidor } from "@/interfaces";
 import { api } from "@/api/axios";
 import { toast } from "sonner";
@@ -50,7 +50,7 @@ export default function FormAnexarServidor({
 
   const handleFileChange = (
     tipoDocumento: string,
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const newFile = event.currentTarget.files?.[0];
     setUploadData((prevValues) => ({
@@ -100,7 +100,7 @@ export default function FormAnexarServidor({
         files: {
           ...Object.keys(prevValues.files).reduce(
             (acc, key) => ({ ...acc, [key]: null }),
-            {},
+            {}
           ),
         },
       }));
