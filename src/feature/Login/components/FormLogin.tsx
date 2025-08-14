@@ -1,4 +1,4 @@
-import Button from "@/shared/Button";
+import { Button } from "@/shared";
 import useFormLogin from "../hooks/useFormLogin";
 import { Eye, EyeClosed } from "lucide-react";
 
@@ -18,6 +18,9 @@ export default function FormLogin() {
       onSubmit={handleSubmit}
       className="flex flex-col gap-4 px-5 py-8 bg-sky-200/20 rounded-md min-w-lg"
     >
+      <h1 className="text-2xl text-center pb-2.5 font-bold text-slate-100">
+        SEJUSC-RH
+      </h1>
       <div>
         <label className="flex flex-col gap-1.5 text-slate-100 font-medium">
           Matrícula
@@ -29,6 +32,7 @@ export default function FormLogin() {
             placeholder="000.000-0 A"
             value={matricula}
             onChange={handelMatriculaChange}
+            autoComplete="current-password"
           />
         </label>
       </div>
@@ -45,6 +49,7 @@ export default function FormLogin() {
               value={password}
               onChange={handelPasswordChange}
               maxLength={13}
+              autoComplete="current-password"
             />
           </label>
         </div>

@@ -1,7 +1,5 @@
 import React from "react";
-import Input from "@/shared/Input";
-import { Select } from "@/shared/Select";
-import Button from "@/shared/Button";
+import { Select, Input, Button } from "@/shared";
 import type { IEstagiario, IServidor } from "@/interfaces";
 import useFormUpdateEstagiaro from "../hooks/useFormUpdateEstagiaro";
 

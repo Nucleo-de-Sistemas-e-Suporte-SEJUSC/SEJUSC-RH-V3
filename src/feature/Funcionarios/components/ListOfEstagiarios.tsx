@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "@/shared/Button";
+import { Button } from "@/shared";
 import useListOfEstagiarios from "../hooks/useListOfEstagiarios";
 import type { IEstagiario, IServidor } from "@/interfaces";
 

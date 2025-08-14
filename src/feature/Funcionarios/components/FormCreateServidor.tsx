@@ -4,9 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 
-import Input from "@/shared/Input";
-import { Select } from "@/shared/Select";
-import Button from "@/shared/Button";
+import { Select, Input, Button } from "@/shared";
 import { api } from "@/api/axios";
 import type { IEstagiario, IServidor, User } from "@/interfaces";
 

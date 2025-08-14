@@ -1,5 +1,5 @@
 import type React from "react";
-import Input from "@/shared/Input";
+import { Input } from "@/shared";
 import { listOfMonths } from "@/feature/constants";
 import type { IFilterOptions } from "@/interfaces";
 

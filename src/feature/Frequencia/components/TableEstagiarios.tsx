@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "@/shared/Button";
+import { Button } from "@/shared";
 import type { IFilterOptions } from "@/interfaces";
 import { Square, SquareCheck } from "lucide-react";
 import useTableEstagiarios from "../hooks/useTableEstagiarios";

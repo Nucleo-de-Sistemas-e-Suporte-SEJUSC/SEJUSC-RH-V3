@@ -4,9 +4,9 @@ import FormLogin from "@/feature/Login/components/FormLogin";
 export default function LoginPage() {
   return (
     <main className="bg-[url(./assets/background.png)] bg-cover bg-no-repeat min-h-screen flex flex-col py-5">
-      <div className="grow flex flex-col items-center gap-8 mt-56">
+      <div className="grow flex flex-col items-center gap-14 mt-56">
         <h1 className="text-2xl text-center text-slate-100 font-semibold max-w-md">
-          Bem-Vindo ao Sistema de Gestão da gerência de Recursos Humanos da
+          Bem-Vindo ao Sistema de Gestão da Gerência de Recursos Humanos da
           SEJUSC, para continuar é necessário realizar o login.
         </h1>
         <FormLogin />
