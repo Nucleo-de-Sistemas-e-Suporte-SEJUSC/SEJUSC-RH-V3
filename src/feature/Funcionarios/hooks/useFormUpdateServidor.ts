@@ -22,7 +22,7 @@ export default function useFormUpdateServidor(servidor: IServidor | null) {
     }
   };
 
-  const formatedDate = (data_criacao: string) => {
+  const formatedDate = (data_criacao: string | null | undefined) => {
     if (!data_criacao) {
       return "";
     }
@@ -57,12 +57,12 @@ export default function useFormUpdateServidor(servidor: IServidor | null) {
     servico_militar: servidor?.servico_militar || "",
     carteira_profissional: servidor?.carteira_profissional || "",
     descanso_semanal: servidor?.descanso_semanal || "",
-    vencimento_ou_salario: servidor?.vencimento_ou_salario!,
-    data_nascimento: formatedDate(servidor?.data_nascimento!),
-    data_Admissao: formatedDate(servidor?.data_Admissao!),
-    data_posse: formatedDate(servidor?.data_posse!),
-    inicio_atividades: formatedDate(servidor?.inicio_atividades!),
-    data_desligamento: formatedDate(servidor?.data_desligamento!),
+    vencimento_ou_salario: servidor?.vencimento_ou_salario || "",
+    data_nascimento: formatedDate(servidor?.data_nascimento),
+    data_Admissao: formatedDate(servidor?.data_Admissao),
+    data_posse: formatedDate(servidor?.data_posse),
+    inicio_atividades: formatedDate(servidor?.inicio_atividades),
+    data_desligamento: formatedDate(servidor?.data_desligamento),
     beneficiarios: [{ nome: "", parentesco: "", data_nascimento: "" }],
   });
 

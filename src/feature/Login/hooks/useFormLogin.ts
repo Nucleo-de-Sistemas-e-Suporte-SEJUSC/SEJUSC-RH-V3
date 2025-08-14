@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { AxiosError } from "axios";
 import { api } from "@/api/axios";
 import { toast } from "sonner";
-import { useAuth } from "@/context/AuthContext";
+import useAuth from "@/context/useAuth";
 import type { ICredential } from "../interfaces";
 import type { User } from "@/interfaces/index";
 
