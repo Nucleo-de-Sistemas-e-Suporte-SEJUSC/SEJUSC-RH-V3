@@ -1,7 +1,7 @@
-import Yuri from "@/assets/yuri.png";
+import Boss from "@/assets/boss.png";
 import Felipe from "@/assets/felipe.png";
 import Nathalia from "@/assets/nathalia.png";
-import Boss from "@/assets/boss.png";
+import Yuri from "@/assets/yuri.png";
 
 const employees = [
   {

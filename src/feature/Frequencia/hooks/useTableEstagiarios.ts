@@ -1,7 +1,9 @@
 import React from "react";
-import { api } from "@/api/axios";
-import type { IEstagiario, ISetorEstagiario } from "../interfaces";
 import { toast } from "sonner";
+
+import { api } from "@/api/axios";
+
+import type { IEstagiario, ISetorEstagiario } from "../interfaces";
 
 export default function useTableEstagiarios(search: string, month: string) {
   const [selectedSetoresEstagiarios, setSelectedSetoresEstagiarios] =

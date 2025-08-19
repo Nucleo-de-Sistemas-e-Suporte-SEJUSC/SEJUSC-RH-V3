@@ -1,5 +1,6 @@
-import type { User } from "@/interfaces";
 import React from "react";
+
+import type { User } from "@/interfaces";
 
 interface AuthContextProps {
   user: User | null;

@@ -1,7 +1,9 @@
 import React from "react";
-import { Button } from "@/shared";
-import useListOfServidores from "../hooks/useListOfServidores";
+
 import type { IEstagiario, IServidor } from "@/interfaces";
+import { Button } from "@/shared";
+
+import useListOfServidores from "../hooks/useListOfServidores";
 
 type ListOfServidoresProps = {
   servidores: IServidor[] | null;

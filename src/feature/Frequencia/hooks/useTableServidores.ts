@@ -1,7 +1,9 @@
 import React from "react";
-import { api } from "@/api/axios";
-import type { IServidor, ISetorServidor } from "../interfaces";
 import { toast } from "sonner";
+
+import { api } from "@/api/axios";
+
+import type { IServidor, ISetorServidor } from "../interfaces";
 
 export default function useTableServidores(search: string, month: string) {
   const [selectedSetoresServidores, setSelectedSetoresServidores] =

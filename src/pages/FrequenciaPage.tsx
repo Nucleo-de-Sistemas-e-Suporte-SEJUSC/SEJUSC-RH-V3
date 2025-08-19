@@ -1,10 +1,11 @@
 import React from "react";
-import Header from "@/shared/Header";
-import FilterFields from "@/feature/Frequencia/components/FilterFields";
-import TableServidores from "@/feature/Frequencia/components/TableServidores";
-import TableEstagiarios from "@/feature/Frequencia/components/TableEstagiarios";
+
 import { listOfMonths } from "@/feature/constants";
+import FilterFields from "@/feature/Frequencia/components/FilterFields";
+import TableEstagiarios from "@/feature/Frequencia/components/TableEstagiarios";
+import TableServidores from "@/feature/Frequencia/components/TableServidores";
 import type { IFilterOptions } from "@/interfaces";
+import Header from "@/shared/Header";
 
 export default function FrequenciaPage() {
   const data = new Date();

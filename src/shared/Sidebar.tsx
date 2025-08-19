@@ -1,7 +1,3 @@
-import React from "react";
-import { Link, useLocation } from "react-router";
-import useAuth from "@/context/useAuth";
-import type { User } from "@/interfaces";
 import {
   ChartPie,
   Folder,
@@ -10,7 +6,12 @@ import {
   PanelRightOpen,
   RefreshCw,
 } from "lucide-react";
+import React from "react";
+import { Link, useLocation } from "react-router";
+
 import Logo from "@/assets/logo.png";
+import useAuth from "@/context/useAuth";
+import type { User } from "@/interfaces";
 
 type SidebarProps = React.ComponentProps<"aside"> & {
   handleOpenSideBar: () => void;

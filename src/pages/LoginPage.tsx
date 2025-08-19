@@ -1,6 +1,7 @@
 import { Link } from "react-router";
-import FormLogin from "@/feature/Login/components/FormLogin";
+
 import SejuscRH from "@/assets/sejusc-rh.png";
+import FormLogin from "@/feature/Login/components/FormLogin";
 
 export default function LoginPage() {
   return (

@@ -1,11 +1,12 @@
-import React from "react";
-import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import React from "react";
+import { type SubmitHandler,useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { Select, Button, Input } from "@/shared";
+import { z } from "zod";
+
 import { api } from "@/api/axios";
 import type { IEstagiario, IServidor, User } from "@/interfaces";
+import { Button, Input,Select } from "@/shared";
 
 // Schema e tipo de dados definidos acima
 const estagiarioSchema = z.object({

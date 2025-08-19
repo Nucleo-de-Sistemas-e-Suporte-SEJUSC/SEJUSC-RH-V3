@@ -1,8 +1,9 @@
 import React from "react";
-import { Button } from "@/shared";
-import type { IEstagiario, IServidor } from "@/interfaces";
-import { api } from "@/api/axios";
 import { toast } from "sonner";
+
+import { api } from "@/api/axios";
+import type { IEstagiario, IServidor } from "@/interfaces";
+import { Button } from "@/shared";
 
 type FormAnexarServidorProps = {
   isModalOpen: {

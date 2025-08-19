@@ -1,6 +1,7 @@
-import type { IServidor, User } from "@/interfaces";
 import { toast } from "sonner";
+
 import { api } from "@/api/axios";
+import type { IServidor, User } from "@/interfaces";
 
 export default function useListOfServidores(
   servidores: IServidor[] | null,

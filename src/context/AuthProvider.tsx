@@ -1,5 +1,7 @@
 import React from "react";
+
 import type { User } from "@/interfaces/index";
+
 import { AuthContext } from "./authContext";
 
 export default function AuthProvider({ children }: React.PropsWithChildren) {

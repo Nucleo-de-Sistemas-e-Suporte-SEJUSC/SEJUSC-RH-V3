@@ -1,6 +1,8 @@
 import React from "react";
-import type { IHistorico } from "../interfaces";
+
 import { api } from "@/api/axios";
+
+import type { IHistorico } from "../interfaces";
 
 export default function useListOfLogs(checkbox: string, search: string) {
   const [logs, setLogs] = React.useState<IHistorico[] | null>(null);

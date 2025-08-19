@@ -1,7 +1,8 @@
 import type React from "react";
-import { Input } from "@/shared";
+
 import { listOfMonths } from "@/feature/constants";
 import type { IFilterOptions } from "@/interfaces";
+import { Input } from "@/shared";
 
 type FilterFieldsProps = {
   selectedEmployee: string;

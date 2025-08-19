@@ -1,5 +1,6 @@
-import { api } from "@/api/axios";
 import { toast } from "sonner";
+
+import { api } from "@/api/axios";
 import type { IEstagiario, User } from "@/interfaces";
 
 export default function useListOfEstagiarios(

@@ -1,7 +1,9 @@
 import React from "react";
-import { Button } from "@/shared";
-import useListOfEstagiarios from "../hooks/useListOfEstagiarios";
+
 import type { IEstagiario, IServidor } from "@/interfaces";
+import { Button } from "@/shared";
+
+import useListOfEstagiarios from "../hooks/useListOfEstagiarios";
 
 type ListOfEstagiariosProps = {
   estagiarios: IEstagiario[] | null;

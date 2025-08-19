@@ -1,7 +1,9 @@
-import React from "react";
-import { Button } from "@/shared";
-import type { IFilterOptions } from "@/interfaces";
 import { Square, SquareCheck } from "lucide-react";
+import React from "react";
+
+import type { IFilterOptions } from "@/interfaces";
+import { Button } from "@/shared";
+
 import useTableServidores from "../hooks/useTableServidores";
 
 type TableProps = {

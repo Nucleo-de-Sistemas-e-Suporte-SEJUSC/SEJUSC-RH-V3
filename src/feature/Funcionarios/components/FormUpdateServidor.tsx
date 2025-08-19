@@ -1,6 +1,8 @@
 import React from "react";
-import { Select, Input, Button } from "@/shared";
+
 import type { IEstagiario, IServidor } from "@/interfaces";
+import { Button,Input, Select } from "@/shared";
+
 import useFormUpdateServidor from "../hooks/useFormUpdateServidor";
 
 type Entrada = "" | "08:00";
