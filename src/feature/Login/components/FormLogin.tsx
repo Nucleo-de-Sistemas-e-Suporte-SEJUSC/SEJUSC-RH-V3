@@ -18,9 +18,6 @@ export default function FormLogin() {
       onSubmit={handleSubmit}
       className="flex flex-col gap-4 px-5 py-8 bg-sky-200/20 rounded-md min-w-lg"
     >
-      <h1 className="text-2xl text-center pb-2.5 font-bold text-slate-100">
-        SEJUSC-RH
-      </h1>
       <div>
         <label className="flex flex-col gap-1.5 text-slate-100 font-medium">
           Matrícula
