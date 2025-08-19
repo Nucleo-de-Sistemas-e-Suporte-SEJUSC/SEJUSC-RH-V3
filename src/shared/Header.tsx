@@ -13,11 +13,11 @@ export default function Header({
 }: HeaderProps) {
   return (
     <header>
-      <h1 className="text-4xl text-sky-950 font-semibold pb-8">{label}</h1>
+      <h1 className="pb-8 text-4xl font-semibold text-sky-950">{label}</h1>
       <div className="flex gap-5">
         <div>
           <label
-            className={`relative py-2 px-3 font-medium tracking-wider rounded cursor-pointer text-lg ${selectedEmployee === "servidores" ? "text-slate-200 bg-sky-950" : "text-sky-950"} ease-in duration-100`}
+            className={`relative cursor-pointer rounded px-3 py-2 text-lg font-medium tracking-wider ${selectedEmployee === "servidores" ? "bg-sky-950 text-slate-200" : "text-sky-950"} duration-100 ease-in`}
           >
             Servidores
             <input
@@ -34,7 +34,7 @@ export default function Header({
         </div>
         <div>
           <label
-            className={`relative py-2 px-3 font-medium tracking-wider rounded cursor-pointer text-lg ${selectedEmployee === "estagiarios" ? "text-slate-200 bg-sky-950" : "text-sky-950"} ease-in duration-100`}
+            className={`relative cursor-pointer rounded px-3 py-2 text-lg font-medium tracking-wider ${selectedEmployee === "estagiarios" ? "bg-sky-950 text-slate-200" : "text-sky-950"} duration-100 ease-in`}
           >
             Estagiários
             <input

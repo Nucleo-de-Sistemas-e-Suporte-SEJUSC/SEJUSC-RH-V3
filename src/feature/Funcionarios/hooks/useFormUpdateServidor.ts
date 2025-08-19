@@ -9,7 +9,7 @@ export default function useFormUpdateServidor(servidor: IServidor | null) {
   const historyLogsUpdate = async (
     user: string,
     nome: string,
-    setor: string
+    setor: string,
   ) => {
     try {
       await api.post("/historico-logs", {
@@ -105,7 +105,7 @@ export default function useFormUpdateServidor(servidor: IServidor | null) {
 
         beneficiarios: (formValues.beneficiarios || []).filter(
           (b) =>
-            b.nome !== "" && b.parentesco !== "" && b.data_nascimento !== ""
+            b.nome !== "" && b.parentesco !== "" && b.data_nascimento !== "",
         ),
       };
 
@@ -120,13 +120,13 @@ export default function useFormUpdateServidor(servidor: IServidor | null) {
           }
 
           return true;
-        })
+        }),
       );
 
       await historyLogsUpdate(
         storedUser.nome,
         payload.nome as string,
-        payload.setor as string
+        payload.setor as string,
       );
 
       await api.patch(`/servidores/${servidor?.id}`, payload);

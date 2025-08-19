@@ -16,7 +16,7 @@ export default function useListOfServidores(
       load: boolean;
       action: string | null;
     }>
-  >
+  >,
 ) {
   const storedUser = JSON.parse(localStorage.getItem("user")!) as User;
   const { setorSearch, setorSelect, search } = filterOptions;
@@ -29,7 +29,7 @@ export default function useListOfServidores(
         filteredListOfServidores = filteredListOfServidores?.filter(
           (servidor) => {
             return servidor.nome.includes(search);
-          }
+          },
         );
       }
 
@@ -37,7 +37,7 @@ export default function useListOfServidores(
         filteredListOfServidores = filteredListOfServidores?.filter(
           (servidor) => {
             return servidor.setor === setorSelect;
-          }
+          },
         );
       }
 
@@ -45,7 +45,7 @@ export default function useListOfServidores(
         filteredListOfServidores = filteredListOfServidores?.filter(
           (servidor) => {
             return servidor.setor.includes(setorSearch);
-          }
+          },
         );
       }
       return filteredListOfServidores;
@@ -55,7 +55,7 @@ export default function useListOfServidores(
   const historyLogsArchive = async (
     user: string,
     nome: string,
-    setor: string
+    setor: string,
   ) => {
     try {
       await api.post("/historico-logs", {
@@ -81,7 +81,7 @@ export default function useListOfServidores(
       await historyLogsArchive(
         storedUser.nome,
         servidor_arquivado.nome,
-        servidor_arquivado.setor
+        servidor_arquivado.setor,
       );
 
       toast.success("Servidor arquivado com sucesso");
@@ -99,7 +99,7 @@ export default function useListOfServidores(
   const historyLogsUnarchive = async (
     user: string,
     nome: string,
-    setor: string
+    setor: string,
   ) => {
     try {
       await api.post("/historico-logs", {
@@ -125,7 +125,7 @@ export default function useListOfServidores(
       await historyLogsUnarchive(
         storedUser.nome,
         servidor_ativado.nome,
-        servidor_ativado.setor
+        servidor_ativado.setor,
       );
 
       toast.success("Servidor desarquivado com sucesso");
@@ -146,7 +146,7 @@ export default function useListOfServidores(
         `/fichas-funcionais/download/${documento_id}`,
         {
           responseType: "blob",
-        }
+        },
       );
 
       const url = window.URL.createObjectURL(new Blob([response.data]));

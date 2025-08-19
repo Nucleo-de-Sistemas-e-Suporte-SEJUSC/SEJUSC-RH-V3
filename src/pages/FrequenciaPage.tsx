@@ -18,7 +18,7 @@ export default function FrequenciaPage() {
   });
 
   return (
-    <main className="flex flex-col gap-5 py-5 max-h-[842px] pr-10">
+    <main className="flex max-h-[842px] flex-col gap-5 py-5 pr-10">
       <Header
         label="Gerador de Frequência"
         selectedEmployee={selectedEmployee}

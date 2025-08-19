@@ -112,14 +112,14 @@ export default function FormAnexarEstagiario({
 
   return (
     <div className="max-w-4xl">
-      <h1 className="text-4xl text-sky-950 font-semibold pb-8">
+      <h1 className="pb-8 text-4xl font-semibold text-sky-950">
         {`Estagiário: ${estagiario?.nome}`}
       </h1>
-      <h3 className="font-semibold text-2xl border-b-2 mb-4">Documentos</h3>
+      <h3 className="mb-4 border-b-2 text-2xl font-semibold">Documentos</h3>
       <form>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-6">
-            <label className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium">
+            <label className="flex grow justify-between rounded p-1.5 font-medium text-slate-800 duration-100 ease-in hover:cursor-pointer hover:bg-slate-300">
               RG
               <input
                 id="rg"
@@ -128,7 +128,7 @@ export default function FormAnexarEstagiario({
                 onChange={(event) => handleFileChange("RG", event)}
               />
             </label>
-            <label className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium">
+            <label className="flex grow justify-between rounded p-1.5 font-medium text-slate-800 duration-100 ease-in hover:cursor-pointer hover:bg-slate-300">
               CPF
               <input
                 id="cpf"
@@ -137,7 +137,7 @@ export default function FormAnexarEstagiario({
                 onChange={(event) => handleFileChange("CPF", event)}
               />
             </label>
-            <label className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium">
+            <label className="flex grow justify-between rounded p-1.5 font-medium text-slate-800 duration-100 ease-in hover:cursor-pointer hover:bg-slate-300">
               Título de Eleitor
               <input
                 id="tituloEleitor"
@@ -146,7 +146,7 @@ export default function FormAnexarEstagiario({
                 onChange={(event) => handleFileChange("TITULO_ELEITOR", event)}
               />
             </label>
-            <label className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium">
+            <label className="flex grow justify-between rounded p-1.5 font-medium text-slate-800 duration-100 ease-in hover:cursor-pointer hover:bg-slate-300">
               PIS/PASED
               <input
                 id="pis/pased"
@@ -155,7 +155,7 @@ export default function FormAnexarEstagiario({
                 onChange={(event) => handleFileChange("PIS_PASEP", event)}
               />
             </label>
-            <label className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium">
+            <label className="flex grow justify-between rounded p-1.5 font-medium text-slate-800 duration-100 ease-in hover:cursor-pointer hover:bg-slate-300">
               Certidao Reservista
               <input
                 id="certidaoReservista"
@@ -166,7 +166,7 @@ export default function FormAnexarEstagiario({
                 }
               />
             </label>
-            <label className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium">
+            <label className="flex grow justify-between rounded p-1.5 font-medium text-slate-800 duration-100 ease-in hover:cursor-pointer hover:bg-slate-300">
               Comprovante Escolaridade
               <input
                 id="comprovanteEscolaridade"
@@ -177,7 +177,7 @@ export default function FormAnexarEstagiario({
                 }
               />
             </label>
-            <label className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium">
+            <label className="flex grow justify-between rounded p-1.5 font-medium text-slate-800 duration-100 ease-in hover:cursor-pointer hover:bg-slate-300">
               Foto 3x4
               <input
                 id="foto3x4"
@@ -186,7 +186,7 @@ export default function FormAnexarEstagiario({
                 onChange={(event) => handleFileChange("FOTO_3X4", event)}
               />
             </label>
-            <label className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium">
+            <label className="flex grow justify-between rounded p-1.5 font-medium text-slate-800 duration-100 ease-in hover:cursor-pointer hover:bg-slate-300">
               Certidão de Nascimento
               <input
                 id="certidaoNascimento"
@@ -197,7 +197,7 @@ export default function FormAnexarEstagiario({
                 }
               />
             </label>
-            <label className="flex grow justify-between rounded p-1.5 hover:cursor-pointer hover:bg-slate-300 ease-in duration-100 text-slate-800 font-medium">
+            <label className="flex grow justify-between rounded p-1.5 font-medium text-slate-800 duration-100 ease-in hover:cursor-pointer hover:bg-slate-300">
               Currículo
               <input
                 id="curriculo"

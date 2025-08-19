@@ -31,7 +31,7 @@ export default function Sidebar({
 
   return (
     <aside
-      className={`relative flex flex-col p-4 bg-sky-950 rounded-r-4xl shadow-2xl ${
+      className={`relative flex flex-col rounded-r-4xl bg-sky-950 p-4 shadow-2xl ${
         isSideBarOpen ? "" : "max-w-max"
       }`}
     >
@@ -47,20 +47,20 @@ export default function Sidebar({
 
       <button
         onClick={handleOpenSideBar}
-        className="group flex text-xl bg-sky-950 cursor-pointer p-2"
+        className="group flex cursor-pointer bg-sky-950 p-2 text-xl"
       >
         <PanelRightOpen
           size={32}
-          className={`text-slate-200 group-hover:text-slate-400 transition-all ${
+          className={`text-slate-200 transition-all group-hover:text-slate-400 ${
             isSideBarOpen ? "" : "rotate-180 duration-200"
           } duration-200`}
         />
       </button>
 
-      <div className="group flex items-center gap-4 p-2 text-slate-200 text-2xl grow-1">
+      <div className="group flex grow-1 items-center gap-4 p-2 text-2xl text-slate-200">
         {isSideBarOpen ? (
-          <div className="flex gap-2 items-center">
-            <span className="bg-white px-1 py-[3px] rounded-[80%] text-sky-950 text-xl font-bold">{`${
+          <div className="flex items-center gap-2">
+            <span className="rounded-[80%] bg-white px-1 py-[3px] text-xl font-bold text-sky-950">{`${
               storedUser.nome.split(" ")[0][0]
             }${storedUser.nome.split(" ")[1][0]}`}</span>
             <div className="flex flex-col">
@@ -72,7 +72,7 @@ export default function Sidebar({
           </div>
         ) : (
           <div className="py-2.5">
-            <span className="bg-white px-1 py-[4px] rounded-[80%] text-sky-950 text-xl font-bold">{`${
+            <span className="rounded-[80%] bg-white px-1 py-[4px] text-xl font-bold text-sky-950">{`${
               storedUser.nome.split(" ")[0][0]
             }${storedUser.nome.split(" ")[1][0]}`}</span>
           </div>
@@ -83,44 +83,44 @@ export default function Sidebar({
         <div className="flex flex-col gap-6">
           <Link
             to={"/dashboard"}
-            className="group flex items-center gap-4 p-2 text-slate-200 text-2xl hover:text-slate-400 transition-colors duration-200"
+            className="group flex items-center gap-4 p-2 text-2xl text-slate-200 transition-colors duration-200 hover:text-slate-400"
           >
             <ChartPie
               size={32}
-              className="text-slate-200 group-hover:text-slate-400 transition-colors"
+              className="text-slate-200 transition-colors group-hover:text-slate-400"
             />
             {isSideBarOpen && "Dashboard"}
           </Link>
 
           <Link
             to={"/frequencia"}
-            className="group flex items-center gap-4 p-2 text-slate-200 text-2xl hover:text-slate-400 transition-colors duration-200"
+            className="group flex items-center gap-4 p-2 text-2xl text-slate-200 transition-colors duration-200 hover:text-slate-400"
           >
             <RefreshCw
               size={32}
-              className="text-slate-200 group-hover:text-slate-400 transition-colors"
+              className="text-slate-200 transition-colors group-hover:text-slate-400"
             />
             {isSideBarOpen && "Frequência"}
           </Link>
 
           <Link
             to={"/funcionarios"}
-            className="group flex items-center gap-4 p-2 text-slate-200 text-2xl hover:text-slate-400 transition-colors duration-200"
+            className="group flex items-center gap-4 p-2 text-2xl text-slate-200 transition-colors duration-200 hover:text-slate-400"
           >
             <Folder
               size={32}
-              className="text-slate-200 group-hover:text-slate-400 transition-colors"
+              className="text-slate-200 transition-colors group-hover:text-slate-400"
             />
             {isSideBarOpen && "Funcionários"}
           </Link>
 
           <Link
             to={"/historico"}
-            className="group flex items-center gap-4 p-2 text-slate-200 text-2xl hover:text-slate-400 transition-colors duration-200"
+            className="group flex items-center gap-4 p-2 text-2xl text-slate-200 transition-colors duration-200 hover:text-slate-400"
           >
             <History
               size={32}
-              className="text-slate-200 group-hover:text-slate-400 transition-colors"
+              className="text-slate-200 transition-colors group-hover:text-slate-400"
             />
             {isSideBarOpen && "Histórico"}
           </Link>
@@ -129,20 +129,20 @@ export default function Sidebar({
 
       <button
         onClick={() => logout()}
-        className="group flex text-xl bg-sky-950 cursor-pointer p-2"
+        className="group flex cursor-pointer bg-sky-950 p-2 text-xl"
       >
         {isSideBarOpen ? (
           <div className="flex items-center gap-4">
             <LogOut
               size={32}
-              className="text-slate-200 group-hover:text-slate-400 transition-colors duration-100"
+              className="text-slate-200 transition-colors duration-100 group-hover:text-slate-400"
             />
-            <span className="text-slate-200 text-xl">Sair da conta</span>
+            <span className="text-xl text-slate-200">Sair da conta</span>
           </div>
         ) : (
           <LogOut
             size={32}
-            className="text-slate-200 group-hover:text-slate-400 transition-colors duration-100"
+            className="text-slate-200 transition-colors duration-100 group-hover:text-slate-400"
           />
         )}
       </button>

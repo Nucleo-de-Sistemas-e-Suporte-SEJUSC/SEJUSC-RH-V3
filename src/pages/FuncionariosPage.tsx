@@ -93,7 +93,7 @@ export default function FuncionariosPage() {
   }, [selectedEmployee]);
 
   return (
-    <main className="flex flex-col gap-5 py-5 pr-10 overflow-scroll">
+    <main className="flex flex-col gap-5 overflow-scroll py-5 pr-10">
       {isModalOpen.modal ? (
         <>
           {selectedEmployee === "servidores" ? (

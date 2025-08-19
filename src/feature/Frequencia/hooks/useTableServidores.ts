@@ -67,7 +67,7 @@ export default function useTableServidores(search: string, month: string) {
       await api
         .get(
           `/setores/pdf/download-zip/${setor.replace(/\//g, "_")}/${month}`,
-          { responseType: "blob" }
+          { responseType: "blob" },
         )
         .then((response) => {
           const blob = new Blob([response.data], { type: "application/zip" });
@@ -116,7 +116,7 @@ export default function useTableServidores(search: string, month: string) {
     const selectedSetoresFormatted = selectedSetoresServidores.map(
       ({ setor }) => {
         return setor.toLowerCase();
-      }
+      },
     );
 
     try {
@@ -169,12 +169,12 @@ export default function useTableServidores(search: string, month: string) {
 
   const handleToggleListOfSetoresServidores = (setor: ISetorServidor) => {
     const isSetorAlreadySelected = selectedSetoresServidores.some(
-      ({ id }) => id === setor.id
+      ({ id }) => id === setor.id,
     );
 
     if (isSetorAlreadySelected) {
       setSelectedSetoresServidores((prevSetores) =>
-        prevSetores.filter(({ id }) => id !== setor.id)
+        prevSetores.filter(({ id }) => id !== setor.id),
       );
       return;
     }
@@ -182,7 +182,7 @@ export default function useTableServidores(search: string, month: string) {
     setSelectedSetoresServidores((prevSetores) => {
       if (prevSetores.length >= 10) {
         toast.warning(
-          "Máximo permitido é 10 setores ou funcionários selecionados"
+          "Máximo permitido é 10 setores ou funcionários selecionados",
         );
         return [...prevSetores.slice(1), setor];
       }
@@ -193,12 +193,12 @@ export default function useTableServidores(search: string, month: string) {
 
   const handleToggleListOfServidores = (servidor: IServidor) => {
     const isServidorAlreadySelected = selectedServidores.some(
-      ({ id }) => id === servidor.id
+      ({ id }) => id === servidor.id,
     );
 
     if (isServidorAlreadySelected) {
       setSelectedServidores((prevSetores) =>
-        prevSetores.filter(({ id }) => id !== servidor.id)
+        prevSetores.filter(({ id }) => id !== servidor.id),
       );
       return;
     }
@@ -206,7 +206,7 @@ export default function useTableServidores(search: string, month: string) {
     setSelectedServidores((prevServidores) => {
       if (prevServidores.length >= 10) {
         toast.warning(
-          "Máximo permitido é 10 setores ou funcionários selecionados"
+          "Máximo permitido é 10 setores ou funcionários selecionados",
         );
         return [...prevServidores.slice(1), servidor];
       }
@@ -236,7 +236,7 @@ export default function useTableServidores(search: string, month: string) {
         filteredListOfServidores = filteredListOfServidores?.filter(
           (servidor) => {
             return servidor.nome.includes(search);
-          }
+          },
         );
       }
       return filteredListOfServidores;

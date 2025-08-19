@@ -9,7 +9,7 @@ export default function useFormUpdateEstagiaro(estagiario: IEstagiario | null) {
   const historyLogsUpdate = async (
     user: string,
     nome: string,
-    setor: string
+    setor: string,
   ) => {
     try {
       await api.post("/historico-logs", {
@@ -71,13 +71,13 @@ export default function useFormUpdateEstagiaro(estagiario: IEstagiario | null) {
           }
 
           return true;
-        })
+        }),
       );
 
       await historyLogsUpdate(
         storedUser.nome,
         payload.nome as string,
-        payload.setor as string
+        payload.setor as string,
       );
 
       await api.put(`/estagiarios/${estagiario?.id}`, payload);

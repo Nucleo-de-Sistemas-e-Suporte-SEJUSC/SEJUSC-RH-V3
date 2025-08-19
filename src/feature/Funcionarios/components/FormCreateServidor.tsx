@@ -56,13 +56,13 @@ const servidorSchema = z.object({
     .string()
     .regex(
       /^\d{3}\.\d{3}\.\d{3}-\d{2}$/,
-      "Formato de CPF inválido (ex: 000.000.000-00)"
+      "Formato de CPF inválido (ex: 000.000.000-00)",
     ),
   pis: z
     .string()
     .regex(
       /^\d{3}\.\d{5}\.\d{2}-\d{1}$/,
-      "Formato de PIS inválido (ex: 000.00000.00-0)"
+      "Formato de PIS inválido (ex: 000.00000.00-0)",
     )
     .optional(),
   data_admissao: z
@@ -120,7 +120,7 @@ export default function FormCreateServidor({
   const historyLogsCreate = async (
     user: string,
     nome: string,
-    setor: string
+    setor: string,
   ) => {
     try {
       await api.post("/historico-logs", {
@@ -155,13 +155,13 @@ export default function FormCreateServidor({
 
   const ErrorMessage = ({ message }: { message?: string }) => {
     return message ? (
-      <p className="text-red-600 text-sm mt-1">{message}</p>
+      <p className="mt-1 text-sm text-red-600">{message}</p>
     ) : null;
   };
 
   return (
     <div>
-      <h1 className="text-4xl text-sky-950 font-semibold pb-8">
+      <h1 className="pb-8 text-4xl font-semibold text-sky-950">
         Criar Servidor
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-10">

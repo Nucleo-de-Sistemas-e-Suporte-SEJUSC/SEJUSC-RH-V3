@@ -33,7 +33,7 @@ export default function FormUpdateEstagiario({
 
   return (
     <div>
-      <h1 className="text-4xl text-sky-950 font-semibold pb-8">
+      <h1 className="pb-8 text-4xl font-semibold text-sky-950">
         Atualizar Estagiário
       </h1>
       <form className="flex flex-col gap-10">

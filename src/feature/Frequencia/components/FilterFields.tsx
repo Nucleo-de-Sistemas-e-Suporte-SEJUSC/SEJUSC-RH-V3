@@ -18,13 +18,13 @@ export default function FilterFields({
 
   return (
     <>
-      <div className="flex items-center gap-12 bg-slate-300 py-4 px-2 rounded *:font-medium">
+      <div className="flex items-center gap-12 rounded bg-slate-300 px-2 py-4 *:font-medium">
         <div className="flex items-center gap-3">
           <h3 className="text-slate-800">Selecione um mês:</h3>
           <select
             name="meses"
             id="meses"
-            className="border-2 rounded p-1 text-slate-800 outline-none border-sky-900"
+            className="rounded border-2 border-sky-900 p-1 text-slate-800 outline-none"
             value={month}
             onChange={({ currentTarget }) =>
               setFilterOptions((prevFilters) => ({

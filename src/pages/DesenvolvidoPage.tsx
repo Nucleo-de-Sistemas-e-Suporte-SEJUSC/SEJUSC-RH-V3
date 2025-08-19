@@ -36,20 +36,20 @@ const employees = [
 
 export default function DesenvolvidoPage() {
   return (
-    <main className="bg-[url(./assets/background.png)] bg-cover bg-no-repeat min-h-screen flex flex-col gap-8 items-center justify-center">
-      <div className="flex gap-6 max-w-6xl">
+    <main className="flex min-h-screen flex-col items-center justify-center gap-8 bg-[url(./assets/background.png)] bg-cover bg-no-repeat">
+      <div className="flex max-w-6xl gap-6">
         {employees.map(({ id, img, name, description, linkedin }) => (
           <a
             key={id}
             href={linkedin}
             target="_blank"
-            className="flex flex-col gap-4 py-3.5 px-1 items-center text-center bg-sky-900 rounded-2xl overflow-hidden cursor-pointer hover:scale-105 duration-75 ease-in"
+            className="flex cursor-pointer flex-col items-center gap-4 overflow-hidden rounded-2xl bg-sky-900 px-1 py-3.5 text-center duration-75 ease-in hover:scale-105"
           >
-            <div className="rounded-xl overflow-hidden">
+            <div className="overflow-hidden rounded-xl">
               <img src={img} alt={name} />
             </div>
             <div>
-              <h1 className="text-2xl text-slate-200 font-semibold">{name}</h1>
+              <h1 className="text-2xl font-semibold text-slate-200">{name}</h1>
               <p className="text-md text-balance text-slate-300">
                 {description}
               </p>

@@ -64,7 +64,7 @@ export default function FormCreateEstagiario({
   const historyLogsCreate = async (
     user: string,
     nome: string,
-    setor: string
+    setor: string,
   ) => {
     try {
       await api.post("/historico-logs", {
@@ -101,13 +101,13 @@ export default function FormCreateEstagiario({
   // Componente auxiliar para exibir mensagens de erro
   const ErrorMessage = ({ message }: { message?: string }) => {
     return message ? (
-      <p className="text-red-600 text-sm mt-1">{message}</p>
+      <p className="mt-1 text-sm text-red-600">{message}</p>
     ) : null;
   };
 
   return (
     <div>
-      <h1 className="text-4xl text-sky-950 font-semibold pb-8">
+      <h1 className="pb-8 text-4xl font-semibold text-sky-950">
         Criar Estagiário
       </h1>
       {/* 3. Liga o formulário ao handleSubmit */}

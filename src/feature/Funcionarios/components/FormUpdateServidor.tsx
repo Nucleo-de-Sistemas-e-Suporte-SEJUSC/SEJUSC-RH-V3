@@ -40,7 +40,7 @@ export default function FormUpdateServidor({
 
   return (
     <div>
-      <h1 className="text-4xl text-sky-950 font-semibold pb-8">
+      <h1 className="pb-8 text-4xl font-semibold text-sky-950">
         Atualizar Servidor
       </h1>
       <form className="flex flex-col gap-10">
@@ -449,8 +449,8 @@ export default function FormUpdateServidor({
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex gap-4">
-              <div className="flex flex-col gap-4 grow">
-                <h3 className="text-2xl font-medium text-slate-800 pb-4">
+              <div className="flex grow flex-col gap-4">
+                <h3 className="pb-4 text-2xl font-medium text-slate-800">
                   Beneficiarios - max: 14
                 </h3>
                 {formValues.beneficiarios?.map((beneficiario, index) => (
@@ -483,7 +483,7 @@ export default function FormUpdateServidor({
                           handleChange(
                             index,
                             "data_nascimento",
-                            currentTarget.value
+                            currentTarget.value,
                           )
                         }
                       />
