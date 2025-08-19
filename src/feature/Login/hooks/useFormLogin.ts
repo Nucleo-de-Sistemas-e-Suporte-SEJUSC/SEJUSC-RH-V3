@@ -1,11 +1,13 @@
+import { AxiosError } from "axios";
 import React from "react";
 import { useNavigate } from "react-router";
-import { AxiosError } from "axios";
-import { api } from "@/api/axios";
 import { toast } from "sonner";
+
+import { api } from "@/api/axios";
 import useAuth from "@/context/useAuth";
-import type { ICredential } from "../interfaces";
 import type { User } from "@/interfaces/index";
+
+import type { ICredential } from "../interfaces";
 
 export default function useFormLogin() {
   const { login } = useAuth();

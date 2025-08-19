@@ -1,7 +1,8 @@
 import React from "react";
-import type { IEstagiario, User } from "@/interfaces";
-import { api } from "@/api/axios";
 import { toast } from "sonner";
+
+import { api } from "@/api/axios";
+import type { IEstagiario, User } from "@/interfaces";
 
 export default function useFormUpdateEstagiaro(estagiario: IEstagiario | null) {
   const storedUser = JSON.parse(localStorage.getItem("user")!) as User;
@@ -9,7 +10,7 @@ export default function useFormUpdateEstagiaro(estagiario: IEstagiario | null) {
   const historyLogsUpdate = async (
     user: string,
     nome: string,
-    setor: string
+    setor: string,
   ) => {
     try {
       await api.post("/historico-logs", {
@@ -71,13 +72,13 @@ export default function useFormUpdateEstagiaro(estagiario: IEstagiario | null) {
           }
 
           return true;
-        })
+        }),
       );
 
       await historyLogsUpdate(
         storedUser.nome,
         payload.nome as string,
-        payload.setor as string
+        payload.setor as string,
       );
 
       await api.put(`/estagiarios/${estagiario?.id}`, payload);

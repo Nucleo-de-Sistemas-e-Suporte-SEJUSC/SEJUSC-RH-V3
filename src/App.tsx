@@ -1,18 +1,18 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { Toaster } from "sonner";
+
 import AuthProvider from "@/context/AuthProvider";
-
-import PrivateLayout from "./shared/PrivateLayout";
-import ProtectedRoute from "./shared/ProtectedRoute";
-
 import {
-  LoginPage,
-  DesenvolvidoPage,
   DashboardPage,
+  DesenvolvidoPage,
   FrequenciaPage,
   FuncionariosPage,
   HistoricoPage,
+  LoginPage,
 } from "@/pages";
+
+import PrivateLayout from "./shared/PrivateLayout";
+import ProtectedRoute from "./shared/ProtectedRoute";
 
 export default function App() {
   return (

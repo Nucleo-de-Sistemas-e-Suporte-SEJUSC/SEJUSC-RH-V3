@@ -15,7 +15,7 @@ export default function FilterFields({
 
   return (
     <>
-      <div className="flex items-center gap-12 bg-slate-300 py-4 px-2 rounded *:font-medium">
+      <div className="flex items-center gap-12 rounded bg-slate-300 px-2 py-4 *:font-medium">
         <div className="flex gap-6">
           <div>
             <label className="flex flex-row-reverse items-center gap-2 text-slate-800">

@@ -21,13 +21,13 @@ export default function Select({
   return (
     <div className="flex flex-col gap-0.5">
       <label
-        className="flex flex-col gap-1.5 text-slate-800 font-medium"
+        className="flex flex-col gap-1.5 font-medium text-slate-800"
         htmlFor={id}
       >
         {label}
       </label>
       <select
-        className="text-lg p-1.5 bg-gray-100 outline-none rounded border-2 border-transparent focus:border-2 focus:border-sky-900 ease-in duration-200"
+        className="rounded border-2 border-transparent bg-gray-100 p-1.5 text-lg duration-200 ease-in outline-none focus:border-2 focus:border-sky-900"
         name={id}
         id={id}
         {...props}

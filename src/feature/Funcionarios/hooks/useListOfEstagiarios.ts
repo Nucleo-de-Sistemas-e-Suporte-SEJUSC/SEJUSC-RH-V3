@@ -1,5 +1,6 @@
-import { api } from "@/api/axios";
 import { toast } from "sonner";
+
+import { api } from "@/api/axios";
 import type { IEstagiario, User } from "@/interfaces";
 
 export default function useListOfEstagiarios(
@@ -16,7 +17,7 @@ export default function useListOfEstagiarios(
       load: boolean;
       action: string | null;
     }>
-  >
+  >,
 ) {
   const storedUser = JSON.parse(localStorage.getItem("user")!) as User;
   const { setorSearch, setorSelect, search } = filterOptions;
@@ -29,7 +30,7 @@ export default function useListOfEstagiarios(
         filteredListOfEstagiarios = filteredListOfEstagiarios?.filter(
           (estagiario) => {
             return estagiario.nome.includes(search);
-          }
+          },
         );
       }
 
@@ -37,7 +38,7 @@ export default function useListOfEstagiarios(
         filteredListOfEstagiarios = filteredListOfEstagiarios?.filter(
           (estagiario) => {
             return estagiario.setor === setorSelect;
-          }
+          },
         );
       }
 
@@ -45,7 +46,7 @@ export default function useListOfEstagiarios(
         filteredListOfEstagiarios = filteredListOfEstagiarios?.filter(
           (estagiario) => {
             return estagiario.setor.includes(setorSearch);
-          }
+          },
         );
       }
       return filteredListOfEstagiarios;
@@ -55,7 +56,7 @@ export default function useListOfEstagiarios(
   const historyLogsArchive = async (
     user: string,
     nome: string,
-    setor: string
+    setor: string,
   ) => {
     try {
       await api.post("/historico-logs", {
@@ -81,7 +82,7 @@ export default function useListOfEstagiarios(
       await historyLogsArchive(
         storedUser.nome,
         estagiario_arquivado.nome,
-        estagiario_arquivado.setor
+        estagiario_arquivado.setor,
       );
 
       toast.success("Estagiário arquivado com sucesso");
@@ -99,7 +100,7 @@ export default function useListOfEstagiarios(
   const historyLogsUnarchive = async (
     user: string,
     nome: string,
-    setor: string
+    setor: string,
   ) => {
     try {
       await api.post("/historico-logs", {
@@ -125,7 +126,7 @@ export default function useListOfEstagiarios(
       await historyLogsUnarchive(
         storedUser.nome,
         estagiario_ativado.nome,
-        estagiario_ativado.setor
+        estagiario_ativado.setor,
       );
 
       toast.success("Estagiário desarquivado com sucesso");
