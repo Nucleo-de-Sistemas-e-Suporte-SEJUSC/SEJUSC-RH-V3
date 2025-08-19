@@ -9,24 +9,28 @@ const employees = [
     img: Boss,
     name: "Gabriel Nery",
     description: "Gerente de Tecnologia da Informação",
+    linkedin: "https://www.linkedin.com/in/gabriel-nery-b87a0b258/",
   },
   {
     id: 2,
     img: Yuri,
     name: "Yuri Odilon",
     description: "Desenvolvedor Front-End",
+    linkedin: "https://www.linkedin.com/in/yuriodilonm/",
   },
   {
     id: 3,
     img: Felipe,
     name: "Felipe Robson",
     description: "Desenvolvedor Back-End",
+    linkedin: "https://www.linkedin.com/in/robsonfelipemir/",
   },
   {
     id: 4,
     img: Nathalia,
     name: "Nathalia Alencar",
     description: "Desenvolvedora Front-End | Power BI",
+    linkedin: "https://www.linkedin.com/in/nathalia-maisa-alencar-de-araujo",
   },
 ];
 
@@ -34,10 +38,12 @@ export default function DesenvolvidoPage() {
   return (
     <main className="bg-[url(./assets/background.png)] bg-cover bg-no-repeat min-h-screen flex flex-col gap-8 items-center justify-center">
       <div className="flex gap-6 max-w-6xl">
-        {employees.map(({ id, img, name, description }) => (
-          <div
+        {employees.map(({ id, img, name, description, linkedin }) => (
+          <a
             key={id}
-            className="flex flex-col gap-4 py-3.5 px-1 items-center text-center bg-sky-900 rounded-2xl overflow-hidden"
+            href={linkedin}
+            target="_blank"
+            className="flex flex-col gap-4 py-3.5 px-1 items-center text-center bg-sky-900 rounded-2xl overflow-hidden cursor-pointer hover:scale-105 duration-75 ease-in"
           >
             <div className="rounded-xl overflow-hidden">
               <img src={img} alt={name} />
@@ -48,7 +54,7 @@ export default function DesenvolvidoPage() {
                 {description}
               </p>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </main>
