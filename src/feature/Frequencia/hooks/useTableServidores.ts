@@ -1,9 +1,12 @@
+import { useQueries } from "@tanstack/react-query";
 import React from "react";
 import { toast } from "sonner";
 
-import { api } from "@/api/axios";
+import { api } from "@/api";
+import buscarServidoresQueryOptions from "@/queries/buscarServidoresQueryOptions";
 
 import type { IServidor, ISetorServidor } from "../interfaces";
+import buscarSetoresServidoresQueryOptions from "../queries/buscarSetoresServidoresQueryOptions";
 
 export default function useTableServidores(search: string, month: string) {
   const [selectedSetoresServidores, setSelectedSetoresServidores] =
@@ -12,32 +15,15 @@ export default function useTableServidores(search: string, month: string) {
     IServidor[]
   >([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [servidor, setServidor] = React.useState<{
-    setores: ISetorServidor[] | null;
-    servidores: IServidor[] | null;
-  }>({
-    setores: null,
-    servidores: null,
+  const [setoresQuery, servidoresQuery] = useQueries({
+    queries: [
+      buscarSetoresServidoresQueryOptions(),
+      buscarServidoresQueryOptions(),
+    ],
   });
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [setoresRes, servidoresRes] = await Promise.all([
-          api.get("/buscar_setor"),
-          api.get("/servidores"),
-        ]);
-        setServidor((prev) => ({
-          ...prev,
-          setores: [...setoresRes.data.setores],
-          servidores: [...servidoresRes.data.servidores],
-        }));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
+  const setores = setoresQuery.data;
+  const servidores = servidoresQuery.data;
 
   const downloadMultiSetoresServidorZip = async (month: string) => {
     try {
@@ -218,8 +204,8 @@ export default function useTableServidores(search: string, month: string) {
   };
 
   const filterSetoresServidor = (): ISetorServidor[] | undefined => {
-    if (servidor.setores) {
-      let filteredListOfSetores = servidor.setores;
+    if (setores) {
+      let filteredListOfSetores = setores;
 
       if (search) {
         filteredListOfSetores = filteredListOfSetores?.filter((setor) => {
@@ -231,8 +217,8 @@ export default function useTableServidores(search: string, month: string) {
   };
 
   const filterServidores = (): IServidor[] | undefined => {
-    if (servidor.servidores) {
-      let filteredListOfServidores = servidor.servidores;
+    if (servidores) {
+      let filteredListOfServidores = servidores;
 
       if (search) {
         filteredListOfServidores = filteredListOfServidores?.filter(

@@ -19,13 +19,6 @@ export default function TableEstagiarios({
 }: TableProps) {
   const { checkbox, search, month } = filterOptions;
 
-  React.useEffect(() => {
-    setFilterOptions((prevFilters) => ({
-      ...prevFilters,
-      checkbox: "setores",
-    }));
-  }, [selectedEmployee, setFilterOptions]);
-
   const {
     selectedEstagiarios,
     selectedSetoresEstagiarios,
@@ -37,6 +30,13 @@ export default function TableEstagiarios({
     convertEstagiariosToPdf,
     convertSetoresEstagiariosToPdf,
   } = useTableEstagiarios(search, month);
+
+  React.useEffect(() => {
+    setFilterOptions((prevFilters) => ({
+      ...prevFilters,
+      checkbox: "setores",
+    }));
+  }, [selectedEmployee, setFilterOptions]);
 
   return (
     <>

@@ -1,9 +1,12 @@
+import { useQueries } from "@tanstack/react-query";
 import React from "react";
 import { toast } from "sonner";
 
-import { api } from "@/api/axios";
+import { api } from "@/api";
+import buscarEstagiariosQueryOptions from "@/queries/buscarEstagiariosQueryOptions";
 
 import type { IEstagiario, ISetorEstagiario } from "../interfaces";
+import buscarSetoresEstagiariosQueryOptions from "../queries/buscarSetorEstagiarioQueryOptions";
 
 export default function useTableEstagiarios(search: string, month: string) {
   const [selectedSetoresEstagiarios, setSelectedSetoresEstagiarios] =
@@ -12,32 +15,15 @@ export default function useTableEstagiarios(search: string, month: string) {
     IEstagiario[]
   >([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [estagiario, setEstagiario] = React.useState<{
-    setores: ISetorEstagiario[] | null;
-    estagiarios: IEstagiario[] | null;
-  }>({
-    setores: null,
-    estagiarios: null,
+  const [setoresQuery, servidoresQuery] = useQueries({
+    queries: [
+      buscarSetoresEstagiariosQueryOptions(),
+      buscarEstagiariosQueryOptions(),
+    ],
   });
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [setoresRes, estagiariosRes] = await Promise.all([
-          api.get("/setor/estagiarios"),
-          api.get("/estagiarios"),
-        ]);
-        setEstagiario((prev) => ({
-          ...prev,
-          setores: [...setoresRes.data.setores],
-          estagiarios: estagiariosRes.data.estagiarios,
-        }));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
+  const setores = setoresQuery.data;
+  const estagiarios = servidoresQuery.data;
 
   const downloadMultiEstagiariosZip = async () => {
     try {
@@ -228,8 +214,8 @@ export default function useTableEstagiarios(search: string, month: string) {
   };
 
   const filterSetoresEstagiario = (): ISetorEstagiario[] | undefined => {
-    if (estagiario.setores) {
-      let filteredListOfSetores = estagiario.setores;
+    if (setores) {
+      let filteredListOfSetores = setores;
 
       if (search) {
         filteredListOfSetores = filteredListOfSetores?.filter((setor) => {
@@ -241,8 +227,8 @@ export default function useTableEstagiarios(search: string, month: string) {
   };
 
   const filterEstagiario = (): IEstagiario[] | undefined => {
-    if (estagiario.estagiarios) {
-      let filteredListOfServidores = estagiario.estagiarios;
+    if (estagiarios) {
+      let filteredListOfServidores = estagiarios;
 
       if (search) {
         filteredListOfServidores = filteredListOfServidores?.filter(

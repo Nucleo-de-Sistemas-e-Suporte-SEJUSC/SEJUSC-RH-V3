@@ -5,6 +5,7 @@ import {
   LogOut,
   PanelRightOpen,
   RefreshCw,
+  UserRound,
 } from "lucide-react";
 import React from "react";
 import { Link, useLocation } from "react-router";
@@ -58,24 +59,26 @@ export default function Sidebar({
         />
       </button>
 
-      <div className="group flex grow-1 items-center gap-4 p-2 text-2xl text-slate-200">
+      <div className="group flex grow-1 items-center gap-4 p-2 text-slate-200">
         {isSideBarOpen ? (
           <div className="flex items-center gap-2">
-            <span className="rounded-[80%] bg-white px-1 py-[3px] text-xl font-bold text-sky-950">{`${
-              storedUser.nome.split(" ")[0][0]
-            }${storedUser.nome.split(" ")[1][0]}`}</span>
-            <div className="flex flex-col">
-              <span>{storedUser.cargo.toUpperCase()}</span>
-              <span className="text-sm">{`${storedUser.nome.split(" ")[0]} ${
+            <span className="rounded-[80%] bg-white px-1 py-[5px] text-sky-950">
+              <UserRound size={24} />
+            </span>
+            <div className="flex max-h-10 flex-col justify-center">
+              <span className="text-md font-semibold">{`${storedUser.nome.split(" ")[0]} ${
                 storedUser.nome.split(" ")[1]
               }`}</span>
+              <span className="text-md font-medium">
+                {storedUser.cargo.toUpperCase()}
+              </span>
             </div>
           </div>
         ) : (
-          <div className="py-2.5">
-            <span className="rounded-[80%] bg-white px-1 py-[4px] text-xl font-bold text-sky-950">{`${
-              storedUser.nome.split(" ")[0][0]
-            }${storedUser.nome.split(" ")[1][0]}`}</span>
+          <div className="flex items-center gap-2 py-2.5">
+            <span className="rounded-[80%] bg-white px-1 py-[5px] text-sky-950">
+              <UserRound size={24} />
+            </span>
           </div>
         )}
       </div>

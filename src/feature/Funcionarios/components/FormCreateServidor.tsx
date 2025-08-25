@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
-import { type SubmitHandler,useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { api } from "@/api/axios";
+import { api } from "@/api";
 import type { IEstagiario, IServidor, User } from "@/interfaces";
-import { Button,Input, Select } from "@/shared";
+import { Button, Input, Select } from "@/shared";
 
 // 1. Schema de validação com Zod
 // Define todas as regras e mensagens de erro para o formulário.

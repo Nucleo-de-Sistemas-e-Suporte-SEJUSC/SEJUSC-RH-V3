@@ -1,6 +1,6 @@
+import { useQueries } from "@tanstack/react-query";
 import React from "react";
 
-import { api } from "@/api/axios";
 import FilterFields from "@/feature/Funcionarios/components/FilterFields";
 import FormAnexarEstagiario from "@/feature/Funcionarios/components/FormAnexarEstagiario";
 import FormAnexarServidor from "@/feature/Funcionarios/components/FormAnexarServidor";
@@ -10,7 +10,11 @@ import FormUpdateEstagiario from "@/feature/Funcionarios/components/FormUpdateEs
 import FormUpdateServidor from "@/feature/Funcionarios/components/FormUpdateServidor";
 import ListOfEstagiarios from "@/feature/Funcionarios/components/ListOfEstagiarios";
 import ListOfServidores from "@/feature/Funcionarios/components/ListOfServidores";
+import buscarEstagiariosArquivadorsQueryOptions from "@/feature/Funcionarios/queries/buscarEstagiariosArquivados";
+import buscarServidoresArquivadosQueryOptions from "@/feature/Funcionarios/queries/buscarServidoresArquivados";
 import type { IEstagiario, IServidor } from "@/interfaces";
+import buscarEstagiariosQueryOptions from "@/queries/buscarEstagiariosQueryOptions";
+import buscarServidoresQueryOptions from "@/queries/buscarServidoresQueryOptions";
 import Button from "@/shared/Button";
 import Header from "@/shared/Header";
 
@@ -33,65 +37,29 @@ export default function FuncionariosPage() {
     checkbox: "ativos",
     search: "",
   });
-  const [archivedEmployees, setArchivedEmployees] = React.useState<{
-    servidores: IServidor[] | null;
-    estagiarios: IEstagiario[] | null;
-  }>({
-    servidores: null,
-    estagiarios: null,
-  });
-  const [activeEmployees, setActiveEmployees] = React.useState<{
-    servidores: IServidor[] | null;
-    estagiarios: IEstagiario[] | null;
-  }>({
-    servidores: null,
-    estagiarios: null,
-  });
   const { checkbox } = filterOptions;
+  const [
+    servidoresQuery,
+    servidoresArquivadosQuery,
+    estagiariosQuery,
+    estagiariosArquivadosQuery,
+  ] = useQueries({
+    queries: [
+      buscarServidoresQueryOptions(),
+      buscarServidoresArquivadosQueryOptions(),
+      buscarEstagiariosQueryOptions(),
+      buscarEstagiariosArquivadorsQueryOptions(),
+    ],
+  });
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [servidoresRes, estagiariosRes] = await Promise.all([
-          api.get("/servidores"),
-          api.get("/estagiarios"),
-        ]);
-        setActiveEmployees((prev) => ({
-          ...prev,
-          servidores: [...servidoresRes.data.servidores],
-          estagiarios: [...estagiariosRes.data.estagiarios],
-        }));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (selectedEmployee === "servidores") {
-          const response = await api.get(`/${selectedEmployee}/arquivados`);
-          const employee = response.data[selectedEmployee];
-          setArchivedEmployees((prev) => ({
-            ...prev,
-            servidores: [...employee],
-          }));
-          return;
-        }
-        const response = await api.get(`/${selectedEmployee}/arquivados`);
-        const employee = response.data[selectedEmployee];
-        setArchivedEmployees((prev) => ({
-          ...prev,
-          estagiarios: [...employee],
-        }));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, [selectedEmployee]);
+  const activeServidores = servidoresQuery.data as IServidor[] | null;
+  const archivedServidores = servidoresArquivadosQuery.data as
+    | IServidor[]
+    | null;
+  const activeEstagiarios = estagiariosQuery.data as IEstagiario[] | null;
+  const archivedEstagiarios = estagiariosArquivadosQuery.data as
+    | IEstagiario[]
+    | null;
 
   return (
     <main className="flex flex-col gap-5 overflow-scroll py-5 pr-10">
@@ -175,9 +143,7 @@ export default function FuncionariosPage() {
           {selectedEmployee === "servidores" ? (
             <ListOfServidores
               servidores={
-                checkbox === "ativos"
-                  ? activeEmployees.servidores
-                  : archivedEmployees.servidores
+                checkbox === "ativos" ? activeServidores : archivedServidores
               }
               filterOptions={filterOptions}
               setIsModalOpen={setIsModalOpen}
@@ -185,9 +151,7 @@ export default function FuncionariosPage() {
           ) : (
             <ListOfEstagiarios
               estagiarios={
-                checkbox === "ativos"
-                  ? activeEmployees.estagiarios
-                  : archivedEmployees.estagiarios
+                checkbox === "ativos" ? activeEstagiarios : archivedEstagiarios
               }
               filterOptions={filterOptions}
               setIsModalOpen={setIsModalOpen}
