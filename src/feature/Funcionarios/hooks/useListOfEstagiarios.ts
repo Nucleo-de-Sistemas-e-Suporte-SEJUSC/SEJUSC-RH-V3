@@ -1,7 +1,11 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { api } from "@/api/axios";
+import { api } from "@/api";
 import type { IEstagiario, User } from "@/interfaces";
+import buscarEstagiariosQueryOptions from "@/queries/buscarEstagiariosQueryOptions";
+
+import buscarEstagiariosArquivadorsQueryOptions from "../queries/buscarEstagiariosArquivados";
 
 export default function useListOfEstagiarios(
   estagiarios: IEstagiario[] | null,
@@ -19,6 +23,7 @@ export default function useListOfEstagiarios(
     }>
   >,
 ) {
+  const queryClient = useQueryClient();
   const storedUser = JSON.parse(localStorage.getItem("user")!) as User;
   const { setorSearch, setorSelect, search } = filterOptions;
 
@@ -85,10 +90,9 @@ export default function useListOfEstagiarios(
         estagiario_arquivado.setor,
       );
 
+      queryClient.invalidateQueries(buscarEstagiariosQueryOptions());
+      queryClient.invalidateQueries(buscarEstagiariosArquivadorsQueryOptions());
       toast.success("Estagiário arquivado com sucesso");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     } catch (error) {
       console.error("Error ao arquivar estagiário", error);
       toast.error("Não foi possível arquivar o estagiário");
@@ -129,10 +133,9 @@ export default function useListOfEstagiarios(
         estagiario_ativado.setor,
       );
 
+      queryClient.invalidateQueries(buscarEstagiariosQueryOptions());
+      queryClient.invalidateQueries(buscarEstagiariosArquivadorsQueryOptions());
       toast.success("Estagiário desarquivado com sucesso");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     } catch (error) {
       console.error("Error ao desarquivar estagiário", error);
       toast.error("Não foi possível desarquivar o estagiário");

@@ -1,7 +1,7 @@
 import React from "react";
 import { toast } from "sonner";
 
-import { api } from "@/api/axios";
+import { api } from "@/api";
 import type { IEstagiario, User } from "@/interfaces";
 
 export default function useFormUpdateEstagiaro(estagiario: IEstagiario | null) {

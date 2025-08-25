@@ -1,104 +1,98 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import React from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import z from "zod";
 
-import { api } from "@/api/axios";
+import { api } from "@/api";
 import useAuth from "@/context/useAuth";
 import type { User } from "@/interfaces/index";
 
-import type { ICredential } from "../interfaces";
+const formSchema = z.object({
+  matricula: z
+    .string()
+    .min(5, {
+      message:
+        "Matrícula deve ter pelo menos 5 caracteres. Ex: 000.000-0 A ou 00000",
+    })
+    .max(13, {
+      message:
+        "Matrícula deve ter no máximo 13 caracteres. Ex: 000.000-0 A ou 00000",
+    }),
+  password: z.string().min(8, {
+    message: "A senha deve ter pelo menos 8 caracteres.",
+  }),
+});
 
 export default function useFormLogin() {
   const { login } = useAuth();
-  React.useEffect(() => {
-    localStorage.removeItem("user");
-  }, []);
   const navigate = useNavigate();
-  const [credentials, setCredentials] = React.useState<ICredential>({
-    matricula: "",
-    password: "",
-  });
   const [passwordVisibility, setPasswordVisibility] = React.useState(false);
-  const { matricula, password } = credentials;
 
-  const handelMatriculaChange = ({
-    currentTarget,
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = currentTarget;
-    const sanitizedMatricula = value.replace(/[^a-zA-Z0-9]/g, "");
-    const digits = sanitizedMatricula.slice(0, 7);
-    const letter = sanitizedMatricula.slice(7, 8).toUpperCase();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      matricula: "",
+      password: "",
+    },
+  });
 
-    let formattedMatricula = digits
-      .replace(/^(\d{3})(\d)/, "$1.$2")
-      .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2-$3");
-
-    if (letter) {
-      formattedMatricula += ` ${letter}`;
-    }
-    setCredentials((prev) => ({
-      ...prev,
-      matricula: formattedMatricula,
-    }));
-  };
-
-  const handelPasswordChange = ({
-    currentTarget,
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = currentTarget;
-    setCredentials((prev) => ({
-      ...prev,
-      password: value,
-    }));
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    try {
+  const loginMutation = useMutation({
+    mutationFn: async (values: z.infer<typeof formSchema>) => {
       const response = await api.post("/login", {
-        matricula: matricula,
-        senha: password,
+        matricula: values.matricula,
+        senha: values.password,
       });
-      const user = response.data as User;
+      return response.data as User;
+    },
+    onSuccess: (response) => {
       const storedUser = {
-        nome: user.nome,
-        role: user.role,
-        cargo: user.cargo,
+        nome: response.nome,
+        role: response.role,
+        cargo: response.cargo,
       };
 
       localStorage.setItem("user", JSON.stringify(storedUser));
       toast.success("Usuário autenticado!");
       login(storedUser);
-      navigate("/frequencia");
-    } catch (error) {
+      navigate("/dashboard");
+    },
+    onError: (error) => {
       if (error instanceof AxiosError) {
         const { response } = error;
         if (response?.status === 404) {
-          toast.error("Error 404", {
-            description: "Usuário não encontrado.",
-          });
+          toast.error("Error 404", { description: "Usuário não encontrado." });
           return;
         }
         if (response?.status === 401) {
-          toast.error("Error 401", {
-            description: "Usuário não autorizado.",
-          });
+          toast.error("Error 401", { description: "Usuário não autorizado." });
           return;
         }
         toast.error("Error HTTP", {
-          description: response?.data?.message || "Erro inesperado.",
+          description:
+            response?.data?.message ||
+            "Não foi possível se conectar ao servidor.",
         });
       }
-    }
+    },
+  });
+
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    loginMutation.mutate(values);
   };
 
+  React.useEffect(() => {
+    localStorage.removeItem("user");
+  }, []);
+
   return {
-    credentials,
+    form,
+    isPending: loginMutation.isPending,
     passwordVisibility,
     setPasswordVisibility,
-    handelMatriculaChange,
-    handelPasswordChange,
-    handleSubmit,
+    onSubmit,
   };
 }

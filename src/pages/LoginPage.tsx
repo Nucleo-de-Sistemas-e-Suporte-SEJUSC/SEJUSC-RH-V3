@@ -9,7 +9,7 @@ export default function LoginPage() {
       <div className="flex grow flex-col items-center gap-14">
         <div className="flex flex-col items-center gap-6">
           <img src={SejuscRH} alt="SEJUSC RH" width={160} height={160} />
-          <h1 className="max-w-md text-center text-2xl font-semibold text-slate-100">
+          <h1 className="max-w-md scroll-m-20 pb-2 text-center text-2xl font-semibold tracking-tight text-slate-100 first:mt-0">
             Bem-Vindo ao Sistema de Gestão da Gerência de Recursos Humanos da
             SEJUSC, para continuar é necessário realizar o login.
           </h1>

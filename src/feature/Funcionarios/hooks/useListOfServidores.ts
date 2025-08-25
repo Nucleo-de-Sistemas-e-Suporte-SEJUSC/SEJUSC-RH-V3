@@ -1,7 +1,11 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { api } from "@/api/axios";
+import { api } from "@/api";
 import type { IServidor, User } from "@/interfaces";
+import buscarServidoresQueryOptions from "@/queries/buscarServidoresQueryOptions";
+
+import buscarServidoresArquivadosQueryOptions from "../queries/buscarServidoresArquivados";
 
 export default function useListOfServidores(
   servidores: IServidor[] | null,
@@ -19,6 +23,7 @@ export default function useListOfServidores(
     }>
   >,
 ) {
+  const queryClient = useQueryClient();
   const storedUser = JSON.parse(localStorage.getItem("user")!) as User;
   const { setorSearch, setorSelect, search } = filterOptions;
 
@@ -85,10 +90,9 @@ export default function useListOfServidores(
         servidor_arquivado.setor,
       );
 
+      queryClient.invalidateQueries(buscarServidoresQueryOptions());
+      queryClient.invalidateQueries(buscarServidoresArquivadosQueryOptions());
       toast.success("Servidor arquivado com sucesso");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     } catch (error) {
       console.error("Error ao arquivar servidor", error);
       toast.error("Não foi possível arquivar o servidor");
@@ -129,10 +133,9 @@ export default function useListOfServidores(
         servidor_ativado.setor,
       );
 
+      queryClient.invalidateQueries(buscarServidoresQueryOptions());
+      queryClient.invalidateQueries(buscarServidoresArquivadosQueryOptions());
       toast.success("Servidor desarquivado com sucesso");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     } catch (error) {
       console.error("Error ao desarquivar servidor", error);
       toast.error("Não foi possível desarquivar o servidor");
