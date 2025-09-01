@@ -1,7 +1,15 @@
+import { DialogTitle } from "@radix-ui/react-dialog";
 import { Eye, EyeClosed } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -11,8 +19,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 import useFormLogin from "../hooks/useFormLogin";
+import Term from "./Term";
 
 export default function FormLogin() {
   const {
@@ -110,6 +120,54 @@ export default function FormLogin() {
                   </FormItem>
                 );
               }}
+            />
+            <FormField
+              control={form.control}
+              name="term"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center space-x-2">
+                    <FormControl>
+                      <Checkbox
+                        id="term"
+                        className="text-slate-200"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel
+                      htmlFor="term"
+                      className="text-md font-semibold text-slate-200"
+                    >
+                      Eu aceito o
+                    </FormLabel>
+
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <button
+                          type="button"
+                          className="cursor-pointer font-semibold text-slate-200 underline underline-offset-2"
+                        >
+                          termo de política de privacidade.
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent className="min-w-[800px]">
+                        <DialogHeader className="items-center">
+                          <DialogHeader className="text-2xl font-semibold">
+                            <DialogTitle>
+                              Política de Privacidade – Sistema SEJUSC RH
+                            </DialogTitle>
+                          </DialogHeader>
+                        </DialogHeader>
+                        <ScrollArea className="h-[524px]">
+                          <Term />
+                        </ScrollArea>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
           </div>
           <CardFooter className="self-center">
