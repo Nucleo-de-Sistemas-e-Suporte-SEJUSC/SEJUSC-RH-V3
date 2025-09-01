@@ -1,4 +1,3 @@
-import { DialogTitle } from "@radix-ui/react-dialog";
 import { Eye, EyeClosed } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -8,6 +7,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
@@ -151,7 +151,10 @@ export default function FormLogin() {
                           termo de política de privacidade.
                         </button>
                       </DialogTrigger>
-                      <DialogContent className="min-w-[800px]">
+                      <DialogContent
+                        className="min-w-[800px]"
+                        aria-describedby={undefined}
+                      >
                         <DialogHeader className="items-center">
                           <DialogHeader className="text-2xl font-semibold">
                             <DialogTitle>
