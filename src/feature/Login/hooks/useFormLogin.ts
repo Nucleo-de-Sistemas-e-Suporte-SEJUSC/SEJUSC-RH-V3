@@ -25,18 +25,21 @@ const formSchema = z.object({
   password: z.string().min(8, {
     message: "A senha deve ter pelo menos 8 caracteres.",
   }),
+  term: z.boolean({ message: "Você deve aceitar os termos para continuar" }),
 });
 
 export default function useFormLogin() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [passwordVisibility, setPasswordVisibility] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       matricula: "",
       password: "",
+      term: false,
     },
   });
 
@@ -45,6 +48,7 @@ export default function useFormLogin() {
       const response = await api.post("/login", {
         matricula: values.matricula,
         senha: values.password,
+        termo: values.term,
       });
       return response.data as User;
     },
@@ -94,5 +98,7 @@ export default function useFormLogin() {
     passwordVisibility,
     setPasswordVisibility,
     onSubmit,
+    isModalOpen,
+    setIsModalOpen,
   };
 }
