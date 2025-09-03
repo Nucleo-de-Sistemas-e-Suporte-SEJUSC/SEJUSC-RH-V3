@@ -129,8 +129,8 @@ export default function FuncionariosPage() {
                 }
               >
                 {selectedEmployee === "servidores"
-                  ? "CRIAR SERVIDOR"
-                  : "CRIAR ESTAGIÁRIO"}
+                  ? "CADASTRAR SERVIDOR"
+                  : "CADASTRAR ESTAGIÁRIO"}
               </Button>
             </div>
           </div>

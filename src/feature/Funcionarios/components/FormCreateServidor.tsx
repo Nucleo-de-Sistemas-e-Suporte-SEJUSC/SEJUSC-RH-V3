@@ -162,7 +162,7 @@ export default function FormCreateServidor({
   return (
     <div>
       <h1 className="pb-8 text-4xl font-semibold text-sky-950">
-        Criar Servidor
+        Cadastrar Servidor
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-10">
         <div className="flex flex-col gap-6">

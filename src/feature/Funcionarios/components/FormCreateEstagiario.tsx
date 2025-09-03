@@ -109,7 +109,7 @@ export default function FormCreateEstagiario({
   return (
     <div>
       <h1 className="pb-8 text-4xl font-semibold text-sky-950">
-        Criar Estagiário
+        Cadastrar Estagiário
       </h1>
       {/* 3. Liga o formulário ao handleSubmit */}
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-10">
